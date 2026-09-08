@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVA 增值式醫保專屬生活引導系統 v6.0.0</title>
+    <title>AVA 增值式醫保專屬生活引導系統 v6.1.0</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -181,6 +181,23 @@
         .blueprint-right-box { background: #ffffff; border: 1.5px solid #bbf7d0; border-radius: 14px; padding: 18px; }
         .sidebar-summary-card { background: #ffffff; border: 1px solid var(--border-light); border-radius: 18px; padding: 22px; height: fit-content; position: sticky; top: 80px; }
         
+        /* 保費回贈左右對稱卡片樣式 */
+        .promo-split-container { display: flex; gap: 20px; align-items: stretch; margin-top: 10px; }
+        @media (max-width: 768px) { .promo-split-container { flex-direction: column; } }
+        .promo-left-col { flex: 1.2; width: 100%; display: flex; flex-direction: column; gap: 12px; }
+        .promo-right-col { flex: 1; width: 100%; }
+        .promo-card { background: #fdfdfd; border: 1px solid var(--border-light); border-radius: 14px; padding: 1.2rem; }
+        .promo-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px dashed #eee; }
+        .promo-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .promo-checkbox { width: 20px; height: 20px; accent-color: var(--brand-accent); margin-top: 2px; }
+        .promo-tag { background: #ffecb3; color: #d84315; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; display: inline-block; margin-top: 5px; }
+        .promo-result-box {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white; padding: 1.8rem 1.4rem; border-radius: 16px; text-align: center;
+            display: flex; flex-direction: column; justify-content: center; height: 100%;
+        }
+        .promo-result-box .big-savings { font-size: 2.5rem; font-weight: 900; margin: 12px 0; }
+        
         .action-row { display: flex; gap: 12px; margin-top: 24px; }
         .nav-btn { flex: 1; padding: 12px 18px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; cursor: pointer; border: none; text-align: center; }
         .nav-btn.prev { background: #ffffff; border: 1px solid var(--border-light); color: var(--text-sub); }
@@ -216,7 +233,7 @@
             <span class="brand-logo-text" onclick="promptAdminLogin()" title="點擊輸入管理員密碼">🌱 AVA 增值式醫保系統</span>
             <span class="mini-quick-btn scenario-btn" onclick="openScenarioPopup()" title="情境對話模式">!</span>
             <span class="mini-quick-btn jump-btn" onclick="openJumpPopup()" title="直達流程模組">*</span>
-            <span class="system-badge" id="app-version-badge">v6.0.0</span>
+            <span class="system-badge" id="app-version-badge">v6.1.0</span>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
             <button class="mini-pink-btn" onclick="handleShare()" title="建立分享連結">📤 分享報告</button>
@@ -469,9 +486,9 @@
                                 <div class="calc-grid-5yr">
                                     <div class="calc-input-group"><label>第11年 (<span class="med-age-y11">40</span>歲)</label><input type="text" id="med-plan3-contribution" value="60,000"><div class="med-prem-subbox">保費: $<span id="med-prem-y11">0</span></div></div>
                                     <div class="calc-input-group"><label>第12年 (<span class="med-age-y12">41</span>歲)</label><input type="text" id="med-plan3-y2" value="60,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y12">0</span></div></div>
-                                    <div class="calc-input-group"><label>第13年 (<span class="med-age-y13">42</span>歲)</label><input type="text" id="med-plan3-y3" value="60,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y3">0</span></div></div>
-                                    <div class="calc-input-group"><label>第14年 (<span class="med-age-y14">43</span>歲)</label><input type="text" id="med-plan3-y4" value="60,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y4">0</span></div></div>
-                                    <div class="calc-input-group"><label>第15年 (<span class="med-age-y15">44</span>歲)</label><input type="text" id="med-plan3-y5" value="60,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y5">0</span></div></div>
+                                    <div class="calc-input-group"><label>第13年 (<span class="med-age-y13">42</span>歲)</label><input type="text" id="med-plan3-y3" value="60,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y12">0</span></div></div>
+                                    <div class="calc-input-group"><label>第14年 (<span class="med-age-y14">43</span>歲)</label><input type="text" id="med-plan3-y4" value="60,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y14">0</span></div></div>
+                                    <div class="calc-input-group"><label>第15年 (<span class="med-age-y15">44</span>歲)</label><input type="text" id="med-plan3-y5" value="60,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y15">0</span></div></div>
                                 </div>
                                 <div class="calc-total-badge" style="color:var(--plan3-color);">第11-15年總額：$<span id="med-plan3-5yr-total">300,000</span></div>
                             </div>
@@ -584,11 +601,75 @@
                 </div>
             </div>
 
-            <!-- 保費優惠頁 -->
+            <!-- 完整還原：保費優惠計算頁 -->
             <div class="step-page" id="page-promo">
                 <div class="content-card">
                     <h2 class="question-title">🎁 專屬保費優惠計算</h2>
                     <p class="question-hint">為您度身訂造最慳錢嘅投保策略，將每一分錢嘅效益極大化！</p>
+                    
+                    <div class="promo-split-container">
+                        <div class="promo-left-col">
+                            <div class="promo-card" style="background:#f8fafc;">
+                                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                                    <div>
+                                        <label style="font-size:0.75rem; font-weight:bold; color:var(--text-sub);">首年 / 每年保費 ($)</label>
+                                        <input type="text" id="promo-annual-premium" value="100,000" style="width:100%; padding:8px; border:var(--pink-dashed); border-radius:6px; font-weight:bold; text-align:center; color:var(--brand-accent);" oninput="calculatePromo()">
+                                    </div>
+                                    <div>
+                                        <label style="font-size:0.75rem; font-weight:bold; color:var(--text-sub);">供款年期 (年)</label>
+                                        <input type="number" id="promo-term" value="5" style="width:100%; padding:8px; border:var(--pink-dashed); border-radius:6px; font-weight:bold; text-align:center;" oninput="calculatePromo()">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="promo-card">
+                                <div class="promo-row">
+                                    <input type="checkbox" id="promo1-check" class="promo-checkbox" checked onchange="calculatePromo()">
+                                    <div style="flex:1;">
+                                        <h4 style="margin:0 0 4px 0; color:var(--brand-accent); font-size:0.95rem;">優惠 1：首年保費大減價</h4>
+                                        <p style="font-size:0.85rem; color:var(--text-sub); margin:0;">首年保費每滿 $5,000 即減 $500。</p>
+                                        <div class="promo-tag">已為您慳下：<span id="promo1-saved">$0</span></div>
+                                    </div>
+                                </div>
+                                <div class="promo-row">
+                                    <input type="checkbox" id="promo2-check" class="promo-checkbox" checked onchange="calculatePromo()">
+                                    <div style="flex:1;">
+                                        <h4 style="margin:0 0 4px 0; color:var(--brand-accent); font-size:0.95rem;">優惠 2：續保保費折扣</h4>
+                                        <div style="display:flex; align-items:center; gap:6px; margin-top:4px; font-size:0.85rem;">
+                                            <span>第 2 年續保即減</span>
+                                            <input type="number" id="promo2-base-pct" value="5" step="0.1" style="width:60px; padding:3px; text-align:center; border:var(--pink-dashed);" oninput="calculatePromo()"> %
+                                        </div>
+                                        <div class="promo-tag" style="margin-top:8px;">已為您慳下：<span id="promo2-saved">$0</span></div>
+                                    </div>
+                                </div>
+                                <div class="promo-row">
+                                    <input type="checkbox" id="promo3-check" class="promo-checkbox" checked onchange="calculatePromo()">
+                                    <div style="flex:1;">
+                                        <h4 style="margin:0 0 4px 0; color:var(--brand-accent); font-size:0.95rem;">優惠 3：預繳保費保證利率</h4>
+                                        <p style="font-size:0.85rem; color:var(--text-sub); margin:0;">一筆過預繳享保證年利率，滿期現金退回純利息！</p>
+                                        <div style="margin-top:6px; font-size:0.85rem;">
+                                            <span>保證年利率：</span>
+                                            <input type="number" id="promo3-rate" value="3.8" step="0.1" style="width:65px; padding:3px; text-align:center; border:var(--pink-dashed);" oninput="calculatePromo()"> %
+                                        </div>
+                                        <div id="promo3-desc" style="margin-top:8px; background:#eff6ff; padding:8px; border-radius:6px; font-size:0.8rem; color:#1e40af; line-height:1.4; display:none;"></div>
+                                        <div class="promo-tag" style="background:#d4edda; color:#155724; margin-top:8px;">保證預繳純利息：<span id="promo3-saved">$0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="promo-right-col">
+                            <div class="promo-result-box">
+                                <h4 style="margin:0; font-size:0.95rem; opacity:0.85;">原本總保費：<span id="promo-original-total" style="text-decoration:line-through;">$0</span></h4>
+                                <div style="margin:12px 0;">
+                                    <span style="font-size:0.95rem;">💰 總共慳咗及賺取利息達：</span>
+                                    <div class="big-savings" id="promo-total-savings">$0</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,0.15); padding:8px; border-radius:8px;">
+                                    <span style="font-size:0.9rem;">實際淨付出總額：<strong id="promo-actual-outlay" style="font-size:1.3rem;">$0</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="action-row">
                         <button class="nav-btn prev" onclick="goToStep('step-blueprint')">← 返回藍圖</button>
                         <button class="nav-btn next" onclick="alert('專屬增值醫保已規劃完成！可點擊上方分享報告。')">✅ 完成所有規劃</button>
@@ -718,7 +799,7 @@
                         <input type="text" id="admin-password-input" class="pink-edit-input" value="903" oninput="currentAdminPassword = this.value">
                         
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">system_version (系統版本號)：</label>
-                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v6.0.0" oninput="updateSystemVersion(this.value)">
+                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v6.1.0" oninput="updateSystemVersion(this.value)">
                         
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">專屬 GAS API 網址：</label>
                         <input type="text" id="admin-gas-url-input" class="pink-edit-input" value="https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec">
@@ -794,7 +875,7 @@
 
     <script>
         const answers = {};
-        let currentSystemVersion = "v6.0.0";
+        let currentSystemVersion = "v6.1.0";
         let currentAdminPassword = "903";
         let GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec';
         const RETURNS_EXCEL_URL = 'https://docs.google.com/spreadsheets/d/1-kawg3ew7CF05g-Dc3cwu1yYROWa73fhWlunv5TYF6E/export?format=xlsx';
@@ -883,12 +964,16 @@
             document.title = `AVA 增值式醫保專屬生活引導系統 ${val}`;
             const badge = document.getElementById('app-version-badge');
             if (badge) badge.textContent = val;
+            const input = document.getElementById('admin-version-input');
+            if (input) input.value = val;
         }
 
         function updateBlueprintSummaryText(text) {
             blueprintSummaryText = text;
             const el = document.getElementById('disp-blueprint-summary-text');
             if (el) el.textContent = text;
+            const input = document.getElementById('admin-blueprint-summary-text');
+            if (input) input.value = text;
         }
 
         function renderFrontendCards() {
@@ -926,6 +1011,7 @@
             let stepNum = (typeof step === 'number') ? step : 13;
             document.getElementById('progress-fill').style.width = `${Math.round((stepNum / 13) * 100)}%`;
             if (step === 11) calculateAndDisplay();
+            if (step === 'page-promo') calculatePromo();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -1316,6 +1402,48 @@
             document.getElementById('share-modal').style.display = 'flex';
         }
 
+        window.calculatePromo = function() {
+            const P = parseFormattedNumber(document.getElementById('promo-annual-premium').value) || 0;
+            const N = parseInt(document.getElementById('promo-term').value) || 5;
+            const usePromo1 = document.getElementById('promo1-check').checked;
+            const usePromo2 = document.getElementById('promo2-check').checked;
+            const baseDiscountPct = parseFloat(document.getElementById('promo2-base-pct').value) / 100 || 0;
+            const usePromo3 = document.getElementById('promo3-check').checked;
+            const rate = parseFloat(document.getElementById('promo3-rate').value) / 100 || 0.038;
+            
+            let d1 = usePromo1 ? Math.floor(P / 5000) * 500 : 0;
+            let d2 = (usePromo2 && N >= 2) ? P * baseDiscountPct : 0;
+            let totalInterest = 0; let prepayAmount = 0;
+            
+            if (usePromo3 && N > 1) {
+                prepayAmount = P * (N - 1);
+                let balance = prepayAmount;
+                for (let t = 2; t <= N; t++) {
+                    let interest = balance * rate;
+                    totalInterest += interest; 
+                    balance = balance + interest - P;
+                }
+            }
+            
+            document.getElementById('promo-original-total').textContent = '$' + formatNumber(P * N);
+            document.getElementById('promo-total-savings').textContent = '$' + formatNumber(d1 + d2 + totalInterest);
+            document.getElementById('promo-actual-outlay').textContent = '$' + formatNumber((P * N) - (d1 + d2 + totalInterest));
+            document.getElementById('promo1-saved').textContent = '$' + formatNumber(d1);
+            document.getElementById('promo2-saved').textContent = '$' + formatNumber(d2);
+            document.getElementById('promo3-saved').textContent = '$' + formatNumber(totalInterest);
+            
+            const descEl = document.getElementById('promo3-desc');
+            if (usePromo3 && N > 1) {
+                let initialPay = P + prepayAmount - d1;
+                let refundAmount = totalInterest + d2; 
+                descEl.innerHTML = `💡 <strong>預繳計算詳情：</strong><br>
+                投保實繳：<strong>$${formatNumber(initialPay)}</strong>。滿期退回利息：<strong>$${formatNumber(refundAmount)}</strong>。`;
+                descEl.style.display = 'block';
+            } else {
+                descEl.style.display = 'none';
+            }
+        };
+
         window.calculateAndDisplay = function() {
             const medStartAge = parseInt(document.getElementById('med-start-age').value) || 30;
             for(let i=1; i<=20; i++) {
@@ -1362,6 +1490,7 @@
             renderFrontendCards();
             fetchCloudDataFromGAS();
             calculateAndDisplay();
+            calculatePromo();
         });
     </script>
 </body>
