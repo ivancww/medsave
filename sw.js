@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ava-medical-cache-v5.7.0';
+const CACHE_NAME = 'ava-medical-cache-v6.0.0';
 const STATIC_ASSETS = [
   './',
   './index.html',
