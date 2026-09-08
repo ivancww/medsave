@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVA 增值式醫保專屬生活引導系統 v6.2.0</title>
+    <title>AVA 增值式醫保專屬生活引導系統 v6.3.0</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,7 +90,6 @@
             width: 26px; height: 26px; display: inline-flex; align-items: center; justify-content: center;
             font-size: 0.85rem; font-weight: 900; cursor: pointer; transition: all 0.2s;
         }
-        .mini-quick-btn.scenario-btn { color: var(--brand-accent); border: var(--pink-dashed); }
         .mini-quick-btn.jump-btn { color: var(--state-purple); }
         
         .progress-bar-container { width: 100%; height: 3px; background: #e2e8f0; position: sticky; top: 51px; z-index: 99; }
@@ -157,6 +156,7 @@
             font-size: 0.9rem; font-weight: bold; text-align: center; background: #fff;
         }
         .calc-input-group input.readonly { background: #f8fafc; border: 1px solid #e2e8f0; color: var(--text-muted); }
+        .med-prem-subbox { background: #fdf4ff; border: 1px dashed #f0abfc; border-radius: 6px; padding: 4px; text-align: center; font-size: 0.78rem; color: #a21caf; font-weight: bold; margin-top: 4px; }
         .calc-total-badge { background: #f1f5f9; border-radius: 6px; padding: 8px; text-align: center; font-weight: bold; font-size: 0.88rem; color: var(--brand-accent); }
         
         .dots-toggle-bar-pure { display: flex; align-items: center; gap: 10px; margin: 16px 0 10px 0; justify-content: flex-end; }
@@ -226,7 +226,7 @@
         .del-opt-btn { background: #fee2e2; color: #dc2626; border: none; border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 0.75rem; }
         .sync-loading-overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.9); z-index: 50; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; color: var(--brand-primary); }
         
-        .popup-menu-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+        .popup-menu-list { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 14px; }
         .popup-menu-item { background: #f8fafc; border: 1px solid var(--border-light); border-radius: 10px; padding: 10px; font-size: 0.88rem; font-weight: bold; cursor: pointer; }
     </style>
 </head>
@@ -234,9 +234,8 @@
     <header class="system-top-nav">
         <div class="brand-title-wrap">
             <span class="brand-logo-text" onclick="promptAdminLogin()" title="點擊輸入管理員密碼">🌱 AVA 增值式醫保系統</span>
-            <span class="mini-quick-btn scenario-btn" onclick="openScenarioPopup()" title="情境對話模式">!</span>
             <span class="mini-quick-btn jump-btn" onclick="openJumpPopup()" title="直達流程模組">*</span>
-            <span class="system-badge" id="app-version-badge">v6.2.0</span>
+            <span class="system-badge" id="app-version-badge">v6.3.0</span>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
             <button class="mini-pink-btn" onclick="handleShare()" title="建立分享連結">📤 分享報告</button>
@@ -452,30 +451,30 @@
                     </div>
                     
                     <div style="margin-bottom: 1.2rem;">
-                        <!-- 金庫 1 至 4 (純淨每年保費輸入模式) -->
+                        <!-- 金庫 1 至 4 (還原醫療保費底框) -->
                         <div class="calc-jar-card" id="group-med-plan1" style="border-top: 3px solid var(--plan1-color);">
-                            <h4 style="color:var(--plan1-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-1">🌱 儲備金庫一 (第 1 - 5 年)</h4>
+                            <h4 style="color:var(--plan1-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-1">🌱 儲備金庫一 + 醫療保費 (第 1 - 5 年)</h4>
                             <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;" id="disp-tree-desc-1">種下一粒小種子</p>
                             <div class="calc-grid-5yr">
-                                <div class="calc-input-group"><label>第1年 (<span class="med-age-y1">30</span>歲)</label><input type="text" id="med-plan1-contribution" value="40,000"></div>
-                                <div class="calc-input-group"><label>第2年 (<span class="med-age-y2">31</span>歲)</label><input type="text" id="med-plan1-y2" value="40,000" readonly class="readonly"></div>
-                                <div class="calc-input-group"><label>第3年 (<span class="med-age-y3">32</span>歲)</label><input type="text" id="med-plan1-y3" value="40,000" readonly class="readonly"></div>
-                                <div class="calc-input-group"><label>第4年 (<span class="med-age-y4">33</span>歲)</label><input type="text" id="med-plan1-y4" value="40,000" readonly class="readonly"></div>
-                                <div class="calc-input-group"><label>第5年 (<span class="med-age-y5">34</span>歲)</label><input type="text" id="med-plan1-y5" value="40,000" readonly class="readonly"></div>
+                                <div class="calc-input-group"><label>第1年 (<span class="med-age-y1">30</span>歲)</label><input type="text" id="med-plan1-contribution" value="40,000"><div class="med-prem-subbox">保費: $<span id="med-prem-y1">0</span></div></div>
+                                <div class="calc-input-group"><label>第2年 (<span class="med-age-y2">31</span>歲)</label><input type="text" id="med-plan1-y2" value="40,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y2">0</span></div></div>
+                                <div class="calc-input-group"><label>第3年 (<span class="med-age-y3">32</span>歲)</label><input type="text" id="med-plan1-y3" value="40,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y3">0</span></div></div>
+                                <div class="calc-input-group"><label>第4年 (<span class="med-age-y4">33</span>歲)</label><input type="text" id="med-plan1-y4" value="40,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y4">0</span></div></div>
+                                <div class="calc-input-group"><label>第5年 (<span class="med-age-y5">34</span>歲)</label><input type="text" id="med-plan1-y5" value="40,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y5">0</span></div></div>
                             </div>
-                            <div class="calc-total-badge">5年儲備總額：$<span id="med-plan1-5yr-total">200,000</span></div>
+                            <div class="calc-total-badge">5年儲備 + 醫療保費總額：$<span id="med-plan1-5yr-total">200,000</span></div>
                         </div>
                         
                         <div id="group-med-plan2" style="display:none;">
                             <div class="calc-jar-card" style="border-top: 3px solid var(--plan2-color);">
-                                <h4 style="color:var(--plan2-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-2">💧 儲備金庫二 (第 6 - 10 年)</h4>
+                                <h4 style="color:var(--plan2-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-2">💧 儲備金庫二 + 醫療保費 (第 6 - 10 年)</h4>
                                 <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;" id="disp-tree-desc-2">定期灌溉累積根基</p>
                                 <div class="calc-grid-5yr">
-                                    <div class="calc-input-group"><label>第6年 (<span class="med-age-y6">35</span>歲)</label><input type="text" id="med-plan2-contribution" value="50,000"></div>
-                                    <div class="calc-input-group"><label>第7年 (<span class="med-age-y7">36</span>歲)</label><input type="text" id="med-plan2-y2" value="50,000" readonly class="readonly"></div>
-                                    <div class="calc-input-group"><label>第8年 (<span class="med-age-y8">37</span>歲)</label><input type="text" id="med-plan2-y3" value="50,000" readonly class="readonly"></div>
-                                    <div class="calc-input-group"><label>第9年 (<span class="med-age-y9">38</span>歲)</label><input type="text" id="med-plan2-y4" value="50,000" readonly class="readonly"></div>
-                                    <div class="calc-input-group"><label>第10年 (<span class="med-age-y10">39</span>歲)</label><input type="text" id="med-plan2-y5" value="50,000" readonly class="readonly"></div>
+                                    <div class="calc-input-group"><label>第6年 (<span class="med-age-y6">35</span>歲)</label><input type="text" id="med-plan2-contribution" value="50,000"><div class="med-prem-subbox">保費: $<span id="med-prem-y6">0</span></div></div>
+                                    <div class="calc-input-group"><label>第7年 (<span class="med-age-y7">36</span>歲)</label><input type="text" id="med-plan2-y2" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y7">0</span></div></div>
+                                    <div class="calc-input-group"><label>第8年 (<span class="med-age-y8">37</span>歲)</label><input type="text" id="med-plan2-y3" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y8">0</span></div></div>
+                                    <div class="calc-input-group"><label>第9年 (<span class="med-age-y9">38</span>歲)</label><input type="text" id="med-plan2-y4" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y9">0</span></div></div>
+                                    <div class="calc-input-group"><label>第10年 (<span class="med-age-y10">39</span>歲)</label><input type="text" id="med-plan2-y5" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y10">0</span></div></div>
                                 </div>
                                 <div class="calc-total-badge" style="color:var(--plan2-color);">第6-10年總額：$<span id="med-plan2-5yr-total">250,000</span></div>
                             </div>
@@ -483,14 +482,14 @@
 
                         <div id="group-med-plan3" style="display:none;">
                             <div class="calc-jar-card" style="border-top: 3px solid var(--plan3-color);">
-                                <h4 style="color:var(--plan3-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-3">🌿 儲備金庫三 (第 11 - 15 年)</h4>
+                                <h4 style="color:var(--plan3-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-3">🌿 儲備金庫三 + 醫療保費 (第 11 - 15 年)</h4>
                                 <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;" id="disp-tree-desc-3">水庫儲備倍增</p>
                                 <div class="calc-grid-5yr">
-                                    <div class="calc-input-group"><label>第11年 (<span class="med-age-y11">40</span>歲)</label><input type="text" id="med-plan3-contribution" value="60,000"></div>
-                                    <div class="calc-input-group"><label>第12年 (<span class="med-age-y12">41</span>歲)</label><input type="text" id="med-plan3-y2" value="60,000" readonly class="readonly"></div>
-                                    <div class="calc-input-group"><label>第13年 (<span class="med-age-y13">42</span>歲)</label><input type="text" id="med-plan3-y3" value="60,000" readonly class="readonly"></div>
-                                    <div class="calc-input-group"><label>第14年 (<span class="med-age-y14">43</span>歲)</label><input type="text" id="med-plan3-y4" value="60,000" readonly class="readonly"></div>
-                                    <div class="calc-input-group"><label>第15年 (<span class="med-age-y15">44</span>歲)</label><input type="text" id="med-plan3-y5" value="60,000" readonly class="readonly"></div>
+                                    <div class="calc-input-group"><label>第11年 (<span class="med-age-y11">40</span>歲)</label><input type="text" id="med-plan3-contribution" value="60,000"><div class="med-prem-subbox">保費: $<span id="med-prem-y11">0</span></div></div>
+                                    <div class="calc-input-group"><label>第12年 (<span class="med-age-y12">41</span>歲)</label><input type="text" id="med-plan3-y2" value="60,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y12">0</span></div></div>
+                                    <div class="calc-input-group"><label>第13年 (<span class="med-age-y13">42</span>歲)</label><input type="text" id="med-plan3-y3" value="60,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y13">0</span></div></div>
+                                    <div class="calc-input-group"><label>第14年 (<span class="med-age-y14">43</span>歲)</label><input type="text" id="med-plan3-y4" value="60,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y4">0</span></div></div>
+                                    <div class="calc-input-group"><label>第15年 (<span class="med-age-y15">44</span>歲)</label><input type="text" id="med-plan3-y5" value="60,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y15">0</span></div></div>
                                 </div>
                                 <div class="calc-total-badge" style="color:var(--plan3-color);">第11-15年總額：$<span id="med-plan3-5yr-total">300,000</span></div>
                             </div>
@@ -501,11 +500,11 @@
                                 <h4 style="color:var(--plan4-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-4">🌳 四號大樹水庫 (第 16 - 20 年)</h4>
                                 <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;" id="disp-tree-desc-4">大樹長成，產出源源長糧</p>
                                 <div class="calc-grid-5yr">
-                                    <div class="calc-input-group"><label>第16年 (<span class="med-age-y16">45</span>歲)</label><input type="text" id="med-plan4-contribution" value="70,000"></div>
-                                    <div class="calc-input-group"><label>第17年 (<span class="med-age-y17">46</span>歲)</label><input type="text" id="med-plan4-y2" value="70,000" readonly class="readonly"></div>
-                                    <div class="calc-input-group"><label>第18年 (<span class="med-age-y18">47</span>歲)</label><input type="text" id="med-plan4-y3" value="70,000" readonly class="readonly"></div>
-                                    <div class="calc-input-group"><label>第19年 (<span class="med-age-y19">48</span>歲)</label><input type="text" id="med-plan4-y4" value="70,000" readonly class="readonly"></div>
-                                    <div class="calc-input-group"><label>第20年 (<span class="med-age-y20">49</span>歲)</label><input type="text" id="med-plan4-y5" value="70,000" readonly class="readonly"></div>
+                                    <div class="calc-input-group"><label>第16年 (<span class="med-age-y16">45</span>歲)</label><input type="text" id="med-plan4-contribution" value="70,000"><div class="med-prem-subbox">保費: $<span id="med-prem-y16">0</span></div></div>
+                                    <div class="calc-input-group"><label>第17年 (<span class="med-age-y17">46</span>歲)</label><input type="text" id="med-plan4-y2" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y17">0</span></div></div>
+                                    <div class="calc-input-group"><label>第18年 (<span class="med-age-y18">47</span>歲)</label><input type="text" id="med-plan4-y3" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y18">0</span></div></div>
+                                    <div class="calc-input-group"><label>第19年 (<span class="med-age-y19">48</span>歲)</label><input type="text" id="med-plan4-y4" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y19">0</span></div></div>
+                                    <div class="calc-input-group"><label>第20年 (<span class="med-age-y20">49</span>歲)</label><input type="text" id="med-plan4-y5" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y20">0</span></div></div>
                                 </div>
                                 <div class="calc-total-badge" style="color:var(--plan4-color);">第16-20年總額：$<span id="med-plan4-5yr-total">350,000</span></div>
                             </div>
@@ -514,10 +513,10 @@
                     
                     <!-- 四色圓點開關 Bar -->
                     <div class="dots-toggle-bar-pure">
-                        <div class="pure-color-dot dot-blue-bg" id="dot-btn-annuity" onclick="toggleColumn('annuity')" title="切換被動收入 (點擊切換每年/每月)"></div>
+                        <div class="pure-color-dot dot-blue-bg" id="dot-btn-annuity" onclick="toggleColumn('annuity')" title="切換被動收入提取"></div>
                         <div class="pure-color-dot dot-green-bg" id="dot-btn-accum" onclick="toggleColumn('accum')" title="切換累積已領"></div>
-                        <div class="pure-color-dot dot-purple-bg" id="dot-btn-asset" onclick="toggleColumn('asset')" title="切換大樹收成"></div>
-                        <div class="pure-color-dot dot-red-bg dimmed" id="dot-btn-interest" onclick="toggleColumn('interest')" title="切換年化百分比回報率 (%)"></div>
+                        <div class="pure-color-dot dot-red-bg" id="dot-btn-actual" onclick="toggleColumn('actual')" title="切換實際自付醫療保費"></div>
+                        <div class="pure-color-dot dot-purple-bg" id="dot-btn-asset" onclick="toggleColumn('asset')" title="切換增值醫保餘額 / 大樹收成"></div>
                     </div>
                     
                     <div class="table-responsive">
@@ -698,20 +697,7 @@
             <div class="admin-body">
                 <!-- Tab 1: 頁面流程管理 (完整 1-13 頁管理細項) -->
                 <div id="admin-sec-flow" class="admin-tab-content">
-                    <div style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:12px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-                        <div style="display:flex; align-items:center; gap:8px;">
-                            <label style="font-size:0.85rem; font-weight:bold; color:var(--brand-primary);">切換編輯情境：</label>
-                            <select id="scenario-flow-selector" onchange="switchScenarioFlowEditor(this.value)" style="padding:6px 10px; font-weight:bold; border:1.5px solid var(--brand-accent); border-radius:6px; background:#fff;">
-                                <option value="unplanned">🌱 編輯：未諗未來</option>
-                                <option value="forced_save">💰 編輯：想強制儲</option>
-                                <option value="inflation">📉 編輯：抗通脹</option>
-                                <option value="retire">🏖️ 編輯：退休</option>
-                                <option value="edu">🎓 編輯：教育基金</option>
-                                <option value="self_invest">📈 編輯：自己投資</option>
-                                <option value="flexible">🔓 編輯：怕綁死/重視靈活</option>
-                                <option value="low_return">📊 編輯：嫌回報低</option>
-                            </select>
-                        </div>
+                    <div style="display:flex; justify-content:flex-end; margin-bottom:14px;">
                         <button class="step-ctrl-btn" style="background:#e0f2fe; color:#0369a1;" onclick="addNewPageCard()">+ 新增步驟頁面</button>
                     </div>
                     <div id="admin-cards-render-zone"></div>
@@ -726,29 +712,29 @@
                             <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">th_reserve：</label><input type="text" id="cust-col-2" class="pink-edit-input" value="累計儲備" oninput="updateCustomTimingText()"></div>
                             <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">th_income：</label><input type="text" id="cust-col-3" class="pink-edit-input" value="被動收入" oninput="updateCustomTimingText()"></div>
                             <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">th_accum：</label><input type="text" id="cust-col-4" class="pink-edit-input" value="累積已領" oninput="updateCustomTimingText()"></div>
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">th_asset：</label><input type="text" id="cust-col-5" class="pink-edit-input" value="大樹收成" oninput="updateCustomTimingText()"></div>
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">th_interest：</label><input type="text" id="cust-col-6" class="pink-edit-input" value="年化百分比回報" oninput="updateCustomTimingText()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">實際自付醫療保費標題：</label><input type="text" id="cust-col-actual" class="pink-edit-input" value="實際自付醫療保費" oninput="updateCustomTimingText()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">th_asset (增值醫保餘額)：</label><input type="text" id="cust-col-5" class="pink-edit-input" value="增值醫保餘額" oninput="updateCustomTimingText()"></div>
                         </div>
                     </div>
                     <div class="admin-card-row">
                         <h4 style="margin-top:0; color:var(--brand-primary); margin-bottom:12px;">🌱 儲備金庫標題與描述自訂 (tree_title / tree_desc)</h4>
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b;">tree_title_1：</label>
-                        <input type="text" id="cust-tree-1" class="pink-edit-input" value="🌱 一號種子水庫 (第 1 - 5 年)" oninput="updateCustomTimingText()">
+                        <input type="text" id="cust-tree-1" class="pink-edit-input" value="🌱 儲備金庫一 + 醫療保費 (第 1 - 5 年)" oninput="updateCustomTimingText()">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:4px; display:block;">tree_desc_1：</label>
                         <input type="text" id="cust-tree-desc-1" class="pink-edit-input" value="種下一粒小種子" oninput="updateCustomTimingText()">
                         
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">tree_title_2：</label>
-                        <input type="text" id="cust-tree-2" class="pink-edit-input" value="💧 二號灌溉水庫 (第 6 - 10 年)" oninput="updateCustomTimingText()">
+                        <input type="text" id="cust-tree-2" class="pink-edit-input" value="💧 儲備金庫二 + 醫療保費 (第 6 - 10 年)" oninput="updateCustomTimingText()">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:4px; display:block;">tree_desc_2：</label>
                         <input type="text" id="cust-tree-desc-2" class="pink-edit-input" value="定期灌溉累積根基" oninput="updateCustomTimingText()">
                         
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">tree_title_3：</label>
-                        <input type="text" id="cust-tree-3" class="pink-edit-input" value="🌿 三號茁壯水庫 (第 11 - 15 年)" oninput="updateCustomTimingText()">
+                        <input type="text" id="cust-tree-3" class="pink-edit-input" value="🌿 儲備金庫三 + 醫療保費 (第 11 - 15 年)" oninput="updateCustomTimingText()">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:4px; display:block;">tree_desc_3：</label>
                         <input type="text" id="cust-tree-desc-3" class="pink-edit-input" value="水庫儲備倍增" oninput="updateCustomTimingText()">
                         
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">tree_title_4：</label>
-                        <input type="text" id="cust-tree-4" class="pink-edit-input" value="🌳 四號大樹水庫 (第 16 - 20 年)" oninput="updateCustomTimingText()">
+                        <input type="text" id="cust-tree-4" class="pink-edit-input" value="🌳 儲備金庫四 + 醫療保費 (第 16 - 20 年)" oninput="updateCustomTimingText()">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:4px; display:block;">tree_desc_4：</label>
                         <input type="text" id="cust-tree-desc-4" class="pink-edit-input" value="大樹長成，產出源源長糧" oninput="updateCustomTimingText()">
                     </div>
@@ -787,7 +773,7 @@
                         <input type="text" id="admin-password-input" class="pink-edit-input" value="903" oninput="currentAdminPassword = this.value">
                         
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">system_version (系統版本號)：</label>
-                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v6.2.0" oninput="updateSystemVersion(this.value)">
+                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v6.3.0" oninput="updateSystemVersion(this.value)">
                         
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">專屬 GAS API 網址：</label>
                         <input type="text" id="admin-gas-url-input" class="pink-edit-input" value="https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec">
@@ -807,31 +793,13 @@
             </div>
         </div>
     </div>
-    
-    <!-- 頂部 ! 情境對話彈窗 -->
-    <div id="scenario-popup-mask" class="modal-mask">
-        <div class="modal-box">
-            <span class="close-btn" onclick="closeScenarioPopup()">&times;</span>
-            <h3 style="color:var(--brand-primary); margin-top:0; font-size:1.1rem; text-align:center;">💡 選擇客群情境</h3>
-            <div class="popup-menu-list">
-                <div class="popup-menu-item" onclick="applyScenarioPreset('unplanned')">🌱 未諗未來</div>
-                <div class="popup-menu-item" onclick="applyScenarioPreset('forced_save')">💰 想強制儲</div>
-                <div class="popup-menu-item" onclick="applyScenarioPreset('inflation')">📉 抗通脹</div>
-                <div class="popup-menu-item" onclick="applyScenarioPreset('retire')">🏖️ 退休</div>
-                <div class="popup-menu-item" onclick="applyScenarioPreset('edu')">🎓 教育基金</div>
-                <div class="popup-menu-item" onclick="applyScenarioPreset('self_invest')">📈 自己投資</div>
-                <div class="popup-menu-item" onclick="applyScenarioPreset('flexible')">🔓 怕綁死/重視靈活</div>
-                <div class="popup-menu-item" onclick="applyScenarioPreset('low_return')">📊 嫌回報低</div>
-            </div>
-        </div>
-    </div>
 
     <!-- 頂部 * 直達跳轉彈窗 -->
     <div id="jump-popup-mask" class="modal-mask">
         <div class="modal-box">
             <span class="close-btn" onclick="closeJumpPopup()">&times;</span>
             <h3 style="color:var(--brand-primary); margin-top:0; font-size:1.1rem; text-align:center;">🚀 直達流程模組</h3>
-            <div class="popup-menu-list" style="grid-template-columns:1fr;">
+            <div class="popup-menu-list">
                 <div class="popup-menu-item" onclick="jumpDirectStep(5)">📍 直達 05 兩個未來對比</div>
                 <div class="popup-menu-item" onclick="jumpDirectStep(10)">💧 直達 10 資源池概念</div>
                 <div class="popup-menu-item" onclick="jumpDirectStep(11)">🏥 直達 11 增值式醫保主計算表</div>
@@ -896,7 +864,7 @@
 
     <script>
         const answers = {};
-        let currentSystemVersion = "v6.2.0";
+        let currentSystemVersion = "v6.3.0";
         let currentAdminPassword = "903";
         let GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec';
         const RETURNS_EXCEL_URL = 'https://docs.google.com/spreadsheets/d/1-kawg3ew7CF05g-Dc3cwu1yYROWa73fhWlunv5TYF6E/export?format=xlsx';
@@ -904,12 +872,13 @@
         
         let currentActiveScenario = 'unplanned';
         let isAdminRole = false;
-        let isMonthlyAnnuity = false;
         let globalReturnMultipliers = {};
         let globalMedPremiumCache = {};
         let excelParsedPremiumMap = {};
         let shareUrlGlobal = '';
-        const colVisibility = { annuity: true, accum: true, asset: true, interest: false };
+        
+        // 四色圓點開關狀態：被動收入(藍)、累積已領(綠)、實際自付醫療(紅)、增值醫保餘額(紫)
+        const colVisibility = { annuity: true, accum: true, actual: true, asset: true };
 
         const stepNameMap = {
             1: "現況想法 1", 2: "了解需求 2", 3: "深層價值 3", 4: "未來畫面 4", 5: "兩個未來 5",
@@ -928,11 +897,11 @@
         ];
 
         let customTimingText = {
-            col1: "年份 (歲數)", col2: "累計儲備", col3: "被動收入", col4: "累積已領", col5: "大樹收成", col6: "年化百分比回報",
-            tree1: "🌱 一號種子水庫 (第 1 - 5 年)", tree_desc1: "種下一粒小種子",
-            tree2: "💧 二號灌溉水庫 (第 6 - 10 年)", tree_desc2: "定期灌溉累積根基",
-            tree3: "🌿 三號茁壯水庫 (第 11 - 15 年)", tree_desc3: "水庫儲備倍增",
-            tree4: "🌳 四號大樹水庫 (第 16 - 20 年)", tree_desc4: "大樹長成，產出源源長糧"
+            col1: "年份 (歲數)", col2: "累計儲備", col3: "被動收入", col4: "累積已領", col_actual: "實際自付醫療保費", col5: "增值醫保餘額",
+            tree1: "🌱 儲備金庫一 + 醫療保費 (第 1 - 5 年)", tree_desc1: "種下一粒小種子",
+            tree2: "💧 儲備金庫二 + 醫療保費 (第 6 - 10 年)", tree_desc2: "定期灌溉累積根基",
+            tree3: "🌿 儲備金庫三 + 醫療保費 (第 11 - 15 年)", tree_desc3: "水庫儲備倍增",
+            tree4: "🌳 儲備金庫四 + 醫療保費 (第 16 - 20 年)", tree_desc4: "大樹長成，產出源源長糧"
         };
 
         let blueprintSummaryText = "將每月不知不覺流走的少許資金，分段注入專屬醫保水庫，鎖定終身醫療保障。";
@@ -1008,7 +977,7 @@
         }
 
         function renderFrontendCards() {
-            const currentFlow = allScenarioDatabase[currentActiveScenario] || allScenarioDatabase['unplanned'];
+            const currentFlow = allScenarioDatabase['unplanned'];
             currentFlow.forEach(card => {
                 const titleEl = document.getElementById(`disp-title-${card.step_num}`);
                 const subEl = document.getElementById(`disp-sub-${card.step_num}`);
@@ -1064,18 +1033,9 @@
         }
 
         function toggleColumn(colKey) {
-            if (colKey === 'annuity') {
-                if (colVisibility.annuity) {
-                    isMonthlyAnnuity = !isMonthlyAnnuity;
-                } else {
-                    colVisibility.annuity = true;
-                    document.getElementById('dot-btn-annuity').classList.remove('dimmed');
-                }
-            } else {
-                colVisibility[colKey] = !colVisibility[colKey];
-                const btn = document.getElementById(`dot-btn-${colKey}`);
-                if (btn) btn.classList.toggle('dimmed', !colVisibility[colKey]);
-            }
+            colVisibility[colKey] = !colVisibility[colKey];
+            const btn = document.getElementById(`dot-btn-${colKey}`);
+            if (btn) btn.classList.toggle('dimmed', !colVisibility[colKey]);
             calculateAndDisplay();
         }
 
@@ -1084,8 +1044,8 @@
             customTimingText.col2 = document.getElementById('cust-col-2').value;
             customTimingText.col3 = document.getElementById('cust-col-3').value;
             customTimingText.col4 = document.getElementById('cust-col-4').value;
+            customTimingText.col_actual = document.getElementById('cust-col-actual').value;
             customTimingText.col5 = document.getElementById('cust-col-5').value;
-            customTimingText.col6 = document.getElementById('cust-col-6').value;
             customTimingText.tree1 = document.getElementById('cust-tree-1').value;
             customTimingText.tree_desc1 = document.getElementById('cust-tree-desc-1').value;
             customTimingText.tree2 = document.getElementById('cust-tree-2').value;
@@ -1109,7 +1069,7 @@
         function renderAdminDashboardCards() {
             const zone = document.getElementById('admin-cards-render-zone');
             zone.innerHTML = '';
-            const activeList = allScenarioDatabase[currentActiveScenario] || allScenarioDatabase['unplanned'];
+            const activeList = allScenarioDatabase['unplanned'];
             activeList.forEach((card, idx) => {
                 const cardEl = document.createElement('div');
                 cardEl.className = 'admin-card-row';
@@ -1123,9 +1083,9 @@
                         <button class="del-opt-btn" onclick="deleteCardStep(${idx})">🗑️ 刪除頁面</button>
                     </div>
                     <label style="font-size:0.75rem; font-weight:bold; color:#64748b;">主標題：</label>
-                    <input type="text" class="pink-edit-input" value="${card.title}" oninput="allScenarioDatabase['${currentActiveScenario}'][${idx}].title = this.value">
+                    <input type="text" class="pink-edit-input" value="${card.title}" oninput="allScenarioDatabase['unplanned'][${idx}].title = this.value">
                     <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">副標題說明：</label>
-                    <input type="text" class="pink-edit-input" value="${card.subtitle}" oninput="allScenarioDatabase['${currentActiveScenario}'][${idx}].subtitle = this.value">
+                    <input type="text" class="pink-edit-input" value="${card.subtitle}" oninput="allScenarioDatabase['unplanned'][${idx}].subtitle = this.value">
                     
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b;">圖片網址 (imageUrl)：</label>
@@ -1134,7 +1094,7 @@
                             <button class="del-opt-btn" onclick="deleteCardImage(${idx})" style="padding:3px 6px;">🗑️ 刪除圖片</button>
                         </div>
                     </div>
-                    <input type="text" id="card-img-url-${idx}" class="pink-edit-input" value="${card.image_url || ''}" oninput="allScenarioDatabase['${currentActiveScenario}'][${idx}].image_url = this.value">
+                    <input type="text" id="card-img-url-${idx}" class="pink-edit-input" value="${card.image_url || ''}" oninput="allScenarioDatabase['unplanned'][${idx}].image_url = this.value">
                     
                     <div class="admin-options-container">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
@@ -1152,8 +1112,8 @@
                         const optRow = document.createElement('div');
                         optRow.className = 'option-row-edit';
                         optRow.innerHTML = `
-                            <input type="text" class="pink-edit-input" style="margin:0; flex:1;" value="${opt.headline}" oninput="allScenarioDatabase['${currentActiveScenario}'][${idx}].options[${optIdx}].headline = this.value" placeholder="標題">
-                            <input type="text" class="pink-edit-input" style="margin:0; flex:1.5;" value="${opt.subtext || ''}" oninput="allScenarioDatabase['${currentActiveScenario}'][${idx}].options[${optIdx}].subtext = this.value" placeholder="說明文字">
+                            <input type="text" class="pink-edit-input" style="margin:0; flex:1;" value="${opt.headline}" oninput="allScenarioDatabase['unplanned'][${idx}].options[${optIdx}].headline = this.value" placeholder="標題">
+                            <input type="text" class="pink-edit-input" style="margin:0; flex:1.5;" value="${opt.subtext || ''}" oninput="allScenarioDatabase['unplanned'][${idx}].options[${optIdx}].subtext = this.value" placeholder="說明文字">
                             <button class="del-opt-btn" onclick="deleteCardOption(${idx}, ${optIdx})">✕</button>
                         `;
                         optZone.appendChild(optRow);
@@ -1179,7 +1139,7 @@
         }
 
         function moveCardStep(idx, direction) {
-            const list = allScenarioDatabase[currentActiveScenario];
+            const list = allScenarioDatabase['unplanned'];
             const targetIdx = idx + direction;
             if (targetIdx < 0 || targetIdx >= list.length) return;
             const temp = list[idx];
@@ -1190,13 +1150,13 @@
 
         function deleteCardStep(idx) {
             if (confirm("確定刪除此步驟頁面？")) {
-                allScenarioDatabase[currentActiveScenario].splice(idx, 1);
+                allScenarioDatabase['unplanned'].splice(idx, 1);
                 renderAdminDashboardCards();
             }
         }
 
         function addNewPageCard() {
-            const list = allScenarioDatabase[currentActiveScenario];
+            const list = allScenarioDatabase['unplanned'];
             const nextStep = list.length + 1;
             list.push({
                 id: `step_${Date.now()}`,
@@ -1211,14 +1171,14 @@
         }
 
         function addCardOption(cardIdx) {
-            const card = allScenarioDatabase[currentActiveScenario][cardIdx];
+            const card = allScenarioDatabase['unplanned'][cardIdx];
             if (!card.options) card.options = [];
             card.options.push({ headline: "新選項", subtext: "說明" });
             renderAdminDashboardCards();
         }
 
         function deleteCardOption(cardIdx, optIdx) {
-            allScenarioDatabase[currentActiveScenario][cardIdx].options.splice(optIdx, 1);
+            allScenarioDatabase['unplanned'][cardIdx].options.splice(optIdx, 1);
             renderAdminDashboardCards();
         }
 
@@ -1230,7 +1190,7 @@
                 const fileRef = window.storageRef(window.firebaseStorage, `journey_images/${Date.now()}_${file.name}`);
                 await window.uploadBytes(fileRef, file);
                 const url = await window.getDownloadURL(fileRef);
-                allScenarioDatabase[currentActiveScenario][idx].image_url = url;
+                allScenarioDatabase['unplanned'][idx].image_url = url;
                 renderAdminDashboardCards();
                 renderFrontendCards();
             };
@@ -1238,7 +1198,7 @@
         }
 
         function deleteCardImage(idx) {
-            allScenarioDatabase[currentActiveScenario][idx].image_url = "";
+            allScenarioDatabase['unplanned'][idx].image_url = "";
             renderAdminDashboardCards();
             renderFrontendCards();
         }
@@ -1291,15 +1251,14 @@
 
         function openAdminDashboard(title) {
             document.getElementById('admin-modal-title').textContent = title;
-            document.getElementById('scenario-flow-selector').value = currentActiveScenario;
             renderAdminDashboardCards();
             renderSheetMappingTable();
             document.getElementById('cust-col-1').value = customTimingText.col1;
             document.getElementById('cust-col-2').value = customTimingText.col2;
             document.getElementById('cust-col-3').value = customTimingText.col3;
             document.getElementById('cust-col-4').value = customTimingText.col4;
+            document.getElementById('cust-col-actual').value = customTimingText.col_actual;
             document.getElementById('cust-col-5').value = customTimingText.col5;
-            document.getElementById('cust-col-6').value = customTimingText.col6;
             document.getElementById('cust-tree-1').value = customTimingText.tree1;
             document.getElementById('cust-tree-desc-1').value = customTimingText.tree_desc1;
             document.getElementById('cust-tree-2').value = customTimingText.tree2;
@@ -1326,16 +1285,6 @@
             if (activeBtn) activeBtn.classList.add('active');
         }
 
-        function switchScenarioFlowEditor(key) {
-            currentActiveScenario = key;
-            if (!allScenarioDatabase[key]) {
-                allScenarioDatabase[key] = JSON.parse(JSON.stringify(allScenarioDatabase['unplanned']));
-            }
-            renderAdminDashboardCards();
-        }
-
-        function openScenarioPopup() { document.getElementById('scenario-popup-mask').style.display = 'flex'; }
-        function closeScenarioPopup() { document.getElementById('scenario-popup-mask').style.display = 'none'; }
         function openJumpPopup() { document.getElementById('jump-popup-mask').style.display = 'flex'; }
         function closeJumpPopup() { document.getElementById('jump-popup-mask').style.display = 'none'; }
         function openMedStrategyModal() {
@@ -1345,14 +1294,89 @@
             document.getElementById('med-strategy-modal').style.display = 'flex';
         }
         function closeMedStrategyModal() { document.getElementById('med-strategy-modal').style.display = 'none'; }
-        
-        function applyScenarioPreset(presetKey) {
-            currentActiveScenario = presetKey;
-            renderFrontendCards();
-            closeScenarioPopup();
-            goToStep(1);
-        }
         function jumpDirectStep(step) { closeJumpPopup(); goToStep(step); }
+
+        function saveToLocalStorageOnly() {
+            localStorage.setItem('ava_med_scenario_db', JSON.stringify(allScenarioDatabase));
+            localStorage.setItem('ava_med_custom_timing', JSON.stringify(customTimingText));
+            localStorage.setItem('ava_med_system_version', currentSystemVersion);
+            localStorage.setItem('ava_med_admin_password', currentAdminPassword);
+            localStorage.setItem('ava_med_blueprint_summary', blueprintSummaryText);
+            localStorage.setItem('ava_med_sheet_mapping', JSON.stringify(sheetMappingList));
+            alert("✅ 已成功保存自訂文字至本機！");
+            closeAdminDashboard();
+        }
+
+        function restoreToTeamDefaults() {
+            if (confirm("確定還原為團隊最新預設？")) {
+                localStorage.removeItem('ava_med_scenario_db');
+                localStorage.removeItem('ava_med_custom_timing');
+                localStorage.removeItem('ava_med_system_version');
+                localStorage.removeItem('ava_med_admin_password');
+                localStorage.removeItem('ava_med_blueprint_summary');
+                localStorage.removeItem('ava_med_sheet_mapping');
+                fetchCloudDataFromGAS();
+                alert("✅ 已還原為團隊預設！");
+                closeAdminDashboard();
+            }
+        }
+
+        async function syncAllToGoogleSheet() {
+            const loadingMask = document.getElementById('sync-loading-mask');
+            loadingMask.style.display = 'flex';
+            currentSystemVersion = document.getElementById('admin-version-input').value || currentSystemVersion;
+            currentAdminPassword = document.getElementById('admin-password-input').value || currentAdminPassword;
+            updateSystemVersion(currentSystemVersion);
+            try {
+                await fetch(GAS_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        action: "sync_med_system",
+                        version: currentSystemVersion,
+                        admin_password: currentAdminPassword,
+                        scenario_db: allScenarioDatabase,
+                        timing_text: customTimingText,
+                        sheet_mapping: sheetMappingList,
+                        blueprint_summary: blueprintSummaryText
+                    })
+                });
+                localStorage.setItem('ava_med_scenario_db', JSON.stringify(allScenarioDatabase));
+                localStorage.setItem('ava_med_custom_timing', JSON.stringify(customTimingText));
+                localStorage.setItem('ava_med_system_version', currentSystemVersion);
+                localStorage.setItem('ava_med_admin_password', currentAdminPassword);
+                localStorage.setItem('ava_med_blueprint_summary', blueprintSummaryText);
+                localStorage.setItem('ava_med_sheet_mapping', JSON.stringify(sheetMappingList));
+                loadingMask.style.display = 'none';
+                alert(`✅ 成功同步至 Google Sheet！(Version: ${currentSystemVersion})`);
+                closeAdminDashboard();
+            } catch (err) {
+                loadingMask.style.display = 'none';
+                alert("❌ 同步失敗，請檢查網路連線。");
+            }
+        }
+
+        async function fetchCloudDataFromGAS() {
+            try {
+                const response = await fetch(GAS_API_URL);
+                const json = await response.json();
+                if (json && json.status === "success") {
+                    if (json.version) updateSystemVersion(json.version);
+                    if (json.admin_password) currentAdminPassword = json.admin_password;
+                    if (json.sheet_mapping) sheetMappingList = json.sheet_mapping;
+                    
+                    const localDb = localStorage.getItem('ava_med_scenario_db');
+                    if (!localDb && json.scenario_db) allScenarioDatabase = json.scenario_db;
+                    const localTiming = localStorage.getItem('ava_med_custom_timing');
+                    if (!localTiming && json.timing_text) customTimingText = json.timing_text;
+                    const localSummary = localStorage.getItem('ava_med_blueprint_summary');
+                    if (!localSummary && json.blueprint_summary) updateBlueprintSummaryText(json.blueprint_summary);
+                    
+                    updateCustomTimingText();
+                    renderFrontendCards();
+                }
+            } catch(e) {}
+        }
 
         function updateMedicalJarsByTerm() {
             const term = parseInt(document.getElementById('med-pay-term').value) || 5;
@@ -1418,6 +1442,24 @@
                 document.querySelectorAll(`.med-age-y${i}`).forEach(el => el.textContent = startAge + i - 1);
             }
             
+            const updateJarMedPremiums = (startOffset) => {
+                let sumMedPrem = 0;
+                for (let i = 1; i <= 5; i++) {
+                    let yearIndex = startOffset + i;
+                    let curAge = startAge + yearIndex - 1;
+                    let prem = getPremiumForAge(curAge) * Math.pow(1 + medInflationRate, yearIndex - 1);
+                    sumMedPrem += prem;
+                    const premEl = document.getElementById(`med-prem-y${yearIndex}`);
+                    if (premEl) premEl.textContent = formatNumber(prem);
+                }
+                return sumMedPrem;
+            };
+            
+            let m1PremTotal = updateJarMedPremiums(0);
+            let m2PremTotal = updateJarMedPremiums(5);
+            let m3PremTotal = updateJarMedPremiums(10);
+            let m4PremTotal = updateJarMedPremiums(15);
+            
             const getJarTotal = (prefix) => {
                 let sum = 0;
                 for(let i=1; i<=5; i++) {
@@ -1432,10 +1474,10 @@
             const p3Total = getJarTotal('med-plan3');
             const p4Total = getJarTotal('med-plan4');
             
-            document.getElementById('med-plan1-5yr-total').textContent = formatNumber(p1Total);
-            document.getElementById('med-plan2-5yr-total').textContent = formatNumber(p2Total);
-            document.getElementById('med-plan3-5yr-total').textContent = formatNumber(p3Total);
-            document.getElementById('med-plan4-5yr-total').textContent = formatNumber(p4Total);
+            document.getElementById('med-plan1-5yr-total').textContent = formatNumber(p1Total + m1PremTotal);
+            document.getElementById('med-plan2-5yr-total').textContent = formatNumber(p2Total + m2PremTotal);
+            document.getElementById('med-plan3-5yr-total').textContent = formatNumber(p3Total + m3PremTotal);
+            document.getElementById('med-plan4-5yr-total').textContent = formatNumber(p4Total + m4PremTotal);
             
             let cardMedPremiumTotal = 0;
             for (let a = medRetireAge; a <= medMaxAgeInput; a++) {
@@ -1464,11 +1506,13 @@
             if(!reportingYears.includes(maxYear)) reportingYears.push(maxYear);
             
             let strategyBtn = `<button class="mini-pink-btn" style="margin-left:4px;" onclick="openMedStrategyModal()">！</button>`;
+            
+            // 表頭排序：年份、累計儲備、被動收入(藍)、累積已領(綠)、實際自付醫療保費(紅)、增值醫保餘額(紫)
             let headerHtml = `<tr><th>${customTimingText.col1}</th><th>${customTimingText.col2}</th>`;
-            if (colVisibility.annuity) headerHtml += `<th style="color:var(--brand-accent); font-weight:800;">${isMonthlyAnnuity ? customTimingText.col3 + ' (每月)' : customTimingText.col3}${strategyBtn}</th>`;
+            if (colVisibility.annuity) headerHtml += `<th style="color:var(--brand-accent); font-weight:800;">${customTimingText.col3}${strategyBtn}</th>`;
             if (colVisibility.accum) headerHtml += `<th style="color:var(--state-success); font-weight:800;">${customTimingText.col4}</th>`;
+            if (colVisibility.actual) headerHtml += `<th style="color:var(--state-danger); font-weight:800;">${customTimingText.col_actual}</th>`;
             if (colVisibility.asset) headerHtml += `<th style="color:var(--state-purple); font-weight:800;">${customTimingText.col5}</th>`;
-            if (colVisibility.interest) headerHtml += `<th style="color:var(--state-danger); font-weight:800;">${customTimingText.col6}</th>`;
             headerHtml += `</tr>`;
             document.getElementById('results-table-head').innerHTML = headerHtml;
             
@@ -1501,25 +1545,18 @@
                 return { rV, rW, rA, rC };
             };
             
-            let prevYear = 0, prevBalance = 0;
             for (let year = 1; year <= maxYear; year++) {
                 let currentAge = startAge + year - 1;
                 let todayRes = calcAssets(year);
+                let medPremiumCurrentYear = (currentAge >= medRetireAge && currentAge <= medMaxAgeInput) ? getPremiumForAge(currentAge) * Math.pow(1 + medInflationRate, year - 1) : 0;
+                let actualMedPremium = todayRes.rA - medPremiumCurrentYear;
+                
                 if (reportingYears.includes(year)) {
-                    let displayAnnuity = isMonthlyAnnuity ? formatNumber(todayRes.rA / 12) : formatNumber(todayRes.rA);
-                    let returnPercentStr = "-";
-                    if (prevYear !== 0 && prevBalance > 0) {
-                        let yearsDiff = year - prevYear;
-                        returnPercentStr = (((todayRes.rV - prevBalance) / prevBalance / yearsDiff) * 100).toFixed(1) + "%";
-                    }
-                    prevYear = year;
-                    prevBalance = todayRes.rV;
-                    
                     let rowHtml = `<td>${year} (${currentAge}歲)</td><td>$${formatNumber(todayRes.rC)}</td>`;
-                    if (colVisibility.annuity) rowHtml += `<td style="color:var(--brand-accent); font-weight:800;">$${displayAnnuity}</td>`;
+                    if (colVisibility.annuity) rowHtml += `<td style="color:var(--brand-accent); font-weight:800;">$${formatNumber(todayRes.rA)}</td>`;
                     if (colVisibility.accum) rowHtml += `<td style="color:var(--state-success); font-weight:800;">$${formatNumber(todayRes.rW)}</td>`;
+                    if (colVisibility.actual) rowHtml += `<td style="color:var(--state-danger); font-weight:800;">$${formatNumber(actualMedPremium)}</td>`;
                     if (colVisibility.asset) rowHtml += `<td style="color:var(--state-purple); font-weight:800;">$${formatNumber(todayRes.rV)}</td>`;
-                    if (colVisibility.interest) rowHtml += `<td style="color:var(--state-danger); font-weight:800;">${returnPercentStr}</td>`;
                     
                     const row = document.createElement('tr');
                     row.innerHTML = rowHtml;
@@ -1577,7 +1614,7 @@
             localStorage.setItem('ava_med_admin_password', currentAdminPassword);
             localStorage.setItem('ava_med_blueprint_summary', blueprintSummaryText);
             localStorage.setItem('ava_med_sheet_mapping', JSON.stringify(sheetMappingList));
-            alert("✅ 已成功保存此情境與自訂文字至本機！");
+            alert("✅ 已成功保存自訂文字至本機！");
             closeAdminDashboard();
         }
 
