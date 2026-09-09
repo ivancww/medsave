@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVA 增值式醫保專屬生活引導系統 v8.2.2</title>
+    <title>AVA 增值式醫保專屬生活引導系統 v8.2.3</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e3a8a">
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192x192.png">
@@ -124,18 +124,18 @@
         .option-select-radio { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid #cbd5e1; margin-top: 3px; }
         .option-card-guided.selected .option-select-radio { border-color: var(--brand-accent); background: var(--brand-accent); }
         
-        /* 資源池三步卡片式結構 */
+        /* 資源池三步卡片式結構 (自適應無圖示版) */
         .pool-step-grid {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0 20px 0;
         }
         @media (max-width: 680px) { .pool-step-grid { grid-template-columns: 1fr; } }
         .pool-step-card {
-            background: #ffffff; border: 1.5px solid var(--border-light); border-radius: 14px; padding: 18px 14px; text-align: center;
+            background: #ffffff; border: 1.5px solid var(--border-light); border-radius: 14px; 
+            padding: 24px 16px; text-align: center; display: flex; flex-direction: column; justify-content: center; gap: 6px;
         }
         .pool-step-card:nth-child(2) { border-color: var(--brand-accent); background: #f0f7ff; }
-        .pool-step-icon { font-size: 2.2rem; margin-bottom: 8px; }
-        .pool-step-title { font-size: 0.95rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px; }
-        .pool-step-desc { font-size: 0.82rem; color: var(--text-sub); line-height: 1.45; }
+        .pool-step-title { font-size: 0.98rem; font-weight: 800; color: var(--text-main); margin-bottom: 2px; }
+        .pool-step-desc { font-size: 0.84rem; color: var(--text-sub); line-height: 1.45; }
         
         .page-bottom-img-zone { display: flex; justify-content: center; align-items: center; margin: 15px 0; }
         .page-bottom-img { max-width: 90%; max-height: 220px; object-fit: contain; border-radius: 12px; }
@@ -186,6 +186,7 @@
         .blueprint-left-box { background: linear-gradient(135deg, #1e3a8a, #0f172a); color: #fff; border-radius: 14px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; }
         .blueprint-right-box { background: #ffffff; border: 1.5px solid #bbf7d0; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; }
         
+        /* 藍圖右側圖片自適應填滿 */
         .blueprint-img-container {
             flex: 1; display: flex; justify-content: center; align-items: center; min-height: 240px; margin-bottom: 8px; overflow: hidden; border-radius: 10px;
         }
@@ -249,7 +250,7 @@
         <div class="brand-title-wrap">
             <span class="brand-logo-text" onclick="promptAdminLogin()" title="點擊輸入管理員密碼">🌱 AVA 增值式醫保系統</span>
             <span class="mini-quick-btn jump-btn" onclick="openJumpPopup()" title="直達流程模組">*</span>
-            <span class="system-badge" id="app-version-badge">v8.2.2</span>
+            <span class="system-badge" id="app-version-badge">v8.2.3</span>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
             <div class="user-settings-btn" onclick="openUserSettings()" title="設定控制台">⚙️</div>
@@ -327,7 +328,7 @@
                 </div>
             </div>
             
-            <!-- 3. 區域 B：中段過渡題容器 (可選「選項」或「三步圖」) -->
+            <!-- 3. 區域 B：中段過渡題容器 (可自由設定為普通選項或三步圖) -->
             <div id="dynamic-flow-post7-container"></div>
             
             <!-- 4. 固定核心頁 2：增長式醫保主計算表 -->
@@ -602,7 +603,7 @@
                     </div>
 
                     <div class="flow-section-header" style="border-left-color: #10b981; margin-top: 24px;">
-                        <span>🅱️ 區域 B：過渡題目（可自由切換為「選項」或「三步圖」）</span>
+                        <span>🅱️ 區域 B：過渡題目（可自由切換為「選項模式」或「步驟模式」）</span>
                         <button class="step-ctrl-btn" style="background:#f0fdf4; color:#166534;" onclick="addNewPageCard('zone_b')">+ 新增區域 B 題目</button>
                     </div>
                     <div id="admin-cards-zone-b"></div>
@@ -717,7 +718,7 @@
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">admin_password (管理員密碼)：</label>
                         <input type="text" id="admin-password-input" class="pink-edit-input" value="903" oninput="currentAdminPassword = this.value">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">system_version (系統版本號)：</label>
-                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v8.2.2" oninput="updateSystemVersion(this.value)">
+                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v8.2.3" oninput="updateSystemVersion(this.value)">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">專屬 GAS API 網址：</label>
                         <input type="text" id="admin-gas-url-input" class="pink-edit-input" value="https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec">
                     </div>
@@ -757,7 +758,7 @@
 
     <script>
         const answers = {};
-        let currentSystemVersion = "v8.2.2";
+        let currentSystemVersion = "v8.2.3";
         let currentAdminPassword = "903";
         let GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec';
         const RETURNS_EXCEL_URL = 'https://docs.google.com/spreadsheets/d/1-kawg3ew7CF05g-Dc3cwu1yYROWa73fhWlunv5TYF6E/export?format=xlsx';
@@ -892,17 +893,15 @@
                     else if (zoneKey === 'zone_c') prevAction = `goToStep('step-core-calc')`;
                 }
                 
-                // 依據 display_type 判定渲染為「步驟（三步圖）」或「選項」
                 let isStepStyle = (card.display_type === 'steps');
                 let optionsHtml = '';
                 
+                // 🎯 移走寫死圖案，乾淨顯示純文字步驟
                 if (isStepStyle && card.options && card.options.length > 0) {
                     optionsHtml = `<div class="pool-step-grid">`;
-                    card.options.forEach((opt, oIdx) => {
-                        const icon = oIdx === 0 ? '☕' : (oIdx === 1 ? '⏳' : '🚿');
+                    card.options.forEach((opt) => {
                         optionsHtml += `
                             <div class="pool-step-card">
-                                <div class="pool-step-icon">${icon}</div>
                                 <div class="pool-step-title">${opt.headline}</div>
                                 <div class="pool-step-desc">${opt.subtext || ''}</div>
                             </div>
@@ -1070,7 +1069,6 @@
             calculateAndDisplay();
         }
 
-        // 📌 核心修復：即時將文字同步至所有下拉選單與標籤
         function updateCustomTimingText() {
             customTimingText.calc7_title = document.getElementById('cust-calc7-title-input').value;
             customTimingText.calc7_sub = document.getElementById('cust-calc7-sub-input').value;
@@ -1097,7 +1095,7 @@
             document.getElementById('lbl-max-age-calc1').textContent = customTimingText.lbl_max;
             document.getElementById('lbl-max-age-calc2').textContent = customTimingText.lbl_max;
 
-            // 🎯 即時寫入前台下拉選單文字
+            // 即時同步前台下拉選單文字
             customTimingText.opt_term_5 = document.getElementById('cust-opt-term-5').value;
             customTimingText.opt_term_10 = document.getElementById('cust-opt-term-10').value;
             customTimingText.opt_term_15 = document.getElementById('cust-opt-term-15').value;
@@ -1134,7 +1132,6 @@
             calculateAndDisplay();
         }
 
-        // 📌 後台卡片：支援「選項」與「步驟」下拉切換
         function renderAdminDashboardCards() {
             renderAdminZone('zone_a', document.getElementById('admin-cards-zone-a'));
             renderAdminZone('zone_b', document.getElementById('admin-cards-zone-b'));
@@ -1161,7 +1158,6 @@
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                         <div style="display:flex; align-items:center; gap:8px;">
                             <span style="font-weight:bold; color:var(--brand-primary);">${zoneTitle} ${idx + 1}</span>
-                            <!-- 🎯 切換顯示模式：選項 vs 步驟 -->
                             <select class="pink-edit-input" style="width:auto; padding:3px 8px; margin:0;" onchange="changeCardDisplayType('${zoneKey}', ${idx}, this.value)">
                                 <option value="options" ${curType==='options'?'selected':''}>🔘 選項模式</option>
                                 <option value="steps" ${curType==='steps'?'selected':''}>🧱 步驟模式 (三步圖)</option>
@@ -1514,6 +1510,7 @@
             fileInput.click();
         }
 
+        // 📌 管理者同步時自動遞增 Version 並寫入 Google Sheet
         async function syncAllToGoogleSheet() {
             const loadingMask = document.getElementById('sync-loading-mask');
             document.getElementById('sync-loading-text').textContent = '正在同步至 Google Sheet，請稍候...';
