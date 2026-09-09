@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVA 增值式醫保專屬生活引導系統 v7.1.0</title>
-    <!-- PWA 與核心設定 -->
+    <title>AVA 增值式醫保專屬生活引導系統 v7.2.0</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e3a8a">
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192x192.png">
@@ -14,11 +13,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
     
-    <!-- XLSX 解析 Google Sheet 回報倍數與醫療費率 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
-    <!-- Firebase SDK (Modular) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
@@ -46,19 +43,16 @@
             --text-main: #0f172a;
             --text-sub: #475569;
             --text-muted: #94a3b8;
-            
             --brand-primary: #1e3a8a;
             --brand-accent: #2563eb;
             --brand-soft: #eff6ff;
             --state-success: #059669;
             --state-purple: #7c3aed;
             --state-danger: #dc2626;
-            
             --plan1-color: #2563eb;
             --plan2-color: #059669;
             --plan3-color: #dc2626;
             --plan4-color: #7c3aed;
-            
             --pink-dashed: 1.5px dashed #f8bbd0;
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
             --shadow-md: 0 4px 16px -2px rgba(15, 23, 42, 0.06);
@@ -132,6 +126,19 @@
         .page-bottom-img-zone { display: flex; justify-content: center; align-items: center; margin: 15px 0; }
         .page-bottom-img { max-width: 90%; max-height: 220px; object-fit: contain; border-radius: 12px; }
         
+        /* 資源池三步圖解 */
+        .pool-visual-container {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0 26px 0;
+        }
+        @media (max-width: 650px) { .pool-visual-container { grid-template-columns: 1fr; } }
+        .pool-visual-step {
+            background: #ffffff; border: 1.5px solid var(--border-light); border-radius: 14px; padding: 18px 14px; text-align: center;
+        }
+        .pool-visual-step.highlight { border-color: var(--brand-accent); background: #f0f7ff; }
+        .pool-visual-icon { font-size: 2.2rem; margin-bottom: 8px; }
+        .pool-visual-title { font-size: 0.95rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px; }
+        .pool-visual-desc { font-size: 0.82rem; color: var(--text-sub); line-height: 1.45; }
+        
         /* 增值式醫保主計算區 */
         .plan-selector-box { background: #f8fafc; border: 1.5px dashed var(--brand-accent); padding: 1.2rem; border-radius: 14px; margin-bottom: 1.5rem; }
         .top-input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
@@ -177,13 +184,11 @@
         table.clean-table th, table.clean-table td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--border-light); }
         table.clean-table th { font-weight: 600; color: var(--text-sub); background: #f8fafc; }
         
-        /* 藍圖頁樣式 */
         .blueprint-dual-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 18px; margin-bottom: 20px; }
         @media (max-width: 720px) { .blueprint-dual-grid { grid-template-columns: 1fr; } }
         .blueprint-left-box { background: linear-gradient(135deg, #1e3a8a, #0f172a); color: #fff; border-radius: 14px; padding: 22px; }
         .blueprint-right-box { background: #ffffff; border: 1.5px solid #bbf7d0; border-radius: 14px; padding: 18px; }
         
-        /* 保費回贈左右等寬 50/50 對稱卡片樣式 */
         .promo-split-container {
             display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; margin-top: 14px;
         }
@@ -209,7 +214,6 @@
         .nav-btn.next { background: var(--brand-primary); color: #ffffff; }
         .nav-btn.next:disabled { opacity: 0.35; cursor: not-allowed; }
         
-        /* 彈窗與後台控制台 */
         .modal-mask { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 2000; align-items: center; justify-content: center; }
         .modal-box { background: #fff; padding: 24px; border-radius: 16px; max-width: 460px; width: 90%; position: relative; }
         .close-btn { position: absolute; top: 12px; right: 16px; font-size: 1.4rem; cursor: pointer; }
@@ -247,7 +251,7 @@
         <div class="brand-title-wrap">
             <span class="brand-logo-text" onclick="promptAdminLogin()" title="點擊輸入管理員密碼">🌱 AVA 增值式醫保系統</span>
             <span class="mini-quick-btn jump-btn" onclick="openJumpPopup()" title="直達流程模組">*</span>
-            <span class="system-badge" id="app-version-badge">v7.1.0</span>
+            <span class="system-badge" id="app-version-badge">v7.2.0</span>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
             <button class="mini-pink-btn" onclick="handleShare()" title="建立分享連結">📤 分享報告</button>
@@ -261,10 +265,41 @@
     
     <div class="workspace-layout">
         <main>
-            <!-- 1. 計算前動態引導頁面容器 (Pre-Calc Flow) -->
+            <!-- 1. 計算前動態引導頁面 (Pre-Calc Flow) -->
             <div id="dynamic-flow-pre-container"></div>
             
-            <!-- 2. 固定核心頁面：增值式醫保主計算表 -->
+            <!-- 2. 醫保概念：資源池三步圖解 -->
+            <div class="step-page" id="step-pool-visual">
+                <div class="content-card">
+                    <h2 class="question-title" id="disp-pool-title">💧 增值醫保資源池：如何不影響生活下建立選擇？</h2>
+                    <p class="question-hint" id="disp-pool-sub">將不知不覺流走的小部分，導向未來退休醫療水庫：</p>
+                    
+                    <div class="pool-visual-container">
+                        <div class="pool-visual-step">
+                            <div class="pool-visual-icon" id="disp-p1-icon">☕</div>
+                            <div class="pool-visual-title" id="disp-p1-title">1. 今日生活開支</div>
+                            <div class="pool-visual-desc" id="disp-p1-desc">旅行、享受、家庭開銷照舊進行，完全不犧牲生活品質。</div>
+                        </div>
+                        <div class="pool-visual-step highlight">
+                            <div class="pool-visual-icon" id="disp-p2-icon">⏳</div>
+                            <div class="pool-visual-title" id="disp-p2-title">2. 分段小額入庫</div>
+                            <div class="pool-visual-desc" id="disp-p2-desc">每月只需撥出微少份額，只需 5 年，就自動完成資產水庫建造。</div>
+                        </div>
+                        <div class="pool-visual-step">
+                            <div class="pool-visual-icon" id="disp-p3-icon">🚿</div>
+                            <div class="pool-visual-title" id="disp-p3-title">3. 未來水龍頭</div>
+                            <div class="pool-visual-desc" id="disp-p3-desc">停止投入後，水庫交由時間滾存，隨時可開水龍頭提取源源長糧。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-row">
+                        <button class="nav-btn prev" onclick="handlePoolPrev()">← 上一步</button>
+                        <button class="nav-btn next" onclick="goToStep('step-core-calc')">進入增值式醫保主計算表 →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 固定核心頁面：增值式醫保主計算表 -->
             <div class="step-page" id="step-core-calc">
                 <div class="content-card">
                     <h2 class="question-title">🏥 增值式醫保：退休生活不能忽略的剛性支出</h2>
@@ -405,16 +440,16 @@
                     </div>
                     
                     <div class="action-row">
-                        <button class="nav-btn prev" id="btn-calc-prev" onclick="handleCalcPrev()">← 上一步</button>
+                        <button class="nav-btn prev" id="btn-calc-prev" onclick="goToStep('step-pool-visual')">← 上一步</button>
                         <button class="nav-btn next" id="btn-calc-next" onclick="handleCalcNext()">下一步 →</button>
                     </div>
                 </div>
             </div>
 
-            <!-- 3. 計算後動態過渡頁面容器 (Post-Calc Flow: 增值醫保與藍圖之間，可自由有或無) -->
+            <!-- 4. 計算後動態過渡頁面 (Post-Calc Flow: 增值醫保與藍圖之間) -->
             <div id="dynamic-flow-post-container"></div>
 
-            <!-- 4. 固定核心產出：生活藍圖筆記 (總結替代方案鎖定為增值式醫保) -->
+            <!-- 5. 固定核心產出：生活藍圖筆記 -->
             <div class="step-page" id="step-blueprint">
                 <div class="content-card">
                     <h2 class="question-title" style="margin-bottom:16px;">🌱 你的專屬生活藍圖筆記</h2>
@@ -440,7 +475,7 @@
                 </div>
             </div>
 
-            <!-- 5. 固定核心產出：保費優惠計算頁 -->
+            <!-- 6. 固定核心產出：保費優惠計算頁 -->
             <div class="step-page" id="page-promo">
                 <div class="content-card">
                     <h2 class="question-title">🎁 專屬保費優惠計算</h2>
@@ -546,9 +581,9 @@
                 <div id="admin-sec-flow" class="admin-tab-content">
                     <div class="admin-flow-notice">
                         <strong>📌 動態雙區塊流程架構：</strong><br>
-                        1. <strong>區塊 A (計算前引導)</strong>：自由設定引導問題，完成後自動進入「增值式醫保主計算表」[span_5](start_span)[span_5](end_span)。<br>
-                        2. <strong>區塊 B (計算後過渡)</strong>：介於「醫保計算表」與「人生藍圖」之間[span_6](start_span)[span_6](end_span)。<strong>若有題目則依序過渡；若留空（0 題）則計算表直接進入藍圖！</strong><br>
-                        3. 主計算表、藍圖及保費優惠為系統固定核心，不會被覆蓋或格式錯位[span_7](start_span)[span_7](end_span)。
+                        1. <strong>區塊 A (計算前引導)</strong>：自由設定引導問題，完成後自動進入「資源池概念 ➔ 增值式醫保主計算表」[span_8](start_span)[span_8](end_span)。<br>
+                        2. <strong>區塊 B (計算後過渡)</strong>：介於「醫保計算表」與「人生藍圖」之間[span_9](start_span)[span_9](end_span)。<strong>若有題目則依序過渡；若留空（0 題）則計算表直接進入藍圖！</strong><br>
+                        3. 資源池、主計算表、藍圖及保費優惠為系統固定核心，不會被覆蓋或格式錯位[span_10](start_span)[span_10](end_span)。
                     </div>
                     
                     <div class="flow-section-header">
@@ -565,6 +600,35 @@
                 </div>
                 
                 <div id="admin-sec-timing" class="admin-tab-content" style="display:none;">
+                    <!-- 補回：資源池三步圖解自訂 -->
+                    <div class="admin-card-row">
+                        <h4 style="margin-top:0; color:var(--brand-primary); margin-bottom:12px;">💧 資源池三步圖解文字自訂 (可在前台圖解頁即時更新)</h4>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:10px;">
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">圖解主標題：</label><input type="text" id="cust-pool-title" class="pink-edit-input" value="💧 增值醫保資源池：如何不影響生活下建立選擇？" oninput="updateCustomTimingText()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">圖解副標題：</label><input type="text" id="cust-pool-sub" class="pink-edit-input" value="將不知不覺流走的小部分，導向未來退休醫療水庫：" oninput="updateCustomTimingText()"></div>
+                        </div>
+                        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;">
+                            <div style="background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #e2e8f0;">
+                                <label style="font-size:0.75rem; font-weight:bold; color:var(--brand-primary);">步驟 1 標題：</label>
+                                <input type="text" id="cust-p1-title" class="pink-edit-input" value="1. 今日生活開支" oninput="updateCustomTimingText()">
+                                <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:6px; display:block;">步驟 1 說明：</label>
+                                <input type="text" id="cust-p1-desc" class="pink-edit-input" value="旅行、享受、家庭開銷照舊進行，完全不犧牲生活品質。" oninput="updateCustomTimingText()">
+                            </div>
+                            <div style="background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #e2e8f0;">
+                                <label style="font-size:0.75rem; font-weight:bold; color:var(--brand-primary);">步驟 2 標題：</label>
+                                <input type="text" id="cust-p2-title" class="pink-edit-input" value="2. 分段小額入庫" oninput="updateCustomTimingText()">
+                                <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:6px; display:block;">步驟 2 說明：</label>
+                                <input type="text" id="cust-p2-desc" class="pink-edit-input" value="每月只需撥出微少份額，只需 5 年，就自動完成資產水庫建造。" oninput="updateCustomTimingText()">
+                            </div>
+                            <div style="background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #e2e8f0;">
+                                <label style="font-size:0.75rem; font-weight:bold; color:var(--brand-primary);">步驟 3 標題：</label>
+                                <input type="text" id="cust-p3-title" class="pink-edit-input" value="3. 未來水龍頭" oninput="updateCustomTimingText()">
+                                <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:6px; display:block;">步驟 3 說明：</label>
+                                <input type="text" id="cust-p3-desc" class="pink-edit-input" value="停止投入後，水庫交由時間滾存，隨時可開水龍頭提取源源長糧。" oninput="updateCustomTimingText()">
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="admin-card-row">
                         <h4 style="margin-top:0; color:var(--brand-primary); margin-bottom:12px;">📊 增值式醫保 - 表格標題自訂 (對應 Google Sheet 累積表文字設定)</h4>
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
@@ -647,7 +711,7 @@
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">admin_password (管理員密碼)：</label>
                         <input type="text" id="admin-password-input" class="pink-edit-input" value="903" oninput="currentAdminPassword = this.value">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">system_version (系統版本號)：</label>
-                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v7.1.0" oninput="updateSystemVersion(this.value)">
+                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v7.2.0" oninput="updateSystemVersion(this.value)">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">專屬 GAS API 網址：</label>
                         <input type="text" id="admin-gas-url-input" class="pink-edit-input" value="https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec">
                     </div>
@@ -674,6 +738,7 @@
             <h3 style="color:var(--brand-primary); margin-top:0; font-size:1.1rem; text-align:center;">🚀 直達核心模組</h3>
             <div class="popup-menu-list">
                 <div class="popup-menu-item" onclick="jumpDirectStep('pre-0')">📍 直達 第 1 步引導</div>
+                <div class="popup-menu-item" onclick="jumpDirectStep('step-pool-visual')">💧 直達 資源池三步概念</div>
                 <div class="popup-menu-item" onclick="jumpDirectStep('step-core-calc')">🏥 直達 增值式醫保主計算表</div>
                 <div class="popup-menu-item" onclick="jumpDirectStep('step-blueprint')">📋 直達 專屬生活藍圖筆記</div>
                 <div class="popup-menu-item" onclick="jumpDirectStep('page-promo')">🎁 直達 專屬保費優惠計算</div>
@@ -736,7 +801,7 @@
     
     <script>
         const answers = {};
-        let currentSystemVersion = "v7.1.0";
+        let currentSystemVersion = "v7.2.0";
         let currentAdminPassword = "903";
         let GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec';
         const RETURNS_EXCEL_URL = 'https://docs.google.com/spreadsheets/d/1-kawg3ew7CF05g-Dc3cwu1yYROWa73fhWlunv5TYF6E/export?format=xlsx';
@@ -764,11 +829,15 @@
             tree1: "🌱 儲備金庫一 + 醫療保費 (第 1 - 5 年)", tree_desc1: "種下一粒小種子",
             tree2: "💧 儲備金庫二 + 醫療保費 (第 6 - 10 年)", tree_desc2: "定期灌溉累積根基",
             tree3: "🌿 儲備金庫三 + 醫療保費 (第 11 - 15 年)", tree_desc3: "水庫儲備倍增",
-            tree4: "🌳 儲備金庫四 + 醫療保費 (第 16 - 20 年)", tree_desc4: "大樹長成，產出源源長糧"
+            tree4: "🌳 儲備金庫四 + 醫療保費 (第 16 - 20 年)", tree_desc4: "大樹長成，產出源源長糧",
+            pool_title: "💧 增值醫保資源池：如何不影響生活下建立選擇？",
+            pool_sub: "將不知不覺流走的小部分，導向未來退休醫療水庫：",
+            p1_title: "1. 今日生活開支", p1_desc: "旅行、享受、家庭開銷照舊進行，完全不犧牲生活品質。",
+            p2_title: "2. 分段小額入庫", p2_desc: "每月只需撥出微少份額，只需 5 年，就自動完成資產水庫建造。",
+            p3_title: "3. 未來水龍頭", p3_desc: "停止投入後，水庫交由時間滾存，隨時可開水龍頭提取源源長糧。"
         };
         let blueprintSummaryText = "將每月不知不覺流走的少許資金，分段注入專屬醫保水庫，鎖定終身醫療保障。";
         
-        // 雙區塊資料庫：pre (計算前題) 與 post (計算後過渡題)
         let allScenarioDatabase = {
             pre: [
                 { id: "pre_0", title: "「如果講番你而家的醫療保障，你覺得自己最重視邊方面？」", subtitle: "探索你目前最真實的保障關注點：", options: [
@@ -785,12 +854,7 @@
                     { headline: "⏳ 順其自然，但想了解點樣做到無痛建立", subtext: "想先睇睇背後的運作機制與實際數字。" }
                 ]}
             ],
-            post: [
-                { id: "post_0", title: "「睇完剛才的運作原理與數字，你覺得呢種分段建立的方法適唔適合自己？」", subtitle: "以你目前的步調，探索最自在的配合方式：", options: [
-                    { headline: "🟢 我覺得概念好舒服，可以認真考慮", subtext: "認同分段投入與被動收入提取的架構。" },
-                    { headline: "💡 想再了解更多細節或調整供款額", subtext: "希望因應自己的預算微調方案。" }
-                ]}
-            ]
+            post: []
         };
 
         function formatNumber(v) { return new Intl.NumberFormat('en-US', {maximumFractionDigits: 0}).format(v || 0); }
@@ -811,7 +875,6 @@
             if (input) input.value = text;
         }
 
-        // 動態渲染前段 (pre) 與中段 (post) 題目
         function renderFrontendDynamicFlow() {
             const preContainer = document.getElementById('dynamic-flow-pre-container');
             const postContainer = document.getElementById('dynamic-flow-post-container');
@@ -821,15 +884,14 @@
             const preList = allScenarioDatabase.pre || [];
             const postList = allScenarioDatabase.post || [];
             
-            // 渲染 Pre 區塊
             preList.forEach((card, idx) => {
                 const pageEl = document.createElement('div');
                 pageEl.className = `step-page ${idx === 0 ? 'active' : ''}`;
                 pageEl.id = `dyn-page-pre-${idx}`;
                 
                 let isLast = (idx === preList.length - 1);
-                let nextAction = isLast ? `goToStep('step-core-calc')` : `goToDynamicStep('pre', ${idx + 1})`;
-                let nextText = isLast ? `進入增值式醫保主計算表 →` : `下一步 →`;
+                let nextAction = isLast ? `goToStep('step-pool-visual')` : `goToDynamicStep('pre', ${idx + 1})`;
+                let nextText = isLast ? `進入資源池運作概念 →` : `下一步 →`;
                 let prevAction = idx === 0 ? '' : `goToDynamicStep('pre', ${idx - 1})`;
                 
                 let optionsHtml = '';
@@ -866,7 +928,6 @@
                 preContainer.appendChild(pageEl);
             });
             
-            // 渲染 Post 區塊 (中段過渡題)
             postList.forEach((card, idx) => {
                 const pageEl = document.createElement('div');
                 pageEl.className = 'step-page';
@@ -931,9 +992,9 @@
             
             const preLen = (allScenarioDatabase.pre || []).length;
             const postLen = (allScenarioDatabase.post || []).length;
-            const total = preLen + postLen + 3; // +3 for calc, blueprint, promo
+            const total = preLen + postLen + 4;
             
-            let currentNum = zone === 'pre' ? (idx + 1) : (preLen + 1 + idx + 1);
+            let currentNum = zone === 'pre' ? (idx + 1) : (preLen + 2 + idx + 1);
             document.getElementById('progress-fill').style.width = `${Math.round((currentNum / total) * 100)}%`;
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -945,11 +1006,12 @@
             
             const preLen = (allScenarioDatabase.pre || []).length;
             const postLen = (allScenarioDatabase.post || []).length;
-            const total = preLen + postLen + 3;
+            const total = preLen + postLen + 4;
             
             let offset = preLen;
-            if (stepId === 'step-core-calc') offset += 1;
-            if (stepId === 'step-blueprint') offset += 1 + postLen + 1;
+            if (stepId === 'step-pool-visual') offset += 1;
+            if (stepId === 'step-core-calc') offset += 2;
+            if (stepId === 'step-blueprint') offset += 2 + postLen + 1;
             if (stepId === 'page-promo') offset = total;
             
             document.getElementById('progress-fill').style.width = `${Math.min(100, Math.round((offset / total) * 100))}%`;
@@ -959,7 +1021,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function handleCalcPrev() {
+        function handlePoolPrev() {
             const preList = allScenarioDatabase.pre || [];
             if (preList.length > 0) {
                 goToDynamicStep('pre', preList.length - 1);
@@ -1023,6 +1085,24 @@
         }
 
         function updateCustomTimingText() {
+            customTimingText.pool_title = document.getElementById('cust-pool-title').value;
+            customTimingText.pool_sub = document.getElementById('cust-pool-sub').value;
+            customTimingText.p1_title = document.getElementById('cust-p1-title').value;
+            customTimingText.p1_desc = document.getElementById('cust-p1-desc').value;
+            customTimingText.p2_title = document.getElementById('cust-p2-title').value;
+            customTimingText.p2_desc = document.getElementById('cust-p2-desc').value;
+            customTimingText.p3_title = document.getElementById('cust-p3-title').value;
+            customTimingText.p3_desc = document.getElementById('cust-p3-desc').value;
+
+            document.getElementById('disp-pool-title').textContent = customTimingText.pool_title;
+            document.getElementById('disp-pool-sub').textContent = customTimingText.pool_sub;
+            document.getElementById('disp-p1-title').textContent = customTimingText.p1_title;
+            document.getElementById('disp-p1-desc').textContent = customTimingText.p1_desc;
+            document.getElementById('disp-p2-title').textContent = customTimingText.p2_title;
+            document.getElementById('disp-p2-desc').textContent = customTimingText.p2_desc;
+            document.getElementById('disp-p3-title').textContent = customTimingText.p3_title;
+            document.getElementById('disp-p3-desc').textContent = customTimingText.p3_desc;
+
             customTimingText.col1 = document.getElementById('cust-col-1').value;
             customTimingText.col2 = document.getElementById('cust-col-2').value;
             customTimingText.col3 = document.getElementById('cust-col-3').value;
@@ -1067,7 +1147,6 @@
             calculateAndDisplay();
         }
 
-        // 後台雙區塊渲染卡片
         function renderAdminDashboardCards() {
             renderAdminZone('pre', document.getElementById('admin-cards-pre-zone'));
             renderAdminZone('post', document.getElementById('admin-cards-post-zone'));
@@ -1267,6 +1346,16 @@
             document.getElementById('admin-modal-title').textContent = title;
             renderAdminDashboardCards();
             renderSheetMappingTable();
+            
+            document.getElementById('cust-pool-title').value = customTimingText.pool_title || "💧 增值醫保資源池：如何不影響生活下建立選擇？";
+            document.getElementById('cust-pool-sub').value = customTimingText.pool_sub || "將不知不覺流走的小部分，導向未來退休醫療水庫：";
+            document.getElementById('cust-p1-title').value = customTimingText.p1_title || "1. 今日生活開支";
+            document.getElementById('cust-p1-desc').value = customTimingText.p1_desc || "旅行、享受、家庭開銷照舊進行，完全不犧牲生活品質。";
+            document.getElementById('cust-p2-title').value = customTimingText.p2_title || "2. 分段小額入庫";
+            document.getElementById('cust-p2-desc').value = customTimingText.p2_desc || "每月只需撥出微少份額，只需 5 年，就自動完成資產水庫建造。";
+            document.getElementById('cust-p3-title').value = customTimingText.p3_title || "3. 未來水龍頭";
+            document.getElementById('cust-p3-desc').value = customTimingText.p3_desc || "停止投入後，水庫交由時間滾存，隨時可開水龍頭提取源源長糧。";
+
             document.getElementById('cust-col-1').value = customTimingText.col1;
             document.getElementById('cust-col-2').value = customTimingText.col2;
             document.getElementById('cust-col-3').value = customTimingText.col3;
@@ -1335,7 +1424,7 @@
             closeAdminDashboard();
         }
         function restoreToTeamDefaults() {
-            if (confirm("確定還原為團隊最新預設？")) {
+            if (confirm("確定還原為團隊最新預設？這將清空本機覆寫並讀取 Google Sheet 最新資料。")) {
                 localStorage.removeItem('ava_med_scenario_db_v2');
                 localStorage.removeItem('ava_med_custom_timing');
                 localStorage.removeItem('ava_med_system_version');
@@ -1343,7 +1432,7 @@
                 localStorage.removeItem('ava_med_blueprint_summary');
                 localStorage.removeItem('ava_med_sheet_mapping');
                 fetchCloudDataFromGAS(true);
-                alert("✅ 已還原為團隊預設！");
+                alert("✅ 已成功拉取 Google Sheet 最新團隊預設！");
                 closeAdminDashboard();
             }
         }
@@ -1404,7 +1493,7 @@
                     }
 
                     const localDb = localStorage.getItem('ava_med_scenario_db_v2');
-                    if ((!localDb || forceFullSync) && json.scenario_db) {
+                    if ((!localDb || forceFullSync || hasVersionUpdate) && json.scenario_db) {
                         if (json.scenario_db.pre) {
                             allScenarioDatabase = json.scenario_db;
                         } else if (json.scenario_db.unplanned) {
@@ -1413,10 +1502,14 @@
                     }
 
                     const localTiming = localStorage.getItem('ava_med_custom_timing');
-                    if ((!localTiming || forceFullSync) && json.timing_text) customTimingText = json.timing_text;
+                    if ((!localTiming || forceFullSync || hasVersionUpdate) && json.timing_text) {
+                        customTimingText = json.timing_text;
+                    }
 
                     const localSummary = localStorage.getItem('ava_med_blueprint_summary');
-                    if ((!localSummary || forceFullSync) && json.blueprint_summary) updateBlueprintSummaryText(json.blueprint_summary);
+                    if ((!localSummary || forceFullSync || hasVersionUpdate) && json.blueprint_summary) {
+                        updateBlueprintSummaryText(json.blueprint_summary);
+                    }
                     
                     updateCustomTimingText();
                     renderFrontendDynamicFlow();
@@ -1596,7 +1689,7 @@
                 if (reportingYears.includes(year)) {
                     let rowHtml = `<td>${year} (${currentAge}歲)</td><td>$${formatNumber(todayRes.rC)}</td>`;
                     if (colVisibility.annuity) rowHtml += `<td style="color:var(--brand-accent); font-weight:800;">$${formatNumber(todayRes.rA)}</td>`;
-                    if (colVisibility.accum) rowHtml += `<td style="color:var(--state-success); font-weight:800;">$${formatNumber(medPremiumCurrentYear)}</td>`;
+                    if (colVisibility.accum) headerHtml += `<td style="color:var(--state-success); font-weight:800;">$${formatNumber(medPremiumCurrentYear)}</td>`;
                     if (colVisibility.actual) rowHtml += `<td style="color:var(--state-danger); font-weight:800;">$${formatNumber(actualMedPremium)}</td>`;
                     if (colVisibility.asset) rowHtml += `<td style="color:var(--state-purple); font-weight:800;">$${formatNumber(todayRes.rV)}</td>`;
                     
