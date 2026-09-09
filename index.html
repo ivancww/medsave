@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVA 增值式醫保專屬生活引導系統 v7.9.0</title>
+    <title>AVA 增值式醫保專屬生活引導系統 v8.0.0</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e3a8a">
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192x192.png">
@@ -17,7 +17,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
-    <!-- Firebase SDK (Modular) -->
+    <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
@@ -192,7 +192,7 @@
         .blueprint-left-box { background: linear-gradient(135deg, #1e3a8a, #0f172a); color: #fff; border-radius: 14px; padding: 22px; }
         .blueprint-right-box { background: #ffffff; border: 1.5px solid #bbf7d0; border-radius: 14px; padding: 18px; }
         
-        /* 保費回贈左右等寬 50/50 對稱卡片樣式 */
+        /* 保費回贈卡片 */
         .promo-split-container {
             display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; margin-top: 14px;
         }
@@ -241,7 +241,6 @@
         .role-switch-btn { border: none; padding: 4px 12px; border-radius: 16px; font-size: 0.8rem; font-weight: 700; cursor: pointer; background: transparent; color: var(--text-sub); transition: all 0.2s; }
         .role-switch-btn.active { background: #ffffff; color: var(--brand-primary); box-shadow: var(--shadow-sm); }
         
-        /* 📌 附件紅底紅字心法橫額 */
         .admin-red-summary-banner {
             background-color: #fef2f2;
             border: 2px solid #ef4444;
@@ -272,7 +271,7 @@
         <div class="brand-title-wrap">
             <span class="brand-logo-text" onclick="promptAdminLogin()" title="點擊輸入管理員密碼">🌱 AVA 增值式醫保系統</span>
             <span class="mini-quick-btn jump-btn" onclick="openJumpPopup()" title="直達流程模組">*</span>
-            <span class="system-badge" id="app-version-badge">v7.9.0</span>
+            <span class="system-badge" id="app-version-badge">v8.0.0</span>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
             <button class="mini-pink-btn" onclick="handleShare()" title="建立分享連結">📤 分享報告</button>
@@ -286,10 +285,10 @@
     
     <div class="workspace-layout">
         <main>
-            <!-- 1. 區域 A：計算前動態引導頁面 -->
+            <!-- 1. 區域 A：引導題目容器 -->
             <div id="dynamic-flow-pre-container"></div>
             
-            <!-- 2. 步驟 7 頁：總醫療保費試算頁 -->
+            <!-- 2. 圖 1：退休醫療總保費試算頁 -->
             <div class="step-page" id="step-total-med-calc">
                 <div class="content-card">
                     <h2 class="question-title" id="disp-calc7-title">🏥 退休醫療總保費試算：不能忽略的剛性支出</h2>
@@ -328,7 +327,41 @@
                         </div>
                     </div>
                     
-                    <div class="top-input-grid">
+                    <!-- 頂部精簡：退休歲數與預期歲數 -->
+                    <div class="top-input-grid" style="grid-template-columns: 1fr 1fr;">
+                        <div class="input-group">
+                            <label id="lbl-retire-age-calc1">退休歲數 (轉換期)</label>
+                            <input type="number" id="med-retire-age-calc1" value="65">
+                        </div>
+                        <div class="input-group">
+                            <label id="lbl-max-age-calc1">預期到歲數 (增值期)</label>
+                            <input type="number" id="med-max-age-calc1" value="90">
+                        </div>
+                    </div>
+                    
+                    <div class="duel-summary-banner">
+                        <div class="big-value" id="med-total-premium">$0</div>
+                        <div class="big-label" id="med-total-prem-label">退休至預期歲數 · 醫保總保費</div>
+                    </div>
+                    
+                    <div class="action-row">
+                        <button class="nav-btn prev" onclick="handleCalc7Prev()">← 上一步</button>
+                        <button class="nav-btn next" onclick="handleCalc7Next()">進入儲水池架構說明 →</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 3. 圖 2 / 圖 3：區域 B 專屬過渡頁面（內嵌三步圖解） -->
+            <div id="dynamic-flow-post7-container"></div>
+            
+            <!-- 4. 圖 5：增長式醫保主計算表 -->
+            <div class="step-page" id="step-core-calc">
+                <div class="content-card">
+                    <h2 class="question-title">🌱 增值式醫保金庫與資產滾存</h2>
+                    <p class="question-hint">以分段累積資產自動對沖醫療保費：</p>
+                    
+                    <!-- 帶入圖 6 的開始歲數、儲備年期、動態連結退休及預期歲數 -->
+                    <div class="top-input-grid" style="background:#f8fafc; padding:12px; border-radius:12px; border:1px solid var(--border-light); margin-bottom:1.2rem;">
                         <div class="input-group">
                             <label id="lbl-start-age">開始歲數</label>
                             <input type="number" id="med-start-age" value="30">
@@ -343,55 +376,18 @@
                             </select>
                         </div>
                         <div class="input-group">
-                            <label id="lbl-retire-age">退休歲數 (轉換期)</label>
-                            <input type="number" id="med-retire-age" value="65">
+                            <label id="lbl-retire-age-calc2">退休歲數 (轉換期)</label>
+                            <input type="number" id="med-retire-age-calc2" value="65">
                         </div>
                         <div class="input-group">
-                            <label id="lbl-max-age">預期到歲數 (增值期)</label>
-                            <input type="number" id="med-max-age" value="70">
+                            <label id="lbl-max-age-calc2">預期到歲數 (增值期)</label>
+                            <input type="number" id="med-max-age-calc2" value="90">
                         </div>
                     </div>
-                    
-                    <div class="duel-summary-banner">
-                        <div class="big-value" id="med-total-premium">$0</div>
-                        <div class="big-label" id="med-total-prem-label">退休至預期歲數 · 醫保總保費</div>
-                    </div>
-                    <!-- 資源池三步圖解 -->
-                    <div class="pool-visual-container">
-                        <div class="pool-visual-step">
-                            <div class="pool-visual-icon" id="disp-p1-icon">☕</div>
-                            <div class="pool-visual-title" id="disp-p1-title">1. 💰 用工作收入分段建立</div>
-                            <div class="pool-visual-desc" id="disp-p1-desc">旅行、享受、家庭開銷照舊進行，完全不犧牲生活品質。</div>
-                        </div>
-                        <div class="pool-visual-step highlight">
-                            <div class="pool-visual-icon" id="disp-p2-icon">⏳</div>
-                            <div class="pool-visual-title" id="disp-p2-title">2. 🌱 資產逐步累積</div>
-                            <div class="pool-visual-desc" id="disp-p2-desc">每月只需撥出微少份額，只需 5 年，就自動完成資產水庫建造。</div>
-                        </div>
-                        <div class="pool-visual-step">
-                            <div class="pool-visual-icon" id="disp-p3-icon">🚿</div>
-                            <div class="pool-visual-title" id="disp-p3-title">3. 🏥 支付醫療保費</div>
-                            <div class="pool-visual-desc" id="disp-p3-desc">停止投入後，水庫交由時間滾存，隨時可開水龍頭提取源源長糧。</div>
-                        </div>
-                    </div>
-                    
-                    <div class="action-row">
-                        <button class="nav-btn prev" onclick="handleCalc7Prev()">← 上一步</button>
-                        <button class="nav-btn next" onclick="handleCalc7Next()">進入增值式醫保主計算表 →</button>
-                    </div>
-                </div>
-            </div>
-            <!-- 3. 區域 B：過渡容器 -->
-            <div id="dynamic-flow-post7-container"></div>
-            <!-- 4. 固定核心頁面：增長式醫保主計算表 -->
-            <div class="step-page" id="step-core-calc">
-                <div class="content-card">
-                    <h2 class="question-title">🌱 增值式醫保金庫與資產滾存</h2>
-                    <p class="question-hint">以分段累積資產自動對沖醫療保費：</p>
                     
                     <div style="margin-bottom: 1.2rem;">
                         <div class="calc-jar-card" id="group-med-plan1" style="border-top: 3px solid var(--plan1-color);">
-                            <h4 style="color:var(--plan1-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-1">🌱 儲備金庫一 + 醫療保費 (第 1 - 5 年)</h4>
+                            <h4 style="color:var(--plan1-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-1">🌱 儲備金庫一 + 建立水庫</h4>
                             <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;" id="disp-tree-desc-1">種下一粒小種子</p>
                             <div class="calc-grid-5yr">
                                 <div class="calc-input-group"><label>第1年 (<span class="med-age-y1">30</span>歲)</label><input type="text" id="med-plan1-contribution" value="40,000"><div class="med-prem-subbox">保費: $<span id="med-prem-y1">0</span></div></div>
@@ -405,7 +401,7 @@
                         
                         <div id="group-med-plan2" style="display:none;">
                             <div class="calc-jar-card" style="border-top: 3px solid var(--plan2-color);">
-                                <h4 style="color:var(--plan2-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-2">💧 儲備金庫二 + 醫療保費 (第 6 - 10 年)</h4>
+                                <h4 style="color:var(--plan2-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-2">💧 儲備金庫二 + 擴建水庫</h4>
                                 <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;" id="disp-tree-desc-2">定期灌溉累積根基</p>
                                 <div class="calc-grid-5yr">
                                     <div class="calc-input-group"><label>第6年 (<span class="med-age-y6">35</span>歲)</label><input type="text" id="med-plan2-contribution" value="50,000"><div class="med-prem-subbox">保費: $<span id="med-prem-y6">0</span></div></div>
@@ -419,7 +415,7 @@
                         </div>
                         <div id="group-med-plan3" style="display:none;">
                             <div class="calc-jar-card" style="border-top: 3px solid var(--plan3-color);">
-                                <h4 style="color:var(--plan3-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-3">🌿 儲備金庫三 + 醫療保費 (第 11 - 15 年)</h4>
+                                <h4 style="color:var(--plan3-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-3">🌿 儲備金庫三 + 水庫儲備倍增</h4>
                                 <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;" id="disp-tree-desc-3">水庫儲備倍增</p>
                                 <div class="calc-grid-5yr">
                                     <div class="calc-input-group"><label>第11年 (<span class="med-age-y11">40</span>歲)</label><input type="text" id="med-plan3-contribution" value="60,000"><div class="med-prem-subbox">保費: $<span id="med-prem-y11">0</span></div></div>
@@ -433,7 +429,7 @@
                         </div>
                         <div id="group-med-plan4" style="display:none;">
                             <div class="calc-jar-card" style="border-top: 3px solid var(--plan4-color);">
-                                <h4 style="color:var(--plan4-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-4">🌳 儲備金庫四 + 醫療保費 (第 16 - 20 年)</h4>
+                                <h4 style="color:var(--plan4-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-4">🌳 儲備金庫四 + 變成大水庫</h4>
                                 <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;" id="disp-tree-desc-4">大樹長成，產出源源長糧</p>
                                 <div class="calc-grid-5yr">
                                     <div class="calc-input-group"><label>第16年 (<span class="med-age-y16">45</span>歲)</label><input type="text" id="med-plan4-contribution" value="70,000"><div class="med-prem-subbox">保費: $<span id="med-prem-y16">0</span></div></div>
@@ -467,15 +463,17 @@
                     </div>
                 </div>
             </div>
+            
             <!-- 5. 區域 C：藍圖前過渡容器 -->
             <div id="dynamic-flow-postcalc-container"></div>
-            <!-- 6. 固定核心產出：生活藍圖筆記 -->
+            
+            <!-- 6. 圖 4：你的專款專用醫療自動管理 -->
             <div class="step-page" id="step-blueprint">
                 <div class="content-card">
-                    <h2 class="question-title" style="margin-bottom:16px;">🌱 你的專屬生活藍圖筆記</h2>
+                    <h2 class="question-title" style="margin-bottom:16px;">🌱 你的專款專用醫療自動管理</h2>
                     <div class="blueprint-dual-grid">
                         <div class="blueprint-left-box">
-                            <h4 style="font-size:1.05rem; font-weight:800; margin-bottom:12px; color:#fff; border-bottom:1px solid rgba(255,255,255,0.15); padding-bottom:6px;">📋 你的生活初衷與評估共識</h4>
+                            <h4 style="font-size:1.05rem; font-weight:800; margin-bottom:12px; color:#fff; border-bottom:1px solid rgba(255,255,255,0.15); padding-bottom:6px;">📋 你的醫療初衷與替代方案</h4>
                             <div id="blueprint-dynamic-answers"></div>
                         </div>
                         <div class="blueprint-right-box">
@@ -494,7 +492,8 @@
                     </div>
                 </div>
             </div>
-            <!-- 7. 固定核心產出：保費優惠計算頁 -->
+            
+            <!-- 7. 保費優惠計算頁 -->
             <div class="step-page" id="page-promo">
                 <div class="content-card">
                     <h2 class="question-title">🎁 專屬保費優惠計算</h2>
@@ -599,7 +598,6 @@
             <div class="admin-body">
                 <!-- 頁面流程管理 -->
                 <div id="admin-sec-flow" class="admin-tab-content">
-                    <!-- 📌 需求 3：紅底紅字心法橫額 -->
                     <div class="admin-red-summary-banner">
                         <strong>🔥 最後濃縮成你真正可以記住嘅流程：</strong><br>
                         1-3 點了解客人，4-6 點睇見未來，7-8 點勾起好奇/啟發及轉場，9-11 產品概念到運作，運作到具體化，12-14 重新連結及決定。<br><br>
@@ -608,15 +606,14 @@
                         1️⃣1️⃣ 數字 → 證明效果 &nbsp;|&nbsp; 1️⃣2️⃣ 重新連返佢嘅目標 &nbsp;|&nbsp; 1️⃣3️⃣ 一齊判斷適唔適合 &nbsp;|&nbsp; 1️⃣4️⃣ 客人自己決定
                     </div>
 
-                    <!-- 📌 需求 2：徹底移走殘留英文字 -->
                     <div class="admin-flow-notice">
                         <strong>📌 完整流向與固定核心頁規則：</strong><br>
                         1. <strong>🅰️ 區域 A</strong>：引導題 1 至 N，最後一題自動進入「📌 固定核心頁 1」。<br>
-                        2. <strong>📌 固定核心頁 1</strong>：總醫療保費試算 & 資源池三步圖解（可在下方直接自訂文字）。<br>
-                        3. <strong>🅱️ 區域 B</strong>：中段過渡題，<strong>若 0 題則直接進入主計算表</strong>。<br>
-                        4. <strong>📌 固定核心頁 2</strong>：增值式醫保金庫與資產滾存主計算表。<br>
-                        5. <strong>🅲 區域 C</strong>：藍圖前評估題，<strong>若 0 題則直接進入人生藍圖</strong>。<br>
-                        6. <strong>📌 固定核心頁 3</strong>：專屬生活藍圖筆記 ➔ 專屬保費優惠計算。
+                        2. <strong>📌 固定核心頁 1</strong>：退休醫療總保費試算（展示終身剛性支出）。<br>
+                        3. <strong>🅱️ 區域 B</strong>：專款專用儲水池架構說明 & 三步圖解，直達主計算表。<br>
+                        4. <strong>📌 固定核心頁 2</strong>：增值式醫保主計算表（歲數自訂、金庫投入、逐年詳細滾存試算）。<br>
+                        5. <strong>🅲 區域 C</strong>：評估與確認題，直達專款專用醫療自動管理。<br>
+                        6. <strong>📌 固定核心頁 3</strong>：你的專款專用醫療自動管理 ➔ 專屬保費優惠計算。
                     </div>
                     
                     <div class="flow-section-header">
@@ -625,9 +622,8 @@
                     </div>
                     <div id="admin-cards-zone-a"></div>
                     
-                    <!-- 固定核心頁 1 卡片 -->
                     <div class="flow-section-header" style="border-left-color: #f59e0b; margin-top: 24px;">
-                        <span>📌 固定核心頁 1：總醫療保費試算 & 資源池三步圖解</span>
+                        <span>📌 固定核心頁 1：總醫療保費試算</span>
                         <span class="core-locked-badge">系統固定核心</span>
                     </div>
                     <div class="admin-card-row" style="border: 1.5px solid #fde68a; background: #fffbeb;">
@@ -635,7 +631,17 @@
                         <input type="text" id="cust-calc7-title-input" class="pink-edit-input" value="🏥 退休醫療總保費試算：不能忽略的剛性支出" oninput="updateCustomTimingText()">
                         <label style="font-size:0.75rem; font-weight:bold; color:#b45309; margin-top:6px; display:block;">總保費頁副標題：</label>
                         <input type="text" id="cust-calc7-sub-input" class="pink-edit-input" value="提早為未來鎖定終身醫療開支，以資產滾存對沖醫療通脹：" oninput="updateCustomTimingText()">
-                        
+                    </div>
+                    
+                    <div class="flow-section-header" style="border-left-color: #10b981; margin-top: 24px;">
+                        <span>🅱️ 區域 B：專款專用儲水池 & 三步圖解過渡題目</span>
+                        <button class="step-ctrl-btn" style="background:#f0fdf4; color:#166534;" onclick="addNewPageCard('zone_b')">+ 新增區域 B 題目</button>
+                    </div>
+                    <div id="admin-cards-zone-b"></div>
+                    
+                    <!-- 區域 B 三步圖解設定 -->
+                    <div class="admin-card-row" style="border: 1.5px solid #a7f3d0; background: #f0fdf4;">
+                        <label style="font-weight:bold; color:#047857; font-size:0.85rem;">💧 區域 B 內嵌三步圖解文字設定：</label>
                         <div style="margin-top:10px; display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
                             <div style="background:#fff; padding:8px; border-radius:6px; border:1px solid #fed7aa;">
                                 <label style="font-size:0.72rem; font-weight:bold; color:#ea580c;">步驟 1 標題：</label>
@@ -657,42 +663,35 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flow-section-header" style="border-left-color: #10b981; margin-top: 24px;">
-                        <span>🅱️ 區域 B：過渡題目（總醫療保費頁 ➔ 增長式醫保主計算前，可留空）</span>
-                        <button class="step-ctrl-btn" style="background:#f0fdf4; color:#166534;" onclick="addNewPageCard('zone_b')">+ 新增區域 B 題目</button>
-                    </div>
-                    <div id="admin-cards-zone-b"></div>
-                    
-                    <!-- 固定核心頁 2 卡片 -->
+
                     <div class="flow-section-header" style="border-left-color: var(--plan1-color); margin-top: 24px;">
                         <span>📌 固定核心頁 2：增值式醫保主計算表</span>
                         <span class="core-locked-badge">系統固定核心</span>
                     </div>
                     <div class="admin-card-row" style="border: 1.5px solid #bfdbfe; background: #eff6ff; font-size: 0.85rem; color: #1e40af;">
-                        💡 <strong>主計算表說明</strong>：包含醫保金庫 1 至 4 供款輸入、被動收入提取、實際自付醫療保費及增值醫保餘額試算。<br>
+                        💡 <strong>主計算表說明</strong>：包含開始歲數、儲備年期、退休與預期歲數動態試算、醫保金庫 1 至 4 供款輸入、自動支付及餘額滾存。<br>
                         （相關欄位文字與標籤設定，請切換至「增值式醫保文字」分頁進行自訂）
                     </div>
+
                     <div class="flow-section-header" style="border-left-color: var(--state-purple); margin-top: 24px;">
-                        <span>🅲 區域 C：評估題目（增長式醫保主計算 ➔ 人生藍圖前，可留空）</span>
+                        <span>🅲 區域 C：評估題目（主計算表 ➔ 醫療自動管理前）</span>
                         <button class="step-ctrl-btn" style="background:#fdf4ff; color:#7e22ce;" onclick="addNewPageCard('zone_c')">+ 新增區域 C 題目</button>
                     </div>
                     <div id="admin-cards-zone-c"></div>
-                    
-                    <!-- 固定核心頁 3 卡片 -->
+
                     <div class="flow-section-header" style="border-left-color: var(--state-success); margin-top: 24px;">
-                        <span>📌 固定核心頁 3：專屬生活藍圖筆記 ➔ 保費優惠計算</span>
+                        <span>📌 固定核心頁 3：你的專款專用醫療自動管理 ➔ 保費優惠計算</span>
                         <span class="core-locked-badge">系統固定核心</span>
                     </div>
                     <div class="admin-card-row" style="border: 1.5px solid #bbf7d0; background: #f0fdf4; font-size: 0.85rem; color: #166534;">
-                        💡 <strong>藍圖筆記與優惠說明</strong>：系統將自動抓取客人所有引導選擇，並輸出增值式醫保水庫替代方案總結與專屬保費優惠試算。<br>
-                        （相關圖片及重點總結，請切換至「人生藍圖設定」分頁進行自訂）
+                        💡 <strong>醫療自動管理與優惠說明</strong>：系統將自動匯整客人引導共識，展示替代方案總結與優惠試算。
                     </div>
                 </div>
                 
                 <!-- 增值式醫保文字 -->
                 <div id="admin-sec-timing" class="admin-tab-content" style="display:none;">
                     <div class="admin-card-row">
-                        <h4 style="margin-top:0; color:var(--brand-primary); margin-bottom:12px;">📊 增值式醫保 - 表格標題自訂 (對應 Google Sheet 累積表文字設定)</h4>
+                        <h4 style="margin-top:0; color:var(--brand-primary); margin-bottom:12px;">📊 增值式醫保 - 表格標題自訂</h4>
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
                             <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">th_year：</label><input type="text" id="cust-col-1" class="pink-edit-input" value="年份 (歲數)" oninput="updateCustomTimingText()"></div>
                             <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">th_reserve：</label><input type="text" id="cust-col-2" class="pink-edit-input" value="累計儲備" oninput="updateCustomTimingText()"></div>
@@ -704,21 +703,21 @@
                     </div>
                     
                     <div class="admin-card-row">
-                        <h4 style="margin-top:0; color:var(--brand-primary); margin-bottom:12px;">🏷️ 頂部輸入區標籤自訂</h4>
+                        <h4 style="margin-top:0; color:var(--brand-primary); margin-bottom:12px;">🏷️ 主計算表頂部標籤自訂</h4>
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
                             <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">開始歲數標籤：</label><input type="text" id="cust-lbl-start" class="pink-edit-input" value="開始歲數" oninput="updateCustomTimingText()"></div>
                             <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">儲備年期標籤：</label><input type="text" id="cust-lbl-term" class="pink-edit-input" value="儲備年期 (年)" oninput="updateCustomTimingText()"></div>
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">轉換期標籤：</label><input type="text" id="cust-lbl-retire" class="pink-edit-input" value="轉換期 (歲數)" oninput="updateCustomTimingText()"></div>
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">增值期標籤：</label><input type="text" id="cust-lbl-max" class="pink-edit-input" value="增值期 (歲數)" oninput="updateCustomTimingText()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">轉換期標籤：</label><input type="text" id="cust-lbl-retire" class="pink-edit-input" value="退休歲數 (轉換期)" oninput="updateCustomTimingText()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">增值期標籤：</label><input type="text" id="cust-lbl-max" class="pink-edit-input" value="預期到歲數 (增值期)" oninput="updateCustomTimingText()"></div>
                         </div>
                     </div>
                     <div class="admin-card-row">
                         <h4 style="margin-top:0; color:var(--brand-primary); margin-bottom:12px;">🔽 下拉選單年期文字自訂</h4>
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">5年選項文字：</label><input type="text" id="cust-opt-term-5" class="pink-edit-input" value="5 年 (預備)" oninput="updateCustomTimingText()"></div>
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">10年選項文字：</label><input type="text" id="cust-opt-term-10" class="pink-edit-input" value="10 年 (累積)" oninput="updateCustomTimingText()"></div>
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">15年選項文字：</label><input type="text" id="cust-opt-term-15" class="pink-edit-input" value="15 年 (複息顯現)" oninput="updateCustomTimingText()"></div>
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">20年選項文字：</label><input type="text" id="cust-opt-term-20" class="pink-edit-input" value="20 年 (進入收成)" oninput="updateCustomTimingText()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">5年選項文字：</label><input type="text" id="cust-opt-term-5" class="pink-edit-input" value="5 年 (基礎)" oninput="updateCustomTimingText()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">10年選項文字：</label><input type="text" id="cust-opt-term-10" class="pink-edit-input" value="10 年 (雙重儲備)" oninput="updateCustomTimingText()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">15年選項文字：</label><input type="text" id="cust-opt-term-15" class="pink-edit-input" value="15 年 (高階)" oninput="updateCustomTimingText()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">20年選項文字：</label><input type="text" id="cust-opt-term-20" class="pink-edit-input" value="20 年 (頂級防護)" oninput="updateCustomTimingText()"></div>
                         </div>
                     </div>
                     <div class="admin-card-row">
@@ -748,7 +747,7 @@
                 <!-- 人生藍圖設定 -->
                 <div id="admin-sec-blueprint" class="admin-tab-content" style="display:none;">
                     <div class="admin-card-row">
-                        <h4 style="margin-top:0; color:var(--brand-primary);">🖼️ 藍圖圖片與替代方案總結</h4>
+                        <h4 style="margin-top:0; color:var(--brand-primary);">🖼️ 替代方案圖片與總結</h4>
                         <div style="margin:14px 0; display:flex; gap:10px;">
                             <button class="nav-btn next" style="padding:8px 16px; width:auto;" onclick="triggerBlueprintImageUpload()">📤 選擇並上載新圖片</button>
                             <button class="del-opt-btn" style="padding:8px 16px;" onclick="deleteBlueprintImage()">🗑️ 刪除自訂圖片 (還原預設)</button>
@@ -764,7 +763,7 @@
                 <!-- 分頁命名與對應代碼 -->
                 <div id="admin-sec-mapping" class="admin-tab-content" style="display:none;">
                     <div class="admin-card-row">
-                        <h4 style="margin-top:0; color:var(--brand-primary); margin-bottom:12px;">📑 分頁命名與對應代碼 (Google Sheet Mapping)</h4>
+                        <h4 style="margin-top:0; color:var(--brand-primary); margin-bottom:12px;">📑 分頁命名與對應代碼</h4>
                         <div id="admin-sheet-mapping-table-zone"></div>
                     </div>
                 </div>
@@ -776,7 +775,7 @@
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">admin_password (管理員密碼)：</label>
                         <input type="text" id="admin-password-input" class="pink-edit-input" value="903" oninput="currentAdminPassword = this.value">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">system_version (系統版本號)：</label>
-                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v7.9.0" oninput="updateSystemVersion(this.value)">
+                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v8.0.0" oninput="updateSystemVersion(this.value)">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">專屬 GAS API 網址：</label>
                         <input type="text" id="admin-gas-url-input" class="pink-edit-input" value="https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec">
                     </div>
@@ -789,10 +788,8 @@
             <div style="background:#ffffff; padding:12px 20px; border-top:1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
                 <button class="nav-btn prev" style="width:auto; padding:8px 16px;" onclick="closeAdminDashboard()">關閉</button>
                 <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                    <!-- 📌 需求 1：匯出/匯入設定 -->
                     <button class="nav-btn prev" id="btn-export-settings" style="width:auto; padding:8px 14px; background:#f0f9ff; border-color:#bae6fd; color:#0284c7;" onclick="exportCurrentSettings()">📤 匯出設定</button>
                     <button class="nav-btn prev" id="btn-import-settings" style="width:auto; padding:8px 14px; background:#fefce8; border-color:#fef08a; color:#a16207;" onclick="triggerImportSettings()">📥 匯入設定</button>
-                    
                     <button class="nav-btn prev" id="btn-save-local" style="width:auto; padding:8px 16px; background:#f0fdf4; border-color:#86efac; color:#166534;" onclick="saveToLocalStorageOnly()">💾 保存至本機</button>
                     <button class="nav-btn next" id="btn-sync-gsheet" style="width:auto; padding:8px 20px; display:none;" onclick="syncAllToGoogleSheet()">☁️ 同步至 Google Sheet</button>
                 </div>
@@ -809,7 +806,7 @@
                 <div class="popup-menu-item" onclick="jumpDirectStep('zone_a-0')">📍 直達 區域 A 第 1 步引導</div>
                 <div class="popup-menu-item" onclick="jumpDirectStep('step-total-med-calc')">🏥 直達 總醫療保費試算頁</div>
                 <div class="popup-menu-item" onclick="jumpDirectStep('step-core-calc')">🌱 直達 增值式醫保主計算表</div>
-                <div class="popup-menu-item" onclick="jumpDirectStep('step-blueprint')">📋 直達 專屬生活藍圖筆記</div>
+                <div class="popup-menu-item" onclick="jumpDirectStep('step-blueprint')">📋 直達 醫療自動管理</div>
                 <div class="popup-menu-item" onclick="jumpDirectStep('page-promo')">🎁 直達 專屬保費優惠計算</div>
             </div>
         </div>
@@ -817,7 +814,7 @@
 
     <script>
         const answers = {};
-        let currentSystemVersion = "v7.9.0";
+        let currentSystemVersion = "v8.0.0";
         let currentAdminPassword = "903";
         let GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec';
         const RETURNS_EXCEL_URL = 'https://docs.google.com/spreadsheets/d/1-kawg3ew7CF05g-Dc3cwu1yYROWa73fhWlunv5TYF6E/export?format=xlsx';
@@ -841,8 +838,8 @@
         
         let customTimingText = {
             col1: "年份 (歲數)", col2: "累計儲備", col3: "自動支付醫保", col4: "該年醫保保費", col_actual: "醫療保費差額", col5: "增值醫保餘額",
-            lbl_start: "開始歲數", lbl_term: "儲備年期 (年)", lbl_retire: "轉換期 (歲數)", lbl_max: "增值期 (歲數)",
-            opt_term_5: "5 年 (預備)", opt_term_10: "10 年 (累積)", opt_term_15: "15 年 (複息顯現)", opt_term_20: "20 年 (進入收成)",
+            lbl_start: "開始歲數", lbl_term: "儲備年期 (年)", lbl_retire: "退休歲數 (轉換期)", lbl_max: "預期到歲數 (增值期)",
+            opt_term_5: "5 年 (基礎)", opt_term_10: "10 年 (雙重儲備)", opt_term_15: "15 年 (高階)", opt_term_20: "20 年 (頂級防護)",
             tree1: "🌱 儲備金庫一 + 建立水庫", tree_desc1: "種下一粒小種子",
             tree2: "💧 儲備金庫二 + 擴建水庫", tree_desc2: "定期灌溉累積根基",
             tree3: "🌿 儲備金庫三 + 水庫儲備倍增", tree_desc3: "水庫儲備倍增",
@@ -857,25 +854,30 @@
         
         let allScenarioDatabase = {
             zone_a: [
-                { id: "za_0", title: "「如果講番你而家的醫療保障，你覺得自己最重視邊方面？」", subtitle: "探索你目前最真實的保障關注點：", image_url: "", options: [
+                { id: "za_0", title: "「如果講番你而家的醫療保障，你覺得自己最重視會係邊方面？」", subtitle: "探索你目前最真實的保障關注點：", image_url: "", options: [
                     { headline: "🛡️ 想有一份可以保終身的保障", subtext: "不想年紀大或退休後無依無靠。" },
                     { headline: "☕ 保持生活質素，遇到變化不被動", subtext: "遇到突發醫療開銷時，不影響原有生活水準。" },
                     { headline: "🌱 費用清晰透明，不吃力", subtext: "希望開支在預算之內，輕鬆負擔。" }
                 ]},
-                { id: "za_1", title: "「如果退休後仍然想保留醫療保障，你覺得保費應該由邊度嚟？」", subtitle: "長遠剛性支出的資金來源考量：", image_url: "", options: [
-                    { headline: "🌊 工作收入減少或停止，想保留但擔心保費由邊度嚟？", subtext: "退休後沒有收入，醫療通脹卻持續上升。" },
-                    { headline: "💡 如果可以由被動資產自動支付，最理想", subtext: "建立自動化水庫，退休後全由水庫收益支付。" }
+                { id: "za_1", title: "「你而家呢份醫療保障，你最希望佢幫你保障到幾時？」", subtitle: "長遠剛性支出的時間維度：", image_url: "", options: [
+                    { headline: "💼 工作期間有就可以", subtext: "由公司或現有基本保單覆蓋。" },
+                    { headline: "🛡️ 保障到終老 (終身保障)", subtext: "年紀大時醫療剛需最強，必須有保障。" }
                 ]},
-                { id: "za_2", title: "「同一直筆將來可能需要嘅支出，你比較傾向點樣處理？」", subtitle: "提早鎖定成本與隨年齡倍增的分別：", image_url: "", options: [
-                    { headline: "🌱 分段小額入庫，提早做好規劃", subtext: "趁有能力時分 5 年搞掂，鎖定終身醫療水庫。" },
-                    { headline: "⏳ 順其自然，但想了解點樣做到無痛建立", subtext: "想先睇睇背後的運作機制與實際數字。" }
+                { id: "za_2", title: "「如果退休後仍然想保留醫療保障，你覺得保費應該由邊度嚟？」", subtitle: "退休後沒有工作收入時的對策：", image_url: "", options: [
+                    { headline: "🌊 退休生活費", subtext: "擔心醫療通脹蚕食原本的退休老本。" },
+                    { headline: "💡 由自動化水庫/被動收入支付", subtext: "建立專款專用水庫，自動支付醫療開支。" }
                 ]}
             ],
-            zone_b: [],
+            zone_b: [
+                { id: "zb_0", title: "💧 專款專用儲水池：小金額如何創造大效果？", subtitle: "係有收入期間，每年預留少少，交畀時間，就能為自己創造退休后持續保障：", image_url: "", options: [
+                    { headline: "🌱 趁有能力時分 5 年完成建立", subtext: "鎖定終身醫療水庫，不用擔心老年保費。" },
+                    { headline: "💡 想了解背後的運作機制與詳細數字", subtext: "直接進入主計算表進行試算。" }
+                ]}
+            ],
             zone_c: [
                 { id: "zc_0", title: "「睇完剛才的運作原理與數字，你覺得呢種分段建立的方法適唔適合自己？」", subtitle: "以你目前的步調，探索最自在的配合方式：", image_url: "", options: [
                     { headline: "🟢 我覺得概念好舒服，可以認真考慮", subtext: "認同分段投入與被動收入提取的架構。" },
-                    { headline: "💡 想再了解更多細節或調整供款額", subtext: "希望因應自己的預算微調方案。" }
+                    { headline: "💡 想再微調預算與細節", subtext: "因應自己的實際情況調整方案。" }
                 ]}
             ]
         };
@@ -900,22 +902,17 @@
             if (input) input.value = text;
         }
 
+        // 渲染動態引導題與內嵌三步圖解
         function renderFrontendDynamicFlow() {
             renderDynamicContainer('zone_a', document.getElementById('dynamic-flow-pre-container'), 'step-total-med-calc', '進入總醫療保費試算 →');
-            renderDynamicContainer('zone_b', document.getElementById('dynamic-flow-post7-container'), 'step-core-calc', '進入增值式醫保主計算表 →');
+            renderDynamicContainer('zone_b', document.getElementById('dynamic-flow-post7-container'), 'step-core-calc', '進入增值式醫保主計算表 →', true);
             renderDynamicContainer('zone_c', document.getElementById('dynamic-flow-postcalc-container'), 'step-blueprint', '✨ 查看專屬生活藍圖筆記 →');
             
             document.getElementById('disp-calc7-title').textContent = customTimingText.calc7_title || "🏥 退休醫療總保費試算：不能忽略的剛性支出";
             document.getElementById('disp-calc7-sub').textContent = customTimingText.calc7_sub || "提早為未來鎖定終身醫療開支，以資產滾存對沖醫療通脹：";
-            document.getElementById('disp-p1-title').textContent = customTimingText.p1_title || "1. 💰 用工作收入分段建立";
-            document.getElementById('disp-p1-desc').textContent = customTimingText.p1_desc || "旅行、享受、家庭開銷照舊進行，完全不犧牲生活品質。";
-            document.getElementById('disp-p2-title').textContent = customTimingText.p2_title || "2. 🌱 資產逐步累積";
-            document.getElementById('disp-p2-desc').textContent = customTimingText.p2_desc || "每月只需撥出微少份額，只需 5 年，就自動完成資產水庫建造。";
-            document.getElementById('disp-p3-title').textContent = customTimingText.p3_title || "3. 🏥 支付醫療保費";
-            document.getElementById('disp-p3-desc').textContent = customTimingText.p3_desc || "停止投入後，水庫交由時間滾存，隨時可開水龍頭提取源源長糧。";
         }
 
-        function renderDynamicContainer(zoneKey, containerEl, finalTargetStep, finalNextText) {
+        function renderDynamicContainer(zoneKey, containerEl, finalTargetStep, finalNextText, isZoneB = false) {
             if (!containerEl) return;
             containerEl.innerHTML = '';
             const list = allScenarioDatabase[zoneKey] || [];
@@ -940,8 +937,9 @@
                 let optionsHtml = '';
                 if (card.options && card.options.length > 0) {
                     card.options.forEach(opt => {
+                        const isSelected = answers[`dyn_${zoneKey}_${idx}`] === opt.headline;
                         optionsHtml += `
-                            <div class="option-card-guided" onclick="selectDynamicOption('${zoneKey}', ${idx}, '${opt.headline.replace(/'/g, "\\'")}', this)">
+                            <div class="option-card-guided ${isSelected ? 'selected' : ''}" onclick="selectDynamicOption('${zoneKey}', ${idx}, '${opt.headline.replace(/'/g, "\\'")}', this)">
                                 <div class="option-content">
                                     <div class="option-headline">${opt.headline}</div>
                                     <div class="option-subtext">${opt.subtext || ''}</div>
@@ -952,6 +950,30 @@
                     });
                 }
                 
+                // 區域 B 內嵌三步圖解
+                let poolVisualHtml = '';
+                if (isZoneB) {
+                    poolVisualHtml = `
+                        <div class="pool-visual-container">
+                            <div class="pool-visual-step">
+                                <div class="pool-visual-icon">${customTimingText.p1_icon || '☕'}</div>
+                                <div class="pool-visual-title">${customTimingText.p1_title || '1. 💰 用工作收入分段建立'}</div>
+                                <div class="pool-visual-desc">${customTimingText.p1_desc || '旅行、享受、家庭開銷照舊進行，完全不犧牲生活品質。'}</div>
+                            </div>
+                            <div class="pool-visual-step highlight">
+                                <div class="pool-visual-icon">${customTimingText.p2_icon || '⏳'}</div>
+                                <div class="pool-visual-title">${customTimingText.p2_title || '2. 🌱 資產逐步累積'}</div>
+                                <div class="pool-visual-desc">${customTimingText.p2_desc || '每月只需撥出微少份額，只需 5 年，就自動完成資產水庫建造。'}</div>
+                            </div>
+                            <div class="pool-visual-step">
+                                <div class="pool-visual-icon">${customTimingText.p3_icon || '🚿'}</div>
+                                <div class="pool-visual-title">${customTimingText.p3_title || '3. 🏥 支付醫療保費'}</div>
+                                <div class="pool-visual-desc">${customTimingText.p3_desc || '停止投入後，水庫交由時間滾存，隨時可開水龍頭提取源源長糧。'}</div>
+                            </div>
+                        </div>
+                    `;
+                }
+
                 let imgHtml = card.image_url ? `<div class="page-bottom-img-zone"><img class="page-bottom-img" src="${card.image_url}" alt=""></div>` : '';
                 
                 pageEl.innerHTML = `
@@ -959,12 +981,13 @@
                         <div>
                             <h2 class="question-title">${card.title}</h2>
                             <p class="question-hint">${card.subtitle || ''}</p>
+                            ${poolVisualHtml}
                             <div class="options-group">${optionsHtml}</div>
                             ${imgHtml}
                         </div>
                         <div class="action-row">
                             ${(idx > 0 || zoneKey !== 'zone_a') ? `<button class="nav-btn prev" onclick="${prevAction}">← 上一步</button>` : ''}
-                            <button class="nav-btn next" id="btn-dyn-next-${zoneKey}-${idx}" disabled onclick="${nextAction}">${nextText}</button>
+                            <button class="nav-btn next" id="btn-dyn-next-${zoneKey}-${idx}" onclick="${nextAction}">${nextText}</button>
                         </div>
                     </div>
                 `;
@@ -979,9 +1002,6 @@
             }
             if (domEl) domEl.classList.add('selected');
             answers[`dyn_${zone}_${cardIdx}`] = headline;
-            
-            const nextBtn = document.getElementById(`btn-dyn-next-${zone}-${cardIdx}`);
-            if (nextBtn) nextBtn.disabled = false;
         }
 
         function goToDynamicStep(zone, idx) {
@@ -1005,6 +1025,7 @@
             document.getElementById('progress-fill').style.width = `${Math.min(100, Math.round((currentNum / total) * 100))}%`;
             
             if (stepId === 'step-total-med-calc' || stepId === 'step-core-calc') calculateAndDisplay();
+            if (stepId === 'step-blueprint') generateBlueprint();
             if (stepId === 'page-promo') calculatePromo();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -1059,18 +1080,25 @@
             else goToStep('step-core-calc');
         }
 
+        // 📌 生成醫療初衷與替代方案筆記（自動抓取使用者共識）
         function generateBlueprint() {
             const listZone = document.getElementById('blueprint-dynamic-answers');
             listZone.innerHTML = '';
             let counter = 1;
+            
             ['zone_a', 'zone_b', 'zone_c'].forEach(zk => {
                 const list = allScenarioDatabase[zk] || [];
                 list.forEach((card, idx) => {
-                    const ans = answers[`dyn_${zk}_${idx}`] || "已確認共識";
+                    let ans = answers[`dyn_${zk}_${idx}`];
+                    if (!ans && card.options && card.options.length > 0) {
+                        ans = card.options[0].headline; // 預設帶入第一項共識
+                    } else if (!ans) {
+                        ans = "已確認專款專用共識";
+                    }
                     listZone.innerHTML += `
-                        <div style="margin-bottom:12px;">
-                            <div style="font-size:0.75rem; color:#93c5fd;">${String(counter++).padStart(2, '0')}. ${card.title.substring(0, 18)}...</div>
-                            <div style="font-weight:bold; font-size:0.92rem; margin-top:2px;">${ans}</div>
+                        <div style="margin-bottom:12px; border-bottom:1px dashed rgba(255,255,255,0.15); padding-bottom:8px;">
+                            <div style="font-size:0.75rem; color:#93c5fd;">${String(counter++).padStart(2, '0')}. ${card.title.replace(/[「」]/g, '').substring(0, 20)}...</div>
+                            <div style="font-weight:bold; font-size:0.92rem; margin-top:2px; color:#ffffff;">${ans}</div>
                         </div>
                     `;
                 });
@@ -1097,12 +1125,6 @@
             
             document.getElementById('disp-calc7-title').textContent = customTimingText.calc7_title;
             document.getElementById('disp-calc7-sub').textContent = customTimingText.calc7_sub;
-            document.getElementById('disp-p1-title').textContent = customTimingText.p1_title;
-            document.getElementById('disp-p1-desc').textContent = customTimingText.p1_desc;
-            document.getElementById('disp-p2-title').textContent = customTimingText.p2_title;
-            document.getElementById('disp-p2-desc').textContent = customTimingText.p2_desc;
-            document.getElementById('disp-p3-title').textContent = customTimingText.p3_title;
-            document.getElementById('disp-p3-desc').textContent = customTimingText.p3_desc;
 
             customTimingText.col1 = document.getElementById('cust-col-1').value;
             customTimingText.col2 = document.getElementById('cust-col-2').value;
@@ -1155,7 +1177,7 @@
             const list = allScenarioDatabase[zoneKey] || [];
             
             if (list.length === 0) {
-                containerEl.innerHTML = `<div style="font-size:0.82rem; color:#94a3b8; padding:10px; background:#fff; border-radius:8px; text-align:center;">（目前無設定題目，前台流程將自動略過此過渡階段）</div>`;
+                containerEl.innerHTML = `<div style="font-size:0.82rem; color:#94a3b8; padding:10px; background:#fff; border-radius:8px; text-align:center;">（目前無設定題目）</div>`;
                 return;
             }
             
@@ -1319,7 +1341,6 @@
             document.getElementById('admin-blueprint-img-url').value = "";
         }
 
-        // 📌 需求 4：切換角色與記憶管理者身分
         function switchRole(toAdmin) {
             if (toAdmin && !isAdminRole) {
                 const pwd = prompt("請輸入管理員密碼以啟用管理者控制台：");
@@ -1456,7 +1477,6 @@
             else goToStep(target);
         }
         
-        // 📌 需求 1：保存至本機並鎖定 (方案 B)
         function saveToLocalStorageOnly() {
             localStorage.setItem('ava_med_scenario_db_v3', JSON.stringify(allScenarioDatabase));
             localStorage.setItem('ava_med_custom_timing', JSON.stringify(customTimingText));
@@ -1464,8 +1484,6 @@
             localStorage.setItem('ava_med_admin_password', currentAdminPassword);
             localStorage.setItem('ava_med_blueprint_summary', blueprintSummaryText);
             localStorage.setItem('ava_med_sheet_mapping', JSON.stringify(sheetMappingList));
-            
-            // 使用者自訂鎖定標記
             localStorage.setItem('ava_med_user_customized', 'true');
             
             renderFrontendDynamicFlow();
@@ -1473,7 +1491,6 @@
             closeAdminDashboard();
         }
 
-        // 📌 需求 1：匯出設定為 JSON 檔
         function exportCurrentSettings() {
             const dataToExport = {
                 system_version: currentSystemVersion,
@@ -1491,7 +1508,6 @@
             URL.revokeObjectURL(url);
         }
 
-        // 📌 需求 1：匯入設定 JSON 檔
         function triggerImportSettings() {
             const fileInput = document.getElementById('import-json-file-input');
             fileInput.onchange = (e) => {
@@ -1519,7 +1535,6 @@
             fileInput.click();
         }
 
-        // 📌 同步至 Google Sheet
         async function syncAllToGoogleSheet() {
             const loadingMask = document.getElementById('sync-loading-mask');
             document.getElementById('sync-loading-text').textContent = '正在同步至 Google Sheet，請稍候...';
@@ -1562,7 +1577,6 @@
             }
         }
 
-        // 📌 智慧兩段式讀取：兼顧秒開與使用者鎖定 (方案 B)
         async function fetchCloudDataFromGAS(forceFullSync = false) {
             const localVersion = localStorage.getItem('ava_med_system_version') || 'v0.0.0';
             const isUserCustomized = localStorage.getItem('ava_med_user_customized') === 'true';
@@ -1571,9 +1585,8 @@
                 if (!forceFullSync) {
                     const verRes = await fetch(`${GAS_API_URL}?action=check_version`);
                     const verJson = await verRes.json();
-                    
                     if (verJson && verJson.status === "success" && verJson.version === localVersion) {
-                        return; // 版本相同，直接維持本地秒開狀態
+                        return;
                     }
                 }
 
@@ -1589,8 +1602,6 @@
                         localStorage.setItem('ava_med_sheet_mapping', JSON.stringify(sheetMappingList));
                     }
 
-                    // 🛡️ 方案 B 核心鎖定邏輯：
-                    // 管理者強制以雲端為準；若使用者未曾自訂過，才拉取最新預設
                     if (isAdminRole || !isUserCustomized) {
                         if (json.scenario_db) {
                             allScenarioDatabase = json.scenario_db;
@@ -1676,11 +1687,12 @@
             return 0;
         }
 
+        // 📌 核心計算與逐年詳細展示邏輯
         window.calculateAndDisplay = function() {
             const startAge = parseInt(document.getElementById('med-start-age').value) || 30;
             const medInflationRate = (parseFloat(document.getElementById('med-inflation-rate-num').value) || 0) / 100;
-            const medRetireAge = parseInt(document.getElementById('med-retire-age').value) || 65;
-            const medMaxAgeInput = parseInt(document.getElementById('med-max-age').value) || 70;
+            const medRetireAge = parseInt(document.getElementById('med-retire-age-calc2').value) || 65;
+            const medMaxAgeInput = parseInt(document.getElementById('med-max-age-calc2').value) || 90;
             
             for(let i=1; i<=20; i++) {
                 document.querySelectorAll(`.med-age-y${i}`).forEach(el => el.textContent = startAge + i - 1);
@@ -1723,6 +1735,7 @@
             document.getElementById('med-plan3-5yr-total').textContent = formatNumber(p3Total + m3PremTotal);
             document.getElementById('med-plan4-5yr-total').textContent = formatNumber(p4Total + m4PremTotal);
             
+            // 計算總醫療保費試算
             let cardMedPremiumTotal = 0;
             for (let a = medRetireAge; a <= medMaxAgeInput; a++) {
                 let singlePrem = getPremiumForAge(a);
@@ -1741,10 +1754,26 @@
             ];
             
             let maxYear = Math.max(30, 100 - startAge + 1);
+            
+            // 🎯 表格顯示年份：退休年齡至預期歲數逐年詳細顯示，其後每 5 年顯示，最長至 100 歲
             const reportingYears = [];
-            for (let y = 8; y <= 25; y++) { if(y <= maxYear) reportingYears.push(y); }
-            for (let y = 30; y <= maxYear; y += 5) { if(y <= maxYear) reportingYears.push(y); }
-            if(!reportingYears.includes(maxYear)) reportingYears.push(maxYear);
+            const retireYearIndex = medRetireAge - startAge + 1;
+            const maxAgeYearIndex = medMaxAgeInput - startAge + 1;
+
+            // 基礎滾存觀察點
+            [8, 10, 15, 20].forEach(y => { if (y < retireYearIndex && y <= maxYear) reportingYears.push(y); });
+
+            // 退休至預期歲數：逐年詳細顯示
+            for (let y = Math.max(1, retireYearIndex); y <= maxAgeYearIndex && y <= maxYear; y++) {
+                if (!reportingYears.includes(y)) reportingYears.push(y);
+            }
+
+            // 預期歲數至 100 歲：每 5 年顯示
+            for (let y = maxAgeYearIndex + 5; y <= maxYear; y += 5) {
+                if (!reportingYears.includes(y)) reportingYears.push(y);
+            }
+            if (!reportingYears.includes(maxYear)) reportingYears.push(maxYear);
+            reportingYears.sort((a, b) => a - b);
             
             let headerHtml = `<tr><th>${customTimingText.col1}</th><th>${customTimingText.col2}</th>`;
             if (colVisibility.annuity) headerHtml += `<th style="color:var(--brand-accent); font-weight:800;">${customTimingText.col3}</th>`;
@@ -1910,8 +1939,8 @@
                 age: document.getElementById('med-start-age').value,
                 inflation: document.getElementById('med-inflation-rate-num').value,
                 term: document.getElementById('med-pay-term').value,
-                retire: document.getElementById('med-retire-age').value,
-                max: document.getElementById('med-max-age').value
+                retire: document.getElementById('med-retire-age-calc2').value,
+                max: document.getElementById('med-max-age-calc2').value
             };
             const base64Str = btoa(unescape(encodeURIComponent(JSON.stringify(currentData)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
             shareUrlGlobal = `${window.location.origin}${window.location.pathname}?data=${base64Str}`;
@@ -1925,7 +1954,7 @@
             if (shareModal) shareModal.style.display = 'flex';
         }
 
-        // 初始化
+        // 初始化與雙向連動綁定
         document.addEventListener('DOMContentLoaded', function() {
             const savedRole = localStorage.getItem('ava_med_is_admin');
             if (savedRole === 'true') isAdminRole = true;
@@ -1957,19 +1986,27 @@
             
             ['med-plan1', 'med-plan2', 'med-plan3', 'med-plan4'].forEach(setupJarAutoFill);
             
+            // 雙向動態連動：退休歲數 & 預期歲數
+            const retire1 = document.getElementById('med-retire-age-calc1');
+            const retire2 = document.getElementById('med-retire-age-calc2');
+            const max1 = document.getElementById('med-max-age-calc1');
+            const max2 = document.getElementById('med-max-age-calc2');
+
+            retire1.addEventListener('input', () => { retire2.value = retire1.value; calculateAndDisplay(); });
+            retire2.addEventListener('input', () => { retire1.value = retire2.value; calculateAndDisplay(); });
+            max1.addEventListener('input', () => { max2.value = max1.value; calculateAndDisplay(); });
+            max2.addEventListener('input', () => { max1.value = max2.value; calculateAndDisplay(); });
+
             document.getElementById('med-plan-select').addEventListener('change', applySelectedMedicalPlan);
             document.getElementById('med-pay-term').addEventListener('change', updateMedicalJarsByTerm);
             document.getElementById('med-inflation-rate-num').addEventListener('input', calculateAndDisplay);
             document.getElementById('med-start-age').addEventListener('input', calculateAndDisplay);
-            document.getElementById('med-retire-age').addEventListener('input', calculateAndDisplay);
-            document.getElementById('med-max-age').addEventListener('input', calculateAndDisplay);
             
             updateCustomTimingText();
             renderFrontendDynamicFlow();
             updateMedicalJarsByTerm();
             calculatePromo();
             
-            // 雲端背景檢查與拉取
             fetchCloudDataFromGAS(isAdminRole);
             
             Promise.all([fetchReturnRates(), fetchAllMedicalPremiums()]).then(() => {
