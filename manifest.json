@@ -1,7 +1,7 @@
 {
-  "name": "AVA 專屬醫療生活引導系統 · 增值式醫保",
+  "name": "AVA 增值式醫保專屬生活引導系統",
   "short_name": "增值式醫保",
-  "description": "AVA 增值式醫保精算與退休醫療生活規劃系統 v5.7.0",
+  "description": "AVA 增值式醫保專屬生活引導系統 v6.6.0",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f8fafc",
