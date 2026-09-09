@@ -3,16 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVA 增值式醫保專屬生活引導系統 v6.8.0</title>
-    <!-- PWA 與 Android 核心設定 -->
+    <title>AVA 增值式醫保專屬生活引導系統 v7.1.0</title>
+    <!-- PWA 與核心設定 -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e3a8a">
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="icon-512x512.png">
-    <!-- iOS / iPadOS Apple Touch Icon -->
     <link rel="apple-touch-icon" href="icon-192x192.png">
-    <link rel="apple-touch-icon" sizes="192x192" href="icon-192x192.png">
-    <link rel="apple-touch-icon" sizes="512x512" href="icon-512x512.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -91,10 +88,6 @@
         .brand-title-wrap { display: flex; align-items: center; gap: 8px; user-select: none; }
         .brand-logo-text { font-size: 1.02rem; font-weight: 800; color: var(--brand-primary); cursor: pointer; }
         .system-badge { background: #eff6ff; color: #1d4ed8; padding: 2px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
-        .role-indicator-badge { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: 800; }
-        .role-admin-badge { background: #fee2e2; color: #dc2626; }
-        .role-user-badge { background: #e0f2fe; color: #0284c7; }
-        
         .user-settings-btn { cursor: pointer; font-size: 1.25rem; transition: transform 0.2s; user-select: none; }
         .user-settings-btn:active { transform: scale(0.9); }
         .mini-quick-btn {
@@ -105,15 +98,11 @@
         .mini-quick-btn.jump-btn { color: var(--state-purple); }
         
         .progress-bar-container { width: 100%; height: 3px; background: #e2e8f0; position: sticky; top: 51px; z-index: 99; }
-        .progress-bar-fill { height: 100%; background: var(--brand-accent); width: 8%; transition: width 0.3s; }
+        .progress-bar-fill { height: 100%; background: var(--brand-accent); width: 10%; transition: width 0.3s; }
         
         .workspace-layout {
-            max-width: 1140px; width: 100%; margin: 24px auto; padding: 0 16px;
-            display: grid; grid-template-columns: 1fr 330px; gap: 24px; flex: 1;
-        }
-        @media (max-width: 900px) {
-            .workspace-layout { grid-template-columns: 1fr; }
-            .sidebar-summary-card { display: none; }
+            max-width: 960px; width: 100%; margin: 24px auto; padding: 0 16px;
+            display: block; flex: 1;
         }
         
         .step-page { display: none; }
@@ -143,19 +132,6 @@
         .page-bottom-img-zone { display: flex; justify-content: center; align-items: center; margin: 15px 0; }
         .page-bottom-img { max-width: 90%; max-height: 220px; object-fit: contain; border-radius: 12px; }
         
-        /* 資源池三步圖解 */
-        .pool-visual-container {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0 26px 0;
-        }
-        @media (max-width: 650px) { .pool-visual-container { grid-template-columns: 1fr; } }
-        .pool-visual-step {
-            background: #ffffff; border: 1.5px solid var(--border-light); border-radius: 14px; padding: 18px 14px; text-align: center;
-        }
-        .pool-visual-step.highlight { border-color: var(--brand-accent); background: #f0f7ff; }
-        .pool-visual-icon { font-size: 2.2rem; margin-bottom: 8px; }
-        .pool-visual-title { font-size: 0.95rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px; }
-        .pool-visual-desc { font-size: 0.82rem; color: var(--text-sub); line-height: 1.45; }
-        
         /* 增值式醫保主計算區 */
         .plan-selector-box { background: #f8fafc; border: 1.5px dashed var(--brand-accent); padding: 1.2rem; border-radius: 14px; margin-bottom: 1.5rem; }
         .top-input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
@@ -164,7 +140,6 @@
             width: 100%; padding: 8px 10px; border: var(--pink-dashed) !important; border-radius: 8px;
             font-size: 0.95rem; text-align: center; background: #fff !important; font-weight: 700;
         }
-        .input-group input.readonly { background-color: #f8fafc !important; border: 1px solid var(--border-light) !important; color: var(--text-muted); }
         
         .duel-summary-banner {
             background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
@@ -202,24 +177,17 @@
         table.clean-table th, table.clean-table td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--border-light); }
         table.clean-table th { font-weight: 600; color: var(--text-sub); background: #f8fafc; }
         
-        /* 藍圖頁與側邊欄 */
+        /* 藍圖頁樣式 */
         .blueprint-dual-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 18px; margin-bottom: 20px; }
         @media (max-width: 720px) { .blueprint-dual-grid { grid-template-columns: 1fr; } }
         .blueprint-left-box { background: linear-gradient(135deg, #1e3a8a, #0f172a); color: #fff; border-radius: 14px; padding: 22px; }
         .blueprint-right-box { background: #ffffff; border: 1.5px solid #bbf7d0; border-radius: 14px; padding: 18px; }
-        .sidebar-summary-card { background: #ffffff; border: 1px solid var(--border-light); border-radius: 18px; padding: 22px; height: fit-content; position: sticky; top: 80px; }
         
-        /* 保費回贈 50/50 對稱卡片 */
+        /* 保費回贈左右等寬 50/50 對稱卡片樣式 */
         .promo-split-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            align-items: stretch;
-            margin-top: 14px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; margin-top: 14px;
         }
-        @media (max-width: 820px) {
-            .promo-split-container { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 820px) { .promo-split-container { grid-template-columns: 1fr; } }
         .promo-left-col { display: flex; flex-direction: column; gap: 12px; }
         .promo-right-col { display: flex; flex-direction: column; }
         .promo-card { background: #fdfdfd; border: 1px solid var(--border-light); border-radius: 14px; padding: 1.2rem; }
@@ -231,8 +199,7 @@
         .promo-result-box {
             background: linear-gradient(135deg, #059669 0%, #10b981 100%);
             color: white; padding: 1.8rem 1.4rem; border-radius: 16px; text-align: center;
-            display: flex; flex-direction: column; justify-content: center; height: 100%;
-            box-shadow: var(--shadow-sm);
+            display: flex; flex-direction: column; justify-content: center; height: 100%; box-shadow: var(--shadow-sm);
         }
         .promo-result-box .big-savings { font-size: 2.5rem; font-weight: 900; margin: 12px 0; }
         
@@ -242,14 +209,14 @@
         .nav-btn.next { background: var(--brand-primary); color: #ffffff; }
         .nav-btn.next:disabled { opacity: 0.35; cursor: not-allowed; }
         
-        /* 彈窗與後台全能控制台 */
+        /* 彈窗與後台控制台 */
         .modal-mask { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 2000; align-items: center; justify-content: center; }
         .modal-box { background: #fff; padding: 24px; border-radius: 16px; max-width: 460px; width: 90%; position: relative; }
         .close-btn { position: absolute; top: 12px; right: 16px; font-size: 1.4rem; cursor: pointer; }
         
         .admin-dashboard-modal { background: #f8fafc; border-radius: 18px; width: 95%; max-width: 920px; height: 88vh; display: flex; flex-direction: column; overflow: hidden; }
         .admin-header { background: var(--brand-primary); color: #fff; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; font-weight: 800; }
-        .admin-nav { display: flex; gap: 8px; background: #ffffff; padding: 10px 20px; border-bottom: 1px solid #e2e8f0; overflow-x: auto; }
+        .admin-nav { display: flex; gap: 8px; background: #ffffff; padding: 10px 20px; border-bottom: 1px solid #e2e8f0; overflow-x: auto; align-items: center; }
         .admin-nav-btn { padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: 1px solid #cbd5e1; background: #f8fafc; white-space: nowrap; }
         .admin-nav-btn.active { background: var(--brand-primary); color: white; border-color: var(--brand-primary); }
         .admin-body { flex: 1; overflow-y: auto; padding: 20px; }
@@ -261,21 +228,30 @@
         .del-opt-btn { background: #fee2e2; color: #dc2626; border: none; border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 0.75rem; }
         .sync-loading-overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.9); z-index: 50; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; color: var(--brand-primary); }
         
-        .popup-menu-list { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 14px; }
-        .popup-menu-item { background: #f8fafc; border: 1px solid var(--border-light); border-radius: 10px; padding: 10px; font-size: 0.88rem; font-weight: bold; cursor: pointer; }
+        .role-switcher-container { display: inline-flex; background: #e2e8f0; padding: 3px; border-radius: 20px; margin-right: 12px; }
+        .role-switch-btn { border: none; padding: 4px 12px; border-radius: 16px; font-size: 0.8rem; font-weight: 700; cursor: pointer; background: transparent; color: var(--text-sub); transition: all 0.2s; }
+        .role-switch-btn.active { background: #ffffff; color: var(--brand-primary); box-shadow: var(--shadow-sm); }
+        
+        .admin-flow-notice {
+            background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; font-size: 0.84rem; color: #1e40af; line-height: 1.5;
+        }
+        .flow-section-header {
+            display: flex; justify-content: space-between; align-items: center;
+            background: #f1f5f9; padding: 10px 14px; border-radius: 10px; margin: 16px 0 12px 0;
+            font-weight: 800; font-size: 0.9rem; color: var(--brand-primary); border-left: 4px solid var(--brand-primary);
+        }
     </style>
 </head>
 <body>
     <header class="system-top-nav">
         <div class="brand-title-wrap">
-            <span class="brand-logo-text" onclick="toggleAdminPrompt()" title="點擊切換管理者身份">🌱 AVA 增值式醫保系統</span>
+            <span class="brand-logo-text" onclick="promptAdminLogin()" title="點擊輸入管理員密碼">🌱 AVA 增值式醫保系統</span>
             <span class="mini-quick-btn jump-btn" onclick="openJumpPopup()" title="直達流程模組">*</span>
-            <span class="system-badge" id="app-version-badge">v6.8.0</span>
-            <span class="role-indicator-badge" id="role-badge">使用者</span>
+            <span class="system-badge" id="app-version-badge">v7.1.0</span>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
             <button class="mini-pink-btn" onclick="handleShare()" title="建立分享連結">📤 分享報告</button>
-            <div class="user-settings-btn" onclick="openCurrentRoleDashboard()" title="開啟控制台">⚙️</div>
+            <div class="user-settings-btn" onclick="openUserSettings()" title="使用者設定">⚙️</div>
         </div>
     </header>
     
@@ -285,159 +261,11 @@
     
     <div class="workspace-layout">
         <main>
-            <!-- 步驟 1 至 13 -->
-            <div class="step-page active" id="step-1">
-                <div class="content-card">
-                    <div>
-                        <h2 class="question-title" id="disp-title-1">「如果純粹講而家嘅生活狀態，你覺得自己屬於邊一種？」</h2>
-                        <p class="question-hint" id="disp-sub-1">沒有對與錯，純粹由你目前最真實、最自在的生活節奏開始探索：</p>
-                        <div class="options-group" id="disp-options-1"></div>
-                        <div class="page-bottom-img-zone"><img class="page-bottom-img" id="disp-img-1" style="display:none;" src="" alt=""></div>
-                    </div>
-                    <div class="action-row"><button class="nav-btn next" id="btn-next-1" disabled onclick="goToStep(2)">下一步 →</button></div>
-                </div>
-            </div>
+            <!-- 1. 計算前動態引導頁面容器 (Pre-Calc Flow) -->
+            <div id="dynamic-flow-pre-container"></div>
             
-            <div class="step-page" id="step-2">
-                <div class="content-card">
-                    <div>
-                        <h2 class="question-title" id="disp-title-2">「如果將來有一樣嘢值得你花更多資源，最可能會係邊方面？」</h2>
-                        <p class="question-hint" id="disp-sub-2">即使未有具體安排，心目中亦可能有最在意的生活重心：</p>
-                        <div class="options-group" id="disp-options-2"></div>
-                        <div class="page-bottom-img-zone"><img class="page-bottom-img" id="disp-img-2" style="display:none;" src="" alt=""></div>
-                    </div>
-                    <div class="action-row">
-                        <button class="nav-btn prev" onclick="goToStep(1)">← 上一步</button>
-                        <button class="nav-btn next" id="btn-next-2" disabled onclick="goToStep(3)">下一步 →</button>
-                    </div>
-                </div>
-            </div>
-            <div class="step-page" id="step-3">
-                <div class="content-card">
-                    <div>
-                        <h2 class="question-title" id="disp-title-3">「點解呢個方向對你嚟講特別重要？」</h2>
-                        <p class="question-hint" id="disp-sub-3">探索背後真正驅動你、對你最具價值的初衷：</p>
-                        <div class="options-group" id="disp-options-3"></div>
-                        <div class="page-bottom-img-zone"><img class="page-bottom-img" id="disp-img-3" style="display:none;" src="" alt=""></div>
-                    </div>
-                    <div class="action-row">
-                        <button class="nav-btn prev" onclick="goToStep(2)">← 上一步</button>
-                        <button class="nav-btn next" id="btn-next-3" disabled onclick="goToStep(4)">下一步 →</button>
-                    </div>
-                </div>
-            </div>
-            <div class="step-page" id="step-4">
-                <div class="content-card">
-                    <div>
-                        <h2 class="question-title" id="disp-title-4">「假設 5–10 年後生活更自由，你最希望看見甚麼畫面？」</h2>
-                        <p class="question-hint" id="disp-sub-4">理財不是數字遊戲，而是為了實現具體的生活畫面：</p>
-                        <div class="options-group" id="disp-options-4"></div>
-                        <div class="page-bottom-img-zone"><img class="page-bottom-img" id="disp-img-4" style="display:none;" src="" alt=""></div>
-                    </div>
-                    <div class="action-row">
-                        <button class="nav-btn prev" onclick="goToStep(3)">← 上一步</button>
-                        <button class="nav-btn next" id="btn-next-4" disabled onclick="goToStep(5)">下一步 →</button>
-                    </div>
-                </div>
-            </div>
-            <div class="step-page" id="step-5">
-                <div class="content-card">
-                    <div>
-                        <h2 class="question-title" id="disp-title-5">「時間會繼續向前，你想用咩方式迎接未來？」</h2>
-                        <p class="question-hint" id="disp-sub-5">未來未必需要現在全盤計劃，但你可以決定到時自己擁有多少選擇權：</p>
-                        <div class="options-group" id="disp-options-5"></div>
-                        <div class="page-bottom-img-zone"><img class="page-bottom-img" id="disp-img-5" style="display:none;" src="" alt=""></div>
-                    </div>
-                    <div class="action-row">
-                        <button class="nav-btn prev" onclick="goToStep(4)">← 上一步</button>
-                        <button class="nav-btn next" id="btn-next-5" disabled onclick="goToStep(6)">下一步 →</button>
-                    </div>
-                </div>
-            </div>
-            <div class="step-page" id="step-6">
-                <div class="content-card">
-                    <div>
-                        <h2 class="question-title" id="disp-title-6">「如果想在未來擁有更多選擇，你覺得目前最容易卡住自己的是？」</h2>
-                        <p class="question-hint" id="disp-sub-6">每個人在生活中都會遇到不同節奏，看清狀況才能找到最舒服的起步點：</p>
-                        <div class="options-group" id="disp-options-6"></div>
-                        <div class="page-bottom-img-zone"><img class="page-bottom-img" id="disp-img-6" style="display:none;" src="" alt=""></div>
-                    </div>
-                    <div class="action-row">
-                        <button class="nav-btn prev" onclick="goToStep(5)">← 上一步</button>
-                        <button class="nav-btn next" id="btn-next-6" disabled onclick="goToStep(7)">下一步 →</button>
-                    </div>
-                </div>
-            </div>
-            <div class="step-page" id="step-7">
-                <div class="content-card">
-                    <div>
-                        <h2 class="question-title" id="disp-title-7">「如果話你知：『未有明確目標』，其實先係最好嘅開始方式？」</h2>
-                        <div class="options-group" id="disp-options-7"></div>
-                        <div class="page-bottom-img-zone"><img class="page-bottom-img" id="disp-img-7" style="display:none;" src="" alt=""></div>
-                    </div>
-                    <div class="action-row">
-                        <button class="nav-btn prev" onclick="goToStep(6)">← 上一步</button>
-                        <button class="nav-btn next" id="btn-next-7" disabled onclick="goToStep(8)">睇下點解 →</button>
-                    </div>
-                </div>
-            </div>
-            <div class="step-page" id="step-8">
-                <div class="content-card">
-                    <div>
-                        <h2 class="question-title" id="disp-title-8">「不如先睇清楚運作原理，再決定值唔值得考慮？」</h2>
-                        <div class="options-group" id="disp-options-8"></div>
-                        <div class="page-bottom-img-zone"><img class="page-bottom-img" id="disp-img-8" style="display:none;" src="" alt=""></div>
-                    </div>
-                    <div class="action-row">
-                        <button class="nav-btn prev" onclick="goToStep(7)">← 上一步</button>
-                        <button class="nav-btn next" id="btn-next-8" disabled onclick="goToStep(9)">下一步 →</button>
-                    </div>
-                </div>
-            </div>
-            <div class="step-page" id="step-9">
-                <div class="content-card">
-                    <h2 class="question-title" id="disp-title-9">建立未來選擇權的專屬工具</h2>
-                    <p class="question-hint" id="disp-sub-9">為未來的自己分段建立一份底氣，提早佈局醫療水庫。</p>
-                    <div class="options-group" id="disp-options-9"></div>
-                    <div class="page-bottom-img-zone"><img class="page-bottom-img" id="disp-img-9" style="display:none;" src="" alt=""></div>
-                    <div class="action-row">
-                        <button class="nav-btn prev" onclick="goToStep(8)">← 上一步</button>
-                        <button class="nav-btn next" onclick="goToStep(10)">睇下運作概念 →</button>
-                    </div>
-                </div>
-            </div>
-            <!-- 10 資源池概念三步圖解 -->
-            <div class="step-page" id="step-10">
-                <div class="content-card">
-                    <h2 class="question-title" id="disp-title-10">💧 增值醫保資源池：如何不影響生活下建立選擇？</h2>
-                    <p class="question-hint" id="disp-sub-10">將不知不覺流走的小部分，導向未來退休醫療水庫：</p>
-                    
-                    <div class="pool-visual-container">
-                        <div class="pool-visual-step">
-                            <div class="pool-visual-icon" id="disp-p1-icon">☕</div>
-                            <div class="pool-visual-title" id="disp-p1-title">1. 今日生活開支</div>
-                            <div class="pool-visual-desc" id="disp-p1-desc">旅行、享受、家庭開銷照舊進行，完全不犧牲生活品質。</div>
-                        </div>
-                        <div class="pool-visual-step highlight">
-                            <div class="pool-visual-icon" id="disp-p2-icon">⏳</div>
-                            <div class="pool-visual-title" id="disp-p2-title">2. 分段小額入庫</div>
-                            <div class="pool-visual-desc" id="disp-p2-desc">每月只需撥出微少份額，只需 5 年，就自動完成資產水庫建造。</div>
-                        </div>
-                        <div class="pool-visual-step">
-                            <div class="pool-visual-icon" id="disp-p3-icon">🚿</div>
-                            <div class="pool-visual-title" id="disp-p3-title">3. 未來水龍頭</div>
-                            <div class="pool-visual-desc" id="disp-p3-desc">停止投入後，水庫交由時間滾存，隨時可開水龍頭提取源源長糧。</div>
-                        </div>
-                    </div>
-                    
-                    <div class="action-row">
-                        <button class="nav-btn prev" onclick="goToStep(9)">← 上一步</button>
-                        <button class="nav-btn next" onclick="goToStep(11)">進入增值式醫保主計算表 →</button>
-                    </div>
-                </div>
-            </div>
-            <!-- 11 主計算頁 (增值式醫保) -->
-            <div class="step-page" id="step-11">
+            <!-- 2. 固定核心頁面：增值式醫保主計算表 -->
+            <div class="step-page" id="step-core-calc">
                 <div class="content-card">
                     <h2 class="question-title">🏥 增值式醫保：退休生活不能忽略的剛性支出</h2>
                     <p class="question-hint">提早為未來鎖定終身醫療開支，以資產滾存對沖醫療通脹：</p>
@@ -505,7 +333,6 @@
                     </div>
                     
                     <div style="margin-bottom: 1.2rem;">
-                        <!-- 金庫 1 至 4 -->
                         <div class="calc-jar-card" id="group-med-plan1" style="border-top: 3px solid var(--plan1-color);">
                             <h4 style="color:var(--plan1-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-1">🌱 儲備金庫一 + 醫療保費 (第 1 - 5 年)</h4>
                             <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;" id="disp-tree-desc-1">種下一粒小種子</p>
@@ -563,7 +390,6 @@
                         </div>
                     </div>
                     
-                    <!-- 四色圓點開關 Bar -->
                     <div class="dots-toggle-bar-pure">
                         <div class="pure-color-dot dot-blue-bg" id="dot-btn-annuity" onclick="toggleColumn('annuity')" title="切換被動收入提取"></div>
                         <div class="pure-color-dot dot-green-bg" id="dot-btn-accum" onclick="toggleColumn('accum')" title="切換醫保保費 (轉換期至增值期)"></div>
@@ -579,56 +405,26 @@
                     </div>
                     
                     <div class="action-row">
-                        <button class="nav-btn prev" onclick="goToStep(10)">← 上一步</button>
-                        <button class="nav-btn next" onclick="goToStep(12)">下一步 →</button>
+                        <button class="nav-btn prev" id="btn-calc-prev" onclick="handleCalcPrev()">← 上一步</button>
+                        <button class="nav-btn next" id="btn-calc-next" onclick="handleCalcNext()">下一步 →</button>
                     </div>
                 </div>
             </div>
-            <!-- 圖 1: 12 初衷回扣樣式 -->
-            <div class="step-page" id="step-12">
-                <div class="content-card">
-                    <div>
-                        <h2 class="question-title" id="disp-title-12">「其實，數字本身唔係最重要。」</h2>
-                        <div style="background:#f8fafc; border:1px solid var(--border-light); border-radius:12px; padding:18px; line-height:1.8; margin-bottom:20px;">
-                            <p style="font-size:0.95rem; color:var(--text-sub); margin-bottom:10px;" id="disp-sub-12">重新回扣你最在意的初衷：</p>
-                            <h4 style="color:var(--brand-primary); font-size:1.1rem; margin-bottom:8px;" id="connect-vision-display">✨ 保持生活質素，遇到變化不被動</h4>
-                            <p style="font-size:0.92rem; color:var(--text-sub);" id="disp-desc-12">
-                                這個資源池的核心目的，正是為你最初想要的這幅人生畫面提供源源不絕的底氣與支持。
-                            </p>
-                        </div>
-                    </div>
-                    <div class="action-row">
-                        <button class="nav-btn prev" onclick="goToStep(11)">← 上一步</button>
-                        <button class="nav-btn next" onclick="goToStep(13)">一齊判斷適唔適合 →</button>
-                    </div>
-                </div>
-            </div>
-            <div class="step-page" id="step-13">
-                <div class="content-card">
-                    <h2 class="question-title" id="disp-title-13">「適合先繼續，唔適合都完全冇問題。」</h2>
-                    <p class="question-hint" id="disp-sub-13">以你目前的步調，你覺得這種分段建立的方法適唔適合自己？</p>
-                    <div class="options-group" id="disp-options-13"></div>
-                    <div class="page-bottom-img-zone"><img class="page-bottom-img" id="disp-img-13" style="display:none;" src="" alt=""></div>
-                    <div class="action-row">
-                        <button class="nav-btn prev" onclick="goToStep(12)">← 上一步</button>
-                        <button class="nav-btn next" id="btn-next-13" disabled onclick="generateBlueprint()">✨ 查看專屬生活藍圖筆記 →</button>
-                    </div>
-                </div>
-            </div>
-            <!-- 人生藍圖頁 -->
+
+            <!-- 3. 計算後動態過渡頁面容器 (Post-Calc Flow: 增值醫保與藍圖之間，可自由有或無) -->
+            <div id="dynamic-flow-post-container"></div>
+
+            <!-- 4. 固定核心產出：生活藍圖筆記 (總結替代方案鎖定為增值式醫保) -->
             <div class="step-page" id="step-blueprint">
                 <div class="content-card">
                     <h2 class="question-title" style="margin-bottom:16px;">🌱 你的專屬生活藍圖筆記</h2>
                     <div class="blueprint-dual-grid">
                         <div class="blueprint-left-box">
-                            <h4 style="font-size:1.05rem; font-weight:800; margin-bottom:12px; color:#fff; border-bottom:1px solid rgba(255,255,255,0.15); padding-bottom:6px;">📋 你的生活初衷</h4>
-                            <div style="margin-bottom:10px;"><div style="font-size:0.75rem; color:#93c5fd;">01. 目前生活節奏</div><div style="font-weight:bold;" id="res-1">-</div></div>
-                            <div style="margin-bottom:10px;"><div style="font-size:0.75rem; color:#93c5fd;">02. 最在意的價值</div><div style="font-weight:bold;" id="res-2">-</div></div>
-                            <div style="margin-bottom:10px;"><div style="font-size:0.75rem; color:#93c5fd;">03. 渴望看見的人生畫面</div><div style="font-weight:bold;" id="res-4">-</div></div>
-                            <div style="margin-bottom:10px;"><div style="font-size:0.75rem; color:#93c5fd;">04. 評估共識</div><div style="font-weight:bold;" id="res-13">-</div></div>
+                            <h4 style="font-size:1.05rem; font-weight:800; margin-bottom:12px; color:#fff; border-bottom:1px solid rgba(255,255,255,0.15); padding-bottom:6px;">📋 你的生活初衷與評估共識</h4>
+                            <div id="blueprint-dynamic-answers"></div>
                         </div>
                         <div class="blueprint-right-box">
-                            <h4 style="font-size:1rem; font-weight:800; color:var(--state-success); margin-bottom:10px;">💡 替代方案：無痛縮減落差</h4>
+                            <h4 style="font-size:1rem; font-weight:800; color:var(--state-success); margin-bottom:10px;">💡 替代方案：增值式醫保水庫</h4>
                             <div style="text-align:center; margin-bottom:10px;">
                                 <img id="blueprint-uploaded-img" style="width:100%; max-height:180px; object-fit:contain; border-radius:10px;" src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80" alt="生活藍圖">
                             </div>
@@ -638,12 +434,13 @@
                         </div>
                     </div>
                     <div class="action-row">
-                        <button class="nav-btn prev" onclick="goToStep(13)">← 返回修改</button>
+                        <button class="nav-btn prev" onclick="handleBlueprintPrev()">← 上一步</button>
                         <button class="nav-btn next" onclick="goToStep('page-promo')">🎁 專屬保費優惠計算 →</button>
                     </div>
                 </div>
             </div>
-            <!-- 保費優惠頁 -->
+
+            <!-- 5. 固定核心產出：保費優惠計算頁 -->
             <div class="step-page" id="page-promo">
                 <div class="content-card">
                     <h2 class="question-title">🎁 專屬保費優惠計算</h2>
@@ -719,32 +516,20 @@
                 </div>
             </div>
         </main>
-        
-        <aside class="sidebar-summary-card">
-            <div style="font-size:0.8rem; font-weight:800; color:var(--text-muted); margin-bottom:14px; border-bottom:1px solid var(--border-light); padding-bottom:8px;">CLIENT BLUEPRINT LIVE</div>
-            <div style="margin-bottom:10px;"><div style="font-size:0.75rem; color:var(--text-muted);">01. 生活現狀</div><div id="mem-1" style="font-weight:bold;">尚未選擇</div></div>
-            <div style="margin-bottom:10px;"><div style="font-size:0.75rem; color:var(--text-muted);">02. 核心關注</div><div id="mem-2" style="font-weight:bold;">—</div></div>
-            <div style="margin-bottom:10px;"><div style="font-size:0.75rem; color:var(--text-muted);">03. 人生畫面</div><div id="mem-4" style="font-weight:bold;">—</div></div>
-            <div style="margin-bottom:10px;"><div style="font-size:0.75rem; color:var(--text-muted);">04. 評估共識</div><div id="mem-13" style="font-weight:bold;">—</div></div>
-        </aside>
     </div>
     
     <!-- 後台全能控制台 -->
     <div id="admin-modal-mask" class="modal-mask">
         <div class="admin-dashboard-modal">
             <div class="admin-header">
-                <div id="admin-modal-title">🛠️ 管理員控制台 (已連接 Google Sheet)</div>
+                <div id="admin-modal-title">🛠️ 後台控制台</div>
                 <div style="cursor:pointer;" onclick="closeAdminDashboard()">✕</div>
             </div>
-            
-            <!-- 雙台切換按鈕 -->
-            <div style="display:flex; justify-content:center; align-items:center; background:#f1f5f9; padding:8px; border-bottom:1px solid #e2e8f0; gap:12px;">
-                <span style="font-size:0.85rem; font-weight:bold; color:var(--text-sub);">目前操作身份：</span>
-                <button id="btn-role-user" class="step-ctrl-btn" style="padding:6px 16px; border-radius:20px; font-weight:bold;" onclick="switchUserRole(false)">👤 使用者模式</button>
-                <button id="btn-role-admin" class="step-ctrl-btn" style="padding:6px 16px; border-radius:20px; font-weight:bold;" onclick="switchUserRole(true)">🛠️ 管理者模式</button>
-            </div>
-            
             <div class="admin-nav" id="admin-tabs-nav-bar">
+                <div class="role-switcher-container">
+                    <button class="role-switch-btn active" id="btn-role-user" onclick="switchRole(false)">👤 使用者</button>
+                    <button class="role-switch-btn" id="btn-role-admin" onclick="switchRole(true)">🛠️ 管理者</button>
+                </div>
                 <div class="admin-nav-btn active" id="tab-flow-btn" onclick="switchAdminTab('flow')">頁面流程管理</div>
                 <div class="admin-nav-btn" id="tab-timing-btn" onclick="switchAdminTab('timing')">增值式醫保文字</div>
                 <div class="admin-nav-btn" id="tab-blueprint-btn" onclick="switchAdminTab('blueprint')">人生藍圖設定</div>
@@ -758,15 +543,27 @@
             </div>
             
             <div class="admin-body">
-                <!-- Tab 1: 頁面流程管理 -->
                 <div id="admin-sec-flow" class="admin-tab-content">
-                    <div style="display:flex; justify-content:flex-end; margin-bottom:14px;">
-                        <button class="step-ctrl-btn" style="background:#e0f2fe; color:#0369a1;" onclick="addNewPageCard()">+ 新增步驟頁面</button>
+                    <div class="admin-flow-notice">
+                        <strong>📌 動態雙區塊流程架構：</strong><br>
+                        1. <strong>區塊 A (計算前引導)</strong>：自由設定引導問題，完成後自動進入「增值式醫保主計算表」[span_5](start_span)[span_5](end_span)。<br>
+                        2. <strong>區塊 B (計算後過渡)</strong>：介於「醫保計算表」與「人生藍圖」之間[span_6](start_span)[span_6](end_span)。<strong>若有題目則依序過渡；若留空（0 題）則計算表直接進入藍圖！</strong><br>
+                        3. 主計算表、藍圖及保費優惠為系統固定核心，不會被覆蓋或格式錯位[span_7](start_span)[span_7](end_span)。
                     </div>
-                    <div id="admin-cards-render-zone"></div>
+                    
+                    <div class="flow-section-header">
+                        <span>🅰️ 區塊 A：醫保主計算前 · 引導題目</span>
+                        <button class="step-ctrl-btn" style="background:#e0f2fe; color:#0369a1;" onclick="addNewPageCard('pre')">+ 新增計算前題目</button>
+                    </div>
+                    <div id="admin-cards-pre-zone"></div>
+
+                    <div class="flow-section-header" style="border-left-color: var(--state-success); margin-top: 24px;">
+                        <span>🅱️ 區塊 B：醫保主計算後 ➔ 藍圖前 · 過渡題目 (可留空)</span>
+                        <button class="step-ctrl-btn" style="background:#f0fdf4; color:#166534;" onclick="addNewPageCard('post')">+ 新增中段過渡題目</button>
+                    </div>
+                    <div id="admin-cards-post-zone"></div>
                 </div>
                 
-                <!-- Tab 2: 增值式醫保文字 -->
                 <div id="admin-sec-timing" class="admin-tab-content" style="display:none;">
                     <div class="admin-card-row">
                         <h4 style="margin-top:0; color:var(--brand-primary); margin-bottom:12px;">📊 增值式醫保 - 表格標題自訂 (對應 Google Sheet 累積表文字設定)</h4>
@@ -822,10 +619,9 @@
                     </div>
                 </div>
                 
-                <!-- Tab 3: 人生藍圖設定 -->
                 <div id="admin-sec-blueprint" class="admin-tab-content" style="display:none;">
                     <div class="admin-card-row">
-                        <h4 style="margin-top:0; color:var(--brand-primary);">🖼️ 藍圖圖片管理</h4>
+                        <h4 style="margin-top:0; color:var(--brand-primary);">🖼️ 藍圖圖片與替代方案總結</h4>
                         <div style="margin:14px 0; display:flex; gap:10px;">
                             <button class="nav-btn next" style="padding:8px 16px; width:auto;" onclick="triggerBlueprintImageUpload()">📤 選擇並上載新圖片</button>
                             <button class="del-opt-btn" style="padding:8px 16px;" onclick="deleteBlueprintImage()">🗑️ 刪除自訂圖片 (還原預設)</button>
@@ -833,12 +629,11 @@
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b;">圖片網址：</label>
                         <input type="text" id="admin-blueprint-img-url" class="pink-edit-input" value="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80" oninput="updateBlueprintImageSrc(this.value)">
                         
-                        <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:12px; display:block;">藍圖右側紅圈重點總結文字 (blueprint_summary)：</label>
+                        <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:12px; display:block;">藍圖右側替代方案重點總結文字 (blueprint_summary)：</label>
                         <textarea id="admin-blueprint-summary-text" class="pink-edit-input" style="height:70px;" oninput="updateBlueprintSummaryText(this.value)">將每月不知不覺流走的少許資金，分段注入專屬醫保水庫，鎖定終身醫療保障。</textarea>
                     </div>
                 </div>
                 
-                <!-- Tab 4: 分頁命名與對應代碼 -->
                 <div id="admin-sec-mapping" class="admin-tab-content" style="display:none;">
                     <div class="admin-card-row">
                         <h4 style="margin-top:0; color:var(--brand-primary); margin-bottom:12px;">📑 分頁命名與對應代碼 (Google Sheet Mapping)</h4>
@@ -846,17 +641,13 @@
                     </div>
                 </div>
                 
-                <!-- Tab 5: 系統參數設定 -->
                 <div id="admin-sec-system" class="admin-tab-content" style="display:none;">
                     <div class="admin-card-row">
-                        <h4 style="margin-top:0; color:var(--brand-primary);">🌐 系統參數設定 (對應 Google Sheet 系統參數設定)</h4>
-                        
+                        <h4 style="margin-top:0; color:var(--brand-primary);">🌐 系統參數設定</h4>
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">admin_password (管理員密碼)：</label>
                         <input type="text" id="admin-password-input" class="pink-edit-input" value="903" oninput="currentAdminPassword = this.value">
-                        
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">system_version (系統版本號)：</label>
-                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v6.8.0" oninput="updateSystemVersion(this.value)">
-                        
+                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v7.1.0" oninput="updateSystemVersion(this.value)">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">專屬 GAS API 網址：</label>
                         <input type="text" id="admin-gas-url-input" class="pink-edit-input" value="https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec">
                     </div>
@@ -875,21 +666,21 @@
             </div>
         </div>
     </div>
-    
+
     <!-- 頂部 * 直達跳轉彈窗 -->
     <div id="jump-popup-mask" class="modal-mask">
         <div class="modal-box">
             <span class="close-btn" onclick="closeJumpPopup()">&times;</span>
-            <h3 style="color:var(--brand-primary); margin-top:0; font-size:1.1rem; text-align:center;">🚀 直達流程模組</h3>
+            <h3 style="color:var(--brand-primary); margin-top:0; font-size:1.1rem; text-align:center;">🚀 直達核心模組</h3>
             <div class="popup-menu-list">
-                <div class="popup-menu-item" onclick="jumpDirectStep(5)">📍 直達 05 兩個未來對比</div>
-                <div class="popup-menu-item" onclick="jumpDirectStep(11)">🏥 直達 11 增值式醫保主計算表</div>
+                <div class="popup-menu-item" onclick="jumpDirectStep('pre-0')">📍 直達 第 1 步引導</div>
+                <div class="popup-menu-item" onclick="jumpDirectStep('step-core-calc')">🏥 直達 增值式醫保主計算表</div>
                 <div class="popup-menu-item" onclick="jumpDirectStep('step-blueprint')">📋 直達 專屬生活藍圖筆記</div>
                 <div class="popup-menu-item" onclick="jumpDirectStep('page-promo')">🎁 直達 專屬保費優惠計算</div>
             </div>
         </div>
     </div>
-    
+
     <!-- 醫保提取策略設定彈窗 -->
     <div id="med-strategy-modal" class="modal-mask">
         <div class="modal-box">
@@ -942,9 +733,10 @@
             <button class="nav-btn next" onclick="closeMedStrategyModal()" style="width: 100%;">✅ 確認設定</button>
         </div>
     </div>
+    
     <script>
         const answers = {};
-        let currentSystemVersion = "v6.8.0";
+        let currentSystemVersion = "v7.1.0";
         let currentAdminPassword = "903";
         let GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec';
         const RETURNS_EXCEL_URL = 'https://docs.google.com/spreadsheets/d/1-kawg3ew7CF05g-Dc3cwu1yYROWa73fhWlunv5TYF6E/export?format=xlsx';
@@ -956,13 +748,7 @@
         let excelParsedPremiumMap = {};
         let shareUrlGlobal = '';
         
-        // 四色圓點開關狀態：被動收入(藍)、醫保保費(綠)、實際自付(紅)、大樹收成/增值醫保餘額(紫)
         const colVisibility = { annuity: true, accum: true, actual: true, asset: true };
-        const stepNameMap = {
-            1: "現況想法 1", 2: "了解需求 2", 3: "深層價值 3", 4: "未來畫面 4", 5: "兩個未來 5",
-            6: "發現差距 6", 7: "顛覆盲點 7", 8: "降低防衛 8", 9: "建立工具 9", 10: "資源池概念 10",
-            11: "增值醫保 11", 12: "初衷回扣 12", 13: "共同評估 13"
-        };
         let sheetMappingList = [
             { code: "withdraw7_from8", sheet: "8年領取", ui: "第8年開始 取7% (標準推薦)", note: "5年供款，第8年起每年領取7%" },
             { code: "none", sheet: "自動滾存", ui: "自動滾存不提取", note: "全期不提款，純滾存累積大樹" },
@@ -981,64 +767,34 @@
             tree4: "🌳 儲備金庫四 + 醫療保費 (第 16 - 20 年)", tree_desc4: "大樹長成，產出源源長糧"
         };
         let blueprintSummaryText = "將每月不知不覺流走的少許資金，分段注入專屬醫保水庫，鎖定終身醫療保障。";
+        
+        // 雙區塊資料庫：pre (計算前題) 與 post (計算後過渡題)
         let allScenarioDatabase = {
-            unplanned: [
-                { id: "step_1", step_num: 1, step_name: "現況想法 1", title: "「如果純粹講而家嘅生活狀態，你覺得自己屬於邊一種？」", subtitle: "沒有對與錯，純粹由你目前最真實、最自在的生活節奏開始探索：", image_url: "", options: [
-                    { headline: "🌅 先享受現在", subtext: "今天的生活同樣重要，未來的步調可以按自己節奏慢慢來。" },
-                    { headline: "🧭 我知道未來重要", subtext: "但市面太多複雜說法，還未找到真正適合自己、不吃力的方法。" },
-                    { headline: "🌱 我相信慢慢建立", subtext: "不需要一步到位，希望由最舒服的程度開始，讓未來更有選擇。" },
-                    { headline: "⏳ 覺得時間仲好充裕", subtext: "暫時未有急切需要，但如果有一套無痛的方法，會想先了解原理。" }
+            pre: [
+                { id: "pre_0", title: "「如果講番你而家的醫療保障，你覺得自己最重視邊方面？」", subtitle: "探索你目前最真實的保障關注點：", options: [
+                    { headline: "🛡️ 想有一份可以保終身的保障", subtext: "不想年紀大或退休後無依無靠。" },
+                    { headline: "☕ 保持生活質素，遇到變化不被動", subtext: "遇到突發醫療開銷時，不影響原有生活水準。" },
+                    { headline: "🌱 費用清晰透明，不吃力", subtext: "希望開支在預算之內，輕鬆負擔。" }
                 ]},
-                { id: "step_2", step_num: 2, step_name: "了解需求 2", title: "「如果將來有一樣嘢值得你花更多資源，最可能會係邊方面？」", subtitle: "即使未有具體安排，心目中亦可能有最在意的生活重心：", image_url: "", options: [
-                    { headline: "🏠 住屋與生活品質提升", subtext: "希望未來能住在更舒適的環境，享有更優質的日常生活。" },
-                    { headline: "✈️ 旅行與人生體驗", subtext: "趁有能力多去探索世界，豐富人生經歷，不留遺憾。" },
-                    { headline: "👨‍👩‍👧 家庭與子女成長", subtext: "為下一代提供最好的教育資源，或給予父母最安心的照顧。" }
+                { id: "pre_1", title: "「如果退休後仍然想保留醫療保障，你覺得保費應該由邊度嚟？」", subtitle: "長遠剛性支出的資金來源考量：", options: [
+                    { headline: "🌊 工作收入減少或停止，想保留但擔心保費由邊度嚟？", subtext: "退休後沒有收入，醫療通脹卻持續上升。" },
+                    { headline: "💡 如果可以由被動資產自動支付，最理想", subtext: "建立自動化水庫，退休後全由水庫收益支付。" }
                 ]},
-                { id: "step_3", step_num: 3, step_name: "深層價值 3", title: "「點解呢個方向對你嚟講特別重要？」", subtitle: "探索背後真正驅動你、對你最具價值的初衷：", image_url: "", options: [
-                    { headline: "✨ 不想被現實條件限制選擇", subtext: "希望在做決定時，是基於自己真心喜歡，而不是因為預算妥協。" },
-                    { headline: "🛡️ 想有一份踏實的掌控感", subtext: "生活中已有足夠的不確定性，希望在核心領域能擁有絕對的安心。" }
-                ]},
-                { id: "step_4", step_num: 4, step_name: "未來畫面 4", title: "「假設 5–10 年後生活更自由，你最希望看見甚麼畫面？」", subtitle: "理財不是數字遊戲，而是為了實現具體的生活畫面：", image_url: "", options: [
-                    { headline: "☕ 隨心生活的早晨", subtext: "想做的事不需要每天計住開支，生活過得從容自在。" },
-                    { headline: "🏡 生活質素全面升級", subtext: "住進心儀的環境，讓自己與家人的日常享受更上一層樓。" }
-                ]},
-                { id: "step_5", step_num: 5, step_name: "兩個未來 5", title: "「時間會繼續向前，你想用咩方式迎接未來？」", subtitle: "未來未必需要現在全盤計劃，但你可以決定到時自己擁有多少選擇權：", image_url: "", options: [
-                    { headline: "🌱 我希望未來有更多選擇權", subtext: "不想每一次人生轉變，都只能由零開始被動應對。" },
-                    { headline: "🌊 順其自然，但想了解兩者分別", subtext: "目前生活過得去，但想看看兩條軌跡在長遠上的實際差異。" }
-                ]},
-                { id: "step_6", step_num: 6, step_name: "發現差距 6", title: "「如果想在未來擁有更多選擇，你覺得目前最容易卡住自己的是？」", subtitle: "每個人在生活中都會遇到不同節奏，看清狀況才能找到最舒服的起步點：", image_url: "", options: [
-                    { headline: "🌊 每個月過得去，但很難留下", subtext: "收入不是沒有，只是生活開支與不同事情，慢慢就用掉了。" },
-                    { headline: "⏳ 時間看起來還很多，容易一拖再拖", subtext: "日常已經有很多事情要處理，不知不決將長遠安排往後放。" }
-                ]},
-                { id: "step_7", step_num: 7, step_name: "顛覆盲點 7", title: "「如果話你知：『未有明確目標』，其實先係最好嘅開始方式？」", subtitle: "顛覆傳統認知，開啟探索：", image_url: "", options: [
-                    { headline: "🤔 點解未有目標都可以開始？想聽下背後原理", subtext: "想了解如何在不確定未來的情況下，依然能做好準備。" },
-                    { headline: "💡 真係可以完全唔影響現有生活咁做？", subtext: "想知道如何用最輕鬆、不吃力的節奏建立長期儲備。" }
-                ]},
-                { id: "step_8", step_num: 8, step_name: "降低防衛 8", title: "「不如先睇清楚運作原理，再決定值唔值得考慮？」", subtitle: "零壓力約定：了解不代表一定要做。", image_url: "", options: [
-                    { headline: "🔘 好，先睇下原理點樣運作", subtext: "抱持開放態度，純粹了解一套新的財務架構。" }
-                ]},
-                { id: "step_9", step_num: 9, step_name: "建立工具 9", title: "建立未來選擇權的專屬工具", subtitle: "為未來的自己分段建立一份底氣，提早佈局醫療水庫。", image_url: "", options: [
-                    { headline: "🌱 了解分段建造水庫的概念", subtext: "5 年完成一段，隨時享有主導權。" }
-                ]},
-                { id: "step_10", step_num: 10, step_name: "資源池概念 10", title: "💧 增值醫保資源池：如何不影響生活下建立選擇？", subtitle: "將不知不覺流走的小部分，導向未來退休醫療水庫：", image_url: "", options: [],
-                    p1_icon: "☕", p1_title: "1. 今日生活開支", p1_desc: "旅行、享受、家庭開銷照舊進行，完全不犧牲生活品質。",
-                    p2_icon: "⏳", p2_title: "2. 分段小額入庫", p2_desc: "每月只需撥出微少份額，只需 5 年，就自動完成資產水庫建造。",
-                    p3_icon: "🚿", p3_title: "3. 未來水龍頭", p3_desc: "停止投入後，水庫交由時間滾存，隨時可開水龍頭提取源源長糧。"
-                },
-                { id: "step_11", step_num: 11, step_name: "增值醫保 11", title: "🏥 增值式醫保：退休生活不能忽略的剛性支出", subtitle: "提早為未來鎖定終身醫療開支，以資產滾存對沖醫療通脹：", image_url: "", options: [] },
-                { id: "step_12", step_num: 12, step_name: "初衷回扣 12", title: "「其實，數字本身唔係最重要。」", subtitle: "重新回扣你最在意的初衷：", image_url: "", options: [],
-                    vision_title: "✨ 保持生活質素，遇到變化不被動",
-                    desc: "這個資源池的核心目的，正是為你最初想要的這個人生畫面提供源源不絕的底氣與支持。"
-                },
-                { id: "step_13", step_num: 13, step_name: "共同評估 13", title: "「適合先繼續，唔適合都完全冇問題。」", subtitle: "以你目前的步調，你覺得這種分段建立的方法適唔適合自己？", image_url: "", options: [
-                    { headline: "🟢 我覺得概念好舒服，可以認真考慮", subtext: "認同分段投入與被動收入提取的理念。" }
+                { id: "pre_2", title: "「同一直筆將來可能需要嘅支出，你比較傾向點樣處理？」", subtitle: "提早鎖定成本與隨年齡倍增的分別：", options: [
+                    { headline: "🌱 分段小額入庫，提早做好規劃", subtext: "趁有能力時分 5 年搞掂，鎖定終身醫療水庫。" },
+                    { headline: "⏳ 順其自然，但想了解點樣做到無痛建立", subtext: "想先睇睇背後的運作機制與實際數字。" }
+                ]}
+            ],
+            post: [
+                { id: "post_0", title: "「睇完剛才的運作原理與數字，你覺得呢種分段建立的方法適唔適合自己？」", subtitle: "以你目前的步調，探索最自在的配合方式：", options: [
+                    { headline: "🟢 我覺得概念好舒服，可以認真考慮", subtext: "認同分段投入與被動收入提取的架構。" },
+                    { headline: "💡 想再了解更多細節或調整供款額", subtext: "希望因應自己的預算微調方案。" }
                 ]}
             ]
         };
-        
+
         function formatNumber(v) { return new Intl.NumberFormat('en-US', {maximumFractionDigits: 0}).format(v || 0); }
         function parseFormattedNumber(s) { return parseFloat(String(s).replace(/,/g, '')) || 0; }
-        
         function updateSystemVersion(val) {
             currentSystemVersion = val;
             document.title = `AVA 增值式醫保專屬生活引導系統 ${val}`;
@@ -1047,7 +803,6 @@
             const input = document.getElementById('admin-version-input');
             if (input) input.value = val;
         }
-        
         function updateBlueprintSummaryText(text) {
             blueprintSummaryText = text;
             const el = document.getElementById('disp-blueprint-summary-text');
@@ -1055,155 +810,218 @@
             const input = document.getElementById('admin-blueprint-summary-text');
             if (input) input.value = text;
         }
-        
-        function updateRoleUI() {
-            const roleBadge = document.getElementById('role-badge');
-            const btnAdmin = document.getElementById('btn-role-admin');
-            const btnUser = document.getElementById('btn-role-user');
-            const adminTabs = document.querySelectorAll('.admin-only-tab');
-            const btnSyncGsheet = document.getElementById('btn-sync-gsheet');
-            const btnRestore = document.getElementById('btn-restore-default');
-            const adminTitle = document.getElementById('admin-modal-title');
-            
-            if (isAdminRole) {
-                if (roleBadge) {
-                    roleBadge.textContent = "管理者";
-                    roleBadge.className = "role-indicator-badge role-admin-badge";
-                }
-                if (adminTitle) adminTitle.textContent = "🛠️ 管理員控制台 (已連接 Google Sheet)";
-                if (btnAdmin) { btnAdmin.style.background = "var(--brand-primary)"; btnAdmin.style.color = "#fff"; }
-                if (btnUser) { btnUser.style.background = "#fff"; btnUser.style.color = "var(--text-sub)"; }
-                adminTabs.forEach(t => t.style.display = 'block');
-                if (btnSyncGsheet) btnSyncGsheet.style.display = 'block';
-                if (btnRestore) btnRestore.style.display = 'none';
-            } else {
-                if (roleBadge) {
-                    roleBadge.textContent = "使用者";
-                    roleBadge.className = "role-indicator-badge role-user-badge";
-                }
-                if (adminTitle) adminTitle.textContent = "⚙️ 使用者設定 (本機自訂)";
-                if (btnUser) { btnUser.style.background = "var(--brand-primary)"; btnUser.style.color = "#fff"; }
-                if (btnAdmin) { btnAdmin.style.background = "#fff"; btnAdmin.style.color = "var(--text-sub)"; }
-                adminTabs.forEach(t => t.style.display = 'none');
-                if (btnSyncGsheet) btnSyncGsheet.style.display = 'none';
-                if (btnRestore) btnRestore.style.display = 'block';
-            }
-        }
-        
-        function switchUserRole(toAdmin) {
-            if (toAdmin) {
-                if (!isAdminRole) {
-                    const pwd = prompt("請輸入管理員密碼：");
-                    if (pwd === currentAdminPassword) {
-                        isAdminRole = true;
-                        localStorage.setItem('ava_med_is_admin', 'true');
-                    } else if (pwd !== null) {
-                        alert("❌ 密碼錯誤！");
-                        return;
-                    }
-                }
-            } else {
-                isAdminRole = false;
-                localStorage.removeItem('ava_med_is_admin');
-                switchAdminTab('flow');
-            }
-            updateRoleUI();
-            renderAdminDashboardCards();
-            renderSheetMappingTable();
-        }
-        
-        function toggleAdminPrompt() {
-            if (isAdminRole) {
-                if (confirm("目前為管理者身份，是否切換回一般使用者？")) {
-                    switchUserRole(false);
-                }
-            } else {
-                switchUserRole(true);
-            }
-        }
-        
-        function openCurrentRoleDashboard() {
-            openAdminDashboard();
-        }
 
-        function renderFrontendCards() {
-            const currentFlow = allScenarioDatabase['unplanned'];
-            currentFlow.forEach(card => {
-                const titleEl = document.getElementById(`disp-title-${card.step_num}`);
-                const subEl = document.getElementById(`disp-sub-${card.step_num}`);
-                const optZone = document.getElementById(`disp-options-${card.step_num}`);
-                const imgEl = document.getElementById(`disp-img-${card.step_num}`);
+        // 動態渲染前段 (pre) 與中段 (post) 題目
+        function renderFrontendDynamicFlow() {
+            const preContainer = document.getElementById('dynamic-flow-pre-container');
+            const postContainer = document.getElementById('dynamic-flow-post-container');
+            preContainer.innerHTML = '';
+            postContainer.innerHTML = '';
+            
+            const preList = allScenarioDatabase.pre || [];
+            const postList = allScenarioDatabase.post || [];
+            
+            // 渲染 Pre 區塊
+            preList.forEach((card, idx) => {
+                const pageEl = document.createElement('div');
+                pageEl.className = `step-page ${idx === 0 ? 'active' : ''}`;
+                pageEl.id = `dyn-page-pre-${idx}`;
                 
-                if (titleEl) titleEl.textContent = card.title;
-                if (subEl) subEl.textContent = card.subtitle;
-                if (imgEl) {
-                    if (card.image_url) { imgEl.src = card.image_url; imgEl.style.display = 'block'; }
-                    else { imgEl.style.display = 'none'; }
-                }
+                let isLast = (idx === preList.length - 1);
+                let nextAction = isLast ? `goToStep('step-core-calc')` : `goToDynamicStep('pre', ${idx + 1})`;
+                let nextText = isLast ? `進入增值式醫保主計算表 →` : `下一步 →`;
+                let prevAction = idx === 0 ? '' : `goToDynamicStep('pre', ${idx - 1})`;
                 
-                if (card.step_num === 10) {
-                    if (document.getElementById('disp-p1-icon')) document.getElementById('disp-p1-icon').textContent = card.p1_icon || "☕";
-                    if (document.getElementById('disp-p1-title')) document.getElementById('disp-p1-title').textContent = card.p1_title || "1. 今日生活開支";
-                    if (document.getElementById('disp-p1-desc')) document.getElementById('disp-p1-desc').textContent = card.p1_desc || "旅行、享受、家庭開銷照舊進行，完全不犧牲生活品質。";
-                    if (document.getElementById('disp-p2-icon')) document.getElementById('disp-p2-icon').textContent = card.p2_icon || "⏳";
-                    if (document.getElementById('disp-p2-title')) document.getElementById('disp-p2-title').textContent = card.p2_title || "2. 分段小額入庫";
-                    if (document.getElementById('disp-p2-desc')) document.getElementById('disp-p2-desc').textContent = card.p2_desc || "每月只需撥出微少份額，只需 5 年，就自動完成資產水庫建造。";
-                    if (document.getElementById('disp-p3-icon')) document.getElementById('disp-p3-icon').textContent = card.p3_icon || "🚿";
-                    if (document.getElementById('disp-p3-title')) document.getElementById('disp-p3-title').textContent = card.p3_title || "3. 未來水龍頭";
-                    if (document.getElementById('disp-p3-desc')) document.getElementById('disp-p3-desc').textContent = card.p3_desc || "停止投入後，水庫交由時間滾存，隨時可開水龍頭提取源源長糧。";
-                }
-                
-                if (card.step_num === 12) {
-                    if (document.getElementById('connect-vision-display')) {
-                        document.getElementById('connect-vision-display').textContent = answers['step_4'] ? `✨ ${answers['step_4']}` : (card.vision_title || "✨ 保持生活質素，遇到變化不被動");
-                    }
-                    if (document.getElementById('disp-desc-12')) document.getElementById('disp-desc-12').textContent = card.desc || "這個資源池的核心目的，正是為你最初想要的這個人生畫面提供源源不絕的底氣與支持。";
-                }
-                if (optZone && card.options && card.options.length > 0) {
-                    optZone.innerHTML = '';
+                let optionsHtml = '';
+                if (card.options && card.options.length > 0) {
                     card.options.forEach(opt => {
-                        const div = document.createElement('div');
-                        div.className = 'option-card-guided';
-                        div.onclick = function() { selectOption(card.step_num, opt.headline, opt.subtext, this); };
-                        div.innerHTML = `<div class="option-content"><div class="option-headline">${opt.headline}</div><div class="option-subtext">${opt.subtext || ''}</div></div><div class="option-select-radio"></div>`;
-                        optZone.appendChild(div);
+                        optionsHtml += `
+                            <div class="option-card-guided" onclick="selectDynamicOption('pre', ${idx}, '${opt.headline.replace(/'/g, "\\'")}', this)">
+                                <div class="option-content">
+                                    <div class="option-headline">${opt.headline}</div>
+                                    <div class="option-subtext">${opt.subtext || ''}</div>
+                                </div>
+                                <div class="option-select-radio"></div>
+                            </div>
+                        `;
                     });
                 }
+                
+                let imgHtml = card.image_url ? `<div class="page-bottom-img-zone"><img class="page-bottom-img" src="${card.image_url}" alt=""></div>` : '';
+                
+                pageEl.innerHTML = `
+                    <div class="content-card">
+                        <div>
+                            <h2 class="question-title">${card.title}</h2>
+                            <p class="question-hint">${card.subtitle || ''}</p>
+                            <div class="options-group">${optionsHtml}</div>
+                            ${imgHtml}
+                        </div>
+                        <div class="action-row">
+                            ${idx > 0 ? `<button class="nav-btn prev" onclick="${prevAction}">← 上一步</button>` : ''}
+                            <button class="nav-btn next" id="btn-dyn-next-pre-${idx}" disabled onclick="${nextAction}">${nextText}</button>
+                        </div>
+                    </div>
+                `;
+                preContainer.appendChild(pageEl);
+            });
+            
+            // 渲染 Post 區塊 (中段過渡題)
+            postList.forEach((card, idx) => {
+                const pageEl = document.createElement('div');
+                pageEl.className = 'step-page';
+                pageEl.id = `dyn-page-post-${idx}`;
+                
+                let isLast = (idx === postList.length - 1);
+                let nextAction = isLast ? `generateBlueprint()` : `goToDynamicStep('post', ${idx + 1})`;
+                let nextText = isLast ? `✨ 查看專屬生活藍圖筆記 →` : `下一步 →`;
+                let prevAction = idx === 0 ? `goToStep('step-core-calc')` : `goToDynamicStep('post', ${idx - 1})`;
+                
+                let optionsHtml = '';
+                if (card.options && card.options.length > 0) {
+                    card.options.forEach(opt => {
+                        optionsHtml += `
+                            <div class="option-card-guided" onclick="selectDynamicOption('post', ${idx}, '${opt.headline.replace(/'/g, "\\'")}', this)">
+                                <div class="option-content">
+                                    <div class="option-headline">${opt.headline}</div>
+                                    <div class="option-subtext">${opt.subtext || ''}</div>
+                                </div>
+                                <div class="option-select-radio"></div>
+                            </div>
+                        `;
+                    });
+                }
+                
+                let imgHtml = card.image_url ? `<div class="page-bottom-img-zone"><img class="page-bottom-img" src="${card.image_url}" alt=""></div>` : '';
+                
+                pageEl.innerHTML = `
+                    <div class="content-card">
+                        <div>
+                            <h2 class="question-title">${card.title}</h2>
+                            <p class="question-hint">${card.subtitle || ''}</p>
+                            <div class="options-group">${optionsHtml}</div>
+                            ${imgHtml}
+                        </div>
+                        <div class="action-row">
+                            <button class="nav-btn prev" onclick="${prevAction}">← 上一步</button>
+                            <button class="nav-btn next" id="btn-dyn-next-post-${idx}" disabled onclick="${nextAction}">${nextText}</button>
+                        </div>
+                    </div>
+                `;
+                postContainer.appendChild(pageEl);
             });
         }
-        function goToStep(step) {
+
+        function selectDynamicOption(zone, cardIdx, headline, domEl) {
+            const pageEl = document.getElementById(`dyn-page-${zone}-${cardIdx}`);
+            if (pageEl) {
+                pageEl.querySelectorAll('.option-card-guided').forEach(btn => btn.classList.remove('selected'));
+            }
+            if (domEl) domEl.classList.add('selected');
+            answers[`dyn_${zone}_${cardIdx}`] = headline;
+            
+            const nextBtn = document.getElementById(`btn-dyn-next-${zone}-${cardIdx}`);
+            if (nextBtn) nextBtn.disabled = false;
+        }
+
+        function goToDynamicStep(zone, idx) {
             document.querySelectorAll('.step-page').forEach(p => p.classList.remove('active'));
-            const targetId = (typeof step === 'number') ? `step-${step}` : step;
-            const targetEl = document.getElementById(targetId);
-            if (targetEl) targetEl.classList.add('active');
-            let stepNum = (typeof step === 'number') ? step : 13;
-            document.getElementById('progress-fill').style.width = `${Math.round((stepNum / 13) * 100)}%`;
-            if (step === 11) calculateAndDisplay();
-            if (step === 12) renderFrontendCards();
-            if (step === 'page-promo') calculatePromo();
+            const target = document.getElementById(`dyn-page-${zone}-${idx}`);
+            if (target) target.classList.add('active');
+            
+            const preLen = (allScenarioDatabase.pre || []).length;
+            const postLen = (allScenarioDatabase.post || []).length;
+            const total = preLen + postLen + 3; // +3 for calc, blueprint, promo
+            
+            let currentNum = zone === 'pre' ? (idx + 1) : (preLen + 1 + idx + 1);
+            document.getElementById('progress-fill').style.width = `${Math.round((currentNum / total) * 100)}%`;
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        function selectOption(step, headline, subtext, domEl) {
-            const pageEl = document.getElementById(`step-${step}`);
-            if (pageEl) pageEl.querySelectorAll('.option-card-guided').forEach(btn => btn.classList.remove('selected'));
-            if (domEl) domEl.classList.add('selected');
-            answers[`step_${step}`] = headline;
-            if (document.getElementById(`mem-${step}`)) document.getElementById(`mem-${step}`).textContent = headline;
-            if (document.getElementById(`btn-next-${step}`)) document.getElementById(`btn-next-${step}`).disabled = false;
+
+        function goToStep(stepId) {
+            document.querySelectorAll('.step-page').forEach(p => p.classList.remove('active'));
+            const targetEl = document.getElementById(stepId);
+            if (targetEl) targetEl.classList.add('active');
+            
+            const preLen = (allScenarioDatabase.pre || []).length;
+            const postLen = (allScenarioDatabase.post || []).length;
+            const total = preLen + postLen + 3;
+            
+            let offset = preLen;
+            if (stepId === 'step-core-calc') offset += 1;
+            if (stepId === 'step-blueprint') offset += 1 + postLen + 1;
+            if (stepId === 'page-promo') offset = total;
+            
+            document.getElementById('progress-fill').style.width = `${Math.min(100, Math.round((offset / total) * 100))}%`;
+            
+            if (stepId === 'step-core-calc') calculateAndDisplay();
+            if (stepId === 'page-promo') calculatePromo();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        function handleCalcPrev() {
+            const preList = allScenarioDatabase.pre || [];
+            if (preList.length > 0) {
+                goToDynamicStep('pre', preList.length - 1);
+            }
+        }
+
+        function handleCalcNext() {
+            const postList = allScenarioDatabase.post || [];
+            if (postList.length > 0) {
+                goToDynamicStep('post', 0);
+            } else {
+                generateBlueprint();
+            }
+        }
+
+        function handleBlueprintPrev() {
+            const postList = allScenarioDatabase.post || [];
+            if (postList.length > 0) {
+                goToDynamicStep('post', postList.length - 1);
+            } else {
+                goToStep('step-core-calc');
+            }
+        }
+
         function generateBlueprint() {
-            document.getElementById('res-1').textContent = answers['step_1'] || "-";
-            document.getElementById('res-2').textContent = answers['step_2'] || "-";
-            document.getElementById('res-4').textContent = answers['step_4'] || "-";
-            document.getElementById('res-13').textContent = answers['step_13'] || "認同以無痛方式逐步建立專屬水庫";
+            const listZone = document.getElementById('blueprint-dynamic-answers');
+            listZone.innerHTML = '';
+            
+            const preList = allScenarioDatabase.pre || [];
+            const postList = allScenarioDatabase.post || [];
+            let counter = 1;
+            
+            preList.forEach((card, idx) => {
+                const ans = answers[`dyn_pre_${idx}`] || "已確認共識";
+                listZone.innerHTML += `
+                    <div style="margin-bottom:12px;">
+                        <div style="font-size:0.75rem; color:#93c5fd;">${String(counter++).padStart(2, '0')}. ${card.title.substring(0, 18)}...</div>
+                        <div style="font-weight:bold; font-size:0.92rem; margin-top:2px;">${ans}</div>
+                    </div>
+                `;
+            });
+            
+            postList.forEach((card, idx) => {
+                const ans = answers[`dyn_post_${idx}`] || "已確認共識";
+                listZone.innerHTML += `
+                    <div style="margin-bottom:12px;">
+                        <div style="font-size:0.75rem; color:#93c5fd;">${String(counter++).padStart(2, '0')}. ${card.title.substring(0, 18)}...</div>
+                        <div style="font-weight:bold; font-size:0.92rem; margin-top:2px;">${ans}</div>
+                    </div>
+                `;
+            });
+            
             goToStep('step-blueprint');
         }
+
         function toggleColumn(colKey) {
             colVisibility[colKey] = !colVisibility[colKey];
             const btn = document.getElementById(`dot-btn-${colKey}`);
             if (btn) btn.classList.toggle('dimmed', !colVisibility[colKey]);
             calculateAndDisplay();
         }
+
         function updateCustomTimingText() {
             customTimingText.col1 = document.getElementById('cust-col-1').value;
             customTimingText.col2 = document.getElementById('cust-col-2').value;
@@ -1248,81 +1066,67 @@
             document.getElementById('disp-tree-desc-4').textContent = customTimingText.tree_desc4;
             calculateAndDisplay();
         }
+
+        // 後台雙區塊渲染卡片
         function renderAdminDashboardCards() {
-            const zone = document.getElementById('admin-cards-render-zone');
-            zone.innerHTML = '';
-            const activeList = allScenarioDatabase['unplanned'];
-            activeList.forEach((card, idx) => {
+            renderAdminZone('pre', document.getElementById('admin-cards-pre-zone'));
+            renderAdminZone('post', document.getElementById('admin-cards-post-zone'));
+        }
+
+        function renderAdminZone(zoneKey, containerEl) {
+            if (!containerEl) return;
+            containerEl.innerHTML = '';
+            const list = allScenarioDatabase[zoneKey] || [];
+            
+            if (list.length === 0) {
+                containerEl.innerHTML = `<div style="font-size:0.82rem; color:#94a3b8; padding:10px; background:#fff; border-radius:8px; text-align:center;">（目前無設定題目，系統將自動略過此階段）</div>`;
+                return;
+            }
+            
+            list.forEach((card, idx) => {
                 const cardEl = document.createElement('div');
                 cardEl.className = 'admin-card-row';
                 
-                let extraInputs = '';
-                if (card.step_num === 10) {
-                    extraInputs = `
-                        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin-top:8px;">
-                            <div><label style="font-size:0.75rem;">步驟 1 標題：</label><input type="text" class="pink-edit-input" value="${card.p1_title||''}" oninput="allScenarioDatabase['unplanned'][${idx}].p1_title=this.value"></div>
-                            <div><label style="font-size:0.75rem;">步驟 2 標題：</label><input type="text" class="pink-edit-input" value="${card.p2_title||''}" oninput="allScenarioDatabase['unplanned'][${idx}].p2_title=this.value"></div>
-                            <div><label style="font-size:0.75rem;">步驟 3 標題：</label><input type="text" class="pink-edit-input" value="${card.p3_title||''}" oninput="allScenarioDatabase['unplanned'][${idx}].p3_title=this.value"></div>
-                        </div>
-                    `;
-                }
-                if (card.step_num === 12) {
-                    extraInputs = `
-                        <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">願景標題：</label>
-                        <input type="text" class="pink-edit-input" value="${card.vision_title||''}" oninput="allScenarioDatabase['unplanned'][${idx}].vision_title=this.value">
-                        <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">底氣說明段落：</label>
-                        <input type="text" class="pink-edit-input" value="${card.desc||''}" oninput="allScenarioDatabase['unplanned'][${idx}].desc=this.value">
-                    `;
-                }
                 cardEl.innerHTML = `
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                         <div>
-                            <span style="font-weight:bold; color:var(--brand-primary);">${stepNameMap[card.step_num] || '步驟 ' + card.step_num}</span>
-                            <button class="step-ctrl-btn" onclick="moveCardStep(${idx}, -1)" ${idx===0?'disabled':''}>⬆ 上移</button>
-                            <button class="step-ctrl-btn" onclick="moveCardStep(${idx}, 1)" ${idx===activeList.length-1?'disabled':''}>⬇ 下移</button>
+                            <span style="font-weight:bold; color:var(--brand-primary);">${zoneKey === 'pre' ? '引導步驟' : '過渡步驟'} ${idx + 1}</span>
+                            <button class="step-ctrl-btn" onclick="moveCardStep('${zoneKey}', ${idx}, -1)" ${idx===0?'disabled':''}>⬆ 上移</button>
+                            <button class="step-ctrl-btn" onclick="moveCardStep('${zoneKey}', ${idx}, 1)" ${idx===list.length-1?'disabled':''}>⬇ 下移</button>
                         </div>
-                        <button class="del-opt-btn" onclick="deleteCardStep(${idx})">🗑️ 刪除頁面</button>
+                        <button class="del-opt-btn" onclick="deleteCardStep('${zoneKey}', ${idx})">🗑️ 刪除此題</button>
                     </div>
-                    <label style="font-size:0.75rem; font-weight:bold; color:#64748b;">主標題：</label>
-                    <input type="text" class="pink-edit-input" value="${card.title}" oninput="allScenarioDatabase['unplanned'][${idx}].title = this.value">
+                    <label style="font-size:0.75rem; font-weight:bold; color:#64748b;">主標題 (問題內容)：</label>
+                    <input type="text" class="pink-edit-input" value="${card.title}" oninput="allScenarioDatabase['${zoneKey}'][${idx}].title = this.value">
                     <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">副標題說明：</label>
-                    <input type="text" class="pink-edit-input" value="${card.subtitle}" oninput="allScenarioDatabase['unplanned'][${idx}].subtitle = this.value">
-                    ${extraInputs}
-                    
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                        <label style="font-size:0.75rem; font-weight:bold; color:#64748b;">圖片網址 (imageUrl)：</label>
-                        <div>
-                            <button class="step-ctrl-btn" onclick="triggerCardUpload(${idx})">📤 上載圖片</button>
-                            <button class="del-opt-btn" onclick="deleteCardImage(${idx})" style="padding:3px 6px;">🗑️ 刪除圖片</button>
-                        </div>
-                    </div>
-                    <input type="text" id="card-img-url-${idx}" class="pink-edit-input" value="${card.image_url || ''}" oninput="allScenarioDatabase['unplanned'][${idx}].image_url = this.value">
+                    <input type="text" class="pink-edit-input" value="${card.subtitle || ''}" oninput="allScenarioDatabase['${zoneKey}'][${idx}].subtitle = this.value">
                     
                     <div class="admin-options-container">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                             <span style="font-size:0.75rem; font-weight:bold; color:#475569;">選項清單：</span>
-                            <button class="step-ctrl-btn" onclick="addCardOption(${idx})">+ 新增選項</button>
+                            <button class="step-ctrl-btn" onclick="addCardOption('${zoneKey}', ${idx})">+ 新增選項</button>
                         </div>
-                        <div id="opts-edit-zone-${idx}"></div>
+                        <div id="opts-edit-zone-${zoneKey}-${idx}"></div>
                     </div>
                 `;
-                zone.appendChild(cardEl);
+                containerEl.appendChild(cardEl);
                 
-                const optZone = cardEl.querySelector(`#opts-edit-zone-${idx}`);
+                const optZone = cardEl.querySelector(`#opts-edit-zone-${zoneKey}-${idx}`);
                 if (card.options) {
                     card.options.forEach((opt, optIdx) => {
                         const optRow = document.createElement('div');
                         optRow.className = 'option-row-edit';
                         optRow.innerHTML = `
-                            <input type="text" class="pink-edit-input" style="margin:0; flex:1;" value="${opt.headline}" oninput="allScenarioDatabase['unplanned'][${idx}].options[${optIdx}].headline = this.value" placeholder="標題">
-                            <input type="text" class="pink-edit-input" style="margin:0; flex:1.5;" value="${opt.subtext || ''}" oninput="allScenarioDatabase['unplanned'][${idx}].options[${optIdx}].subtext = this.value" placeholder="說明文字">
-                            <button class="del-opt-btn" onclick="deleteCardOption(${idx}, ${optIdx})">✕</button>
+                            <input type="text" class="pink-edit-input" style="margin:0; flex:1;" value="${opt.headline}" oninput="allScenarioDatabase['${zoneKey}'][${idx}].options[${optIdx}].headline = this.value" placeholder="選項文字">
+                            <input type="text" class="pink-edit-input" style="margin:0; flex:1.5;" value="${opt.subtext || ''}" oninput="allScenarioDatabase['${zoneKey}'][${idx}].options[${optIdx}].subtext = this.value" placeholder="補充說明">
+                            <button class="del-opt-btn" onclick="deleteCardOption('${zoneKey}', ${idx}, ${optIdx})">✕</button>
                         `;
                         optZone.appendChild(optRow);
                     });
                 }
             });
         }
+
         function renderSheetMappingTable() {
             const container = document.getElementById('admin-sheet-mapping-table-zone');
             if (!container) return;
@@ -1338,64 +1142,50 @@
             html += `</tbody></table>`;
             container.innerHTML = html;
         }
-        function moveCardStep(idx, direction) {
-            const list = allScenarioDatabase['unplanned'];
+
+        function moveCardStep(zoneKey, idx, direction) {
+            const list = allScenarioDatabase[zoneKey];
             const targetIdx = idx + direction;
             if (targetIdx < 0 || targetIdx >= list.length) return;
             const temp = list[idx];
             list[idx] = list[targetIdx];
             list[targetIdx] = temp;
             renderAdminDashboardCards();
+            renderFrontendDynamicFlow();
         }
-        function deleteCardStep(idx) {
-            if (confirm("確定刪除此步驟頁面？")) {
-                allScenarioDatabase['unplanned'].splice(idx, 1);
+
+        function deleteCardStep(zoneKey, idx) {
+            if (confirm("確定刪除此步驟？完成後系統將自動重新接駁流程。")) {
+                allScenarioDatabase[zoneKey].splice(idx, 1);
                 renderAdminDashboardCards();
+                renderFrontendDynamicFlow();
             }
         }
-        function addNewPageCard() {
-            const list = allScenarioDatabase['unplanned'];
-            const nextStep = list.length + 1;
-            list.push({
-                id: `step_${Date.now()}`,
-                step_num: nextStep,
-                step_name: `自訂步驟 ${nextStep}`,
-                title: "新步驟標題",
-                subtitle: "新副標題說明",
-                image_url: "",
-                options: [{ headline: "新選項 1", subtext: "選項說明" }]
+
+        function addNewPageCard(zoneKey) {
+            if (!allScenarioDatabase[zoneKey]) allScenarioDatabase[zoneKey] = [];
+            allScenarioDatabase[zoneKey].push({
+                id: `${zoneKey}_${Date.now()}`,
+                title: "請輸入新問題的主標題",
+                subtitle: "請輸入副標題說明",
+                options: [{ headline: "新選項 1", subtext: "說明文字" }]
             });
             renderAdminDashboardCards();
+            renderFrontendDynamicFlow();
         }
-        function addCardOption(cardIdx) {
-            const card = allScenarioDatabase['unplanned'][cardIdx];
+
+        function addCardOption(zoneKey, cardIdx) {
+            const card = allScenarioDatabase[zoneKey][cardIdx];
             if (!card.options) card.options = [];
             card.options.push({ headline: "新選項", subtext: "說明" });
             renderAdminDashboardCards();
         }
-        function deleteCardOption(cardIdx, optIdx) {
-            allScenarioDatabase['unplanned'][cardIdx].options.splice(optIdx, 1);
+
+        function deleteCardOption(zoneKey, cardIdx, optIdx) {
+            allScenarioDatabase[zoneKey][cardIdx].options.splice(optIdx, 1);
             renderAdminDashboardCards();
         }
-        function triggerCardUpload(idx) {
-            const input = document.getElementById('firebase-file-input');
-            input.onchange = async () => {
-                if (!input.files || input.files.length === 0) return;
-                const file = input.files[0];
-                const fileRef = window.storageRef(window.firebaseStorage, `journey_images/${Date.now()}_${file.name}`);
-                await window.uploadBytes(fileRef, file);
-                const url = await window.getDownloadURL(fileRef);
-                allScenarioDatabase['unplanned'][idx].image_url = url;
-                renderAdminDashboardCards();
-                renderFrontendCards();
-            };
-            input.click();
-        }
-        function deleteCardImage(idx) {
-            allScenarioDatabase['unplanned'][idx].image_url = "";
-            renderAdminDashboardCards();
-            renderFrontendCards();
-        }
+
         function triggerBlueprintImageUpload() {
             const input = document.getElementById('firebase-file-input');
             input.onchange = async () => {
@@ -1418,8 +1208,63 @@
             document.getElementById('admin-blueprint-img-url').value = "";
         }
         
-        function openAdminDashboard() {
-            updateRoleUI();
+        function switchRole(toAdmin) {
+            if (toAdmin && !isAdminRole) {
+                const pwd = prompt("請輸入管理員密碼以啟用管理者控制台：");
+                if (pwd === currentAdminPassword) {
+                    isAdminRole = true;
+                    applyRoleUI(true);
+                } else if (pwd !== null) {
+                    alert("❌ 密碼錯誤！無法切換為管理者模式。");
+                }
+            } else if (!toAdmin) {
+                isAdminRole = false;
+                applyRoleUI(false);
+            }
+        }
+
+        function applyRoleUI(isAdmin) {
+            const btnUser = document.getElementById('btn-role-user');
+            const btnAdmin = document.getElementById('btn-role-admin');
+            const adminTitle = document.getElementById('admin-modal-title');
+            const syncBtn = document.getElementById('btn-sync-gsheet');
+            const restoreBtn = document.getElementById('btn-restore-default');
+            
+            if (isAdmin) {
+                btnAdmin.classList.add('active');
+                btnUser.classList.remove('active');
+                adminTitle.textContent = "🛠️ 管理者控制台 (已連接 Google Sheet)";
+                document.querySelectorAll('.admin-only-tab').forEach(t => t.style.display = 'block');
+                syncBtn.style.display = 'block';
+                restoreBtn.style.display = 'none';
+            } else {
+                btnUser.classList.add('active');
+                btnAdmin.classList.remove('active');
+                adminTitle.textContent = "👤 使用者設定 (儲存至本機)";
+                document.querySelectorAll('.admin-only-tab').forEach(t => t.style.display = 'none');
+                syncBtn.style.display = 'none';
+                restoreBtn.style.display = 'block';
+                switchAdminTab('flow');
+            }
+        }
+
+        function promptAdminLogin() {
+            const pwd = prompt("請輸入管理員密碼：");
+            if (pwd === currentAdminPassword) {
+                isAdminRole = true;
+                openAdminDashboard("🛠️ 管理者控制台 (已連接 Google Sheet)");
+                applyRoleUI(true);
+            } else if (pwd !== null) {
+                alert("❌ 密碼錯誤！");
+            }
+        }
+        function openUserSettings() {
+            isAdminRole = false;
+            openAdminDashboard("👤 使用者設定 (儲存至本機)");
+            applyRoleUI(false);
+        }
+        function openAdminDashboard(title) {
+            document.getElementById('admin-modal-title').textContent = title;
             renderAdminDashboardCards();
             renderSheetMappingTable();
             document.getElementById('cust-col-1').value = customTimingText.col1;
@@ -1469,22 +1314,29 @@
             document.getElementById('med-strategy-modal').style.display = 'flex';
         }
         function closeMedStrategyModal() { document.getElementById('med-strategy-modal').style.display = 'none'; }
-        function jumpDirectStep(step) { closeJumpPopup(); goToStep(step); }
+        function jumpDirectStep(target) {
+            closeJumpPopup();
+            if (target === 'pre-0') {
+                goToDynamicStep('pre', 0);
+            } else {
+                goToStep(target);
+            }
+        }
         
         function saveToLocalStorageOnly() {
-            localStorage.setItem('ava_med_scenario_db', JSON.stringify(allScenarioDatabase));
+            localStorage.setItem('ava_med_scenario_db_v2', JSON.stringify(allScenarioDatabase));
             localStorage.setItem('ava_med_custom_timing', JSON.stringify(customTimingText));
             localStorage.setItem('ava_med_system_version', currentSystemVersion);
             localStorage.setItem('ava_med_admin_password', currentAdminPassword);
             localStorage.setItem('ava_med_blueprint_summary', blueprintSummaryText);
             localStorage.setItem('ava_med_sheet_mapping', JSON.stringify(sheetMappingList));
-            alert("✅ 已成功保存自訂設定至本機！");
+            renderFrontendDynamicFlow();
+            alert("✅ 已成功保存自訂步驟與文字至本機！");
             closeAdminDashboard();
         }
-        
         function restoreToTeamDefaults() {
             if (confirm("確定還原為團隊最新預設？")) {
-                localStorage.removeItem('ava_med_scenario_db');
+                localStorage.removeItem('ava_med_scenario_db_v2');
                 localStorage.removeItem('ava_med_custom_timing');
                 localStorage.removeItem('ava_med_system_version');
                 localStorage.removeItem('ava_med_admin_password');
@@ -1495,11 +1347,9 @@
                 closeAdminDashboard();
             }
         }
-        
-        // 管理者模式：同步所有資料至 Google Sheet
         async function syncAllToGoogleSheet() {
             const loadingMask = document.getElementById('sync-loading-mask');
-            document.getElementById('sync-loading-text').textContent = "正在同步所有資料至 Google Sheet，請稍候...";
+            document.getElementById('sync-loading-text').textContent = '正在同步至 Google Sheet，請稍候...';
             loadingMask.style.display = 'flex';
             currentSystemVersion = document.getElementById('admin-version-input').value || currentSystemVersion;
             currentAdminPassword = document.getElementById('admin-password-input').value || currentAdminPassword;
@@ -1509,7 +1359,7 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify({
-                        action: "sync_med_system",
+                        action: "sync_med_system_v2",
                         version: currentSystemVersion,
                         admin_password: currentAdminPassword,
                         scenario_db: allScenarioDatabase,
@@ -1518,12 +1368,13 @@
                         blueprint_summary: blueprintSummaryText
                     })
                 });
-                localStorage.setItem('ava_med_scenario_db', JSON.stringify(allScenarioDatabase));
+                localStorage.setItem('ava_med_scenario_db_v2', JSON.stringify(allScenarioDatabase));
                 localStorage.setItem('ava_med_custom_timing', JSON.stringify(customTimingText));
                 localStorage.setItem('ava_med_system_version', currentSystemVersion);
                 localStorage.setItem('ava_med_admin_password', currentAdminPassword);
                 localStorage.setItem('ava_med_blueprint_summary', blueprintSummaryText);
                 localStorage.setItem('ava_med_sheet_mapping', JSON.stringify(sheetMappingList));
+                renderFrontendDynamicFlow();
                 loadingMask.style.display = 'none';
                 alert(`✅ 成功同步至 Google Sheet！(Version: ${currentSystemVersion})`);
                 closeAdminDashboard();
@@ -1533,45 +1384,42 @@
             }
         }
         
-        // 雲端資料抓取：支援秒開與精準更新邏輯
-        async function fetchCloudDataFromGAS(forceAll = false) {
+        async function fetchCloudDataFromGAS(forceFullSync = false) {
             try {
                 const response = await fetch(GAS_API_URL);
                 const json = await response.json();
                 if (json && json.status === "success") {
-                    const localVersion = localStorage.getItem('ava_med_system_version');
-                    const cloudVersion = json.version || currentSystemVersion;
-                    const isVersionChanged = forceAll || (!localVersion || localVersion !== cloudVersion);
-                    
-                    if (isAdminRole || forceAll) {
-                        // 管理者模式：以雲端為唯一最新真相全面同步
+                    const localVersion = localStorage.getItem('ava_med_system_version') || 'v0.0.0';
+                    const hasVersionUpdate = json.version && json.version !== localVersion;
+
+                    if (hasVersionUpdate || forceFullSync) {
                         if (json.version) updateSystemVersion(json.version);
                         if (json.admin_password) currentAdminPassword = json.admin_password;
-                        if (json.sheet_mapping) sheetMappingList = json.sheet_mapping;
-                        if (json.scenario_db) allScenarioDatabase = json.scenario_db;
-                        if (json.timing_text) customTimingText = json.timing_text;
-                        if (json.blueprint_summary) updateBlueprintSummaryText(json.blueprint_summary);
-                        
+                        if (json.sheet_mapping) {
+                            sheetMappingList = json.sheet_mapping;
+                            localStorage.setItem('ava_med_sheet_mapping', JSON.stringify(sheetMappingList));
+                        }
                         localStorage.setItem('ava_med_system_version', currentSystemVersion);
                         localStorage.setItem('ava_med_admin_password', currentAdminPassword);
-                        localStorage.setItem('ava_med_sheet_mapping', JSON.stringify(sheetMappingList));
-                        localStorage.setItem('ava_med_scenario_db', JSON.stringify(allScenarioDatabase));
-                        localStorage.setItem('ava_med_custom_timing', JSON.stringify(customTimingText));
-                        localStorage.setItem('ava_med_blueprint_summary', blueprintSummaryText);
-                    } else {
-                        // 使用者模式：只有 version 有變動時，才更新分頁 mapping 與系統參數設定
-                        if (isVersionChanged) {
-                            if (json.version) updateSystemVersion(json.version);
-                            if (json.admin_password) currentAdminPassword = json.admin_password;
-                            if (json.sheet_mapping) sheetMappingList = json.sheet_mapping;
-                            localStorage.setItem('ava_med_system_version', json.version);
-                            localStorage.setItem('ava_med_admin_password', json.admin_password);
-                            localStorage.setItem('ava_med_sheet_mapping', JSON.stringify(json.sheet_mapping));
+                    }
+
+                    const localDb = localStorage.getItem('ava_med_scenario_db_v2');
+                    if ((!localDb || forceFullSync) && json.scenario_db) {
+                        if (json.scenario_db.pre) {
+                            allScenarioDatabase = json.scenario_db;
+                        } else if (json.scenario_db.unplanned) {
+                            allScenarioDatabase.pre = json.scenario_db.unplanned;
                         }
                     }
+
+                    const localTiming = localStorage.getItem('ava_med_custom_timing');
+                    if ((!localTiming || forceFullSync) && json.timing_text) customTimingText = json.timing_text;
+
+                    const localSummary = localStorage.getItem('ava_med_blueprint_summary');
+                    if ((!localSummary || forceFullSync) && json.blueprint_summary) updateBlueprintSummaryText(json.blueprint_summary);
                     
                     updateCustomTimingText();
-                    renderFrontendCards();
+                    renderFrontendDynamicFlow();
                 }
             } catch(e) {}
         }
@@ -1799,6 +1647,7 @@
                 descEl.style.display = 'none';
             }
         };
+
         async function fetchReturnRates() {
             try {
                 const response = await fetch(RETURNS_EXCEL_URL);
@@ -1874,33 +1723,25 @@
             const shareModal = document.getElementById('share-modal');
             if (shareModal) shareModal.style.display = 'flex';
         }
-        
-        // 頁面初次載入：秒開 + 自動識別邏輯
         document.addEventListener('DOMContentLoaded', function() {
-            // 1. 自動身份識別 (網址參數 ?admin=903 或 本機記錄)
-            const urlParams = new URLSearchParams(window.location.search);
-            const adminQuery = urlParams.get('admin');
-            const localIsAdmin = localStorage.getItem('ava_med_is_admin');
-            
-            if (adminQuery === currentAdminPassword || adminQuery === 'true' || localIsAdmin === 'true') {
-                isAdminRole = true;
-                localStorage.setItem('ava_med_is_admin', 'true');
-            } else {
-                isAdminRole = false;
-            }
-            updateRoleUI();
-            
-            // 2. 本機快取秒開讀取
             const savedVer = localStorage.getItem('ava_med_system_version');
             if (savedVer) updateSystemVersion(savedVer);
+            
             const savedPwd = localStorage.getItem('ava_med_admin_password');
             if (savedPwd) currentAdminPassword = savedPwd;
             const savedSummary = localStorage.getItem('ava_med_blueprint_summary');
             if (savedSummary) updateBlueprintSummaryText(savedSummary);
             const savedMapping = localStorage.getItem('ava_med_sheet_mapping');
             if (savedMapping) { try { sheetMappingList = JSON.parse(savedMapping); } catch(e){} }
-            const localDb = localStorage.getItem('ava_med_scenario_db');
-            if (localDb) { try { allScenarioDatabase = JSON.parse(localDb); } catch(e){} }
+            
+            const localDb = localStorage.getItem('ava_med_scenario_db_v2');
+            if (localDb) {
+                try {
+                    const parsed = JSON.parse(localDb);
+                    if (parsed.pre) allScenarioDatabase = parsed;
+                    else if (parsed.unplanned) allScenarioDatabase.pre = parsed.unplanned;
+                } catch(e){}
+            }
             const localTiming = localStorage.getItem('ava_med_custom_timing');
             if (localTiming) { try { customTimingText = JSON.parse(localTiming); } catch(e){} }
             const savedImg = localStorage.getItem('ava_med_custom_blueprint_img');
@@ -1915,13 +1756,10 @@
             document.getElementById('med-retire-age').addEventListener('input', calculateAndDisplay);
             document.getElementById('med-max-age').addEventListener('input', calculateAndDisplay);
             
-            // 3. 立即呈現畫面 (秒開)
             updateCustomTimingText();
-            renderFrontendCards();
+            renderFrontendDynamicFlow();
             updateMedicalJarsByTerm();
             calculatePromo();
-            
-            // 4. 背景檢查雲端版本與抓取最新表格
             fetchCloudDataFromGAS();
             Promise.all([fetchReturnRates(), fetchAllMedicalPremiums()]).then(() => {
                 calculateAndDisplay();
