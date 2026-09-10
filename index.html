@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVA 增值式醫保專屬生活引導系統 v8.2.8</title>
+    <title>AVA 增值式醫保專屬生活引導系統 v8.3.0</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e3a8a">
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192x192.png">
@@ -250,7 +250,7 @@
         <div class="brand-title-wrap">
             <span class="brand-logo-text" onclick="promptAdminLogin()" title="點擊輸入管理員密碼">🌱 AVA 增值式醫保系統</span>
             <span class="mini-quick-btn jump-btn" onclick="openJumpPopup()" title="直達流程模組">*</span>
-            <span class="system-badge" id="app-version-badge">v8.2.8</span>
+            <span class="system-badge" id="app-version-badge">v8.3.0</span>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
             <div class="user-settings-btn" onclick="openUserSettings()" title="設定控制台">⚙️</div>
@@ -386,7 +386,7 @@
                                 <div class="calc-grid-5yr">
                                     <div class="calc-input-group"><label>第6年 (<span class="med-age-y6">60</span>歲)</label><input type="text" id="med-plan2-contribution" value="50,000"><div class="med-prem-subbox">保費: $<span id="med-prem-y6">0</span></div></div>
                                     <div class="calc-input-group"><label>第7年 (<span class="med-age-y7">61</span>歲)</label><input type="text" id="med-plan2-y2" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y7">0</span></div></div>
-                                    <div class="calc-input-group"><label>第8年 (<span class="med-age-y8">62</span>歲)</label><input type="text" id="med-plan2-y3" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y8">0</span></div></div>
+                                    <div class="calc-input-group"><label>第8年 (<span class="med-age-y8">62</span>歲)</label><input type="text" id="med-plan2-y3" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y7">0</span></div></div>
                                     <div class="calc-input-group"><label>第9年 (<span class="med-age-y9">63</span>歲)</label><input type="text" id="med-plan2-y4" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y9">0</span></div></div>
                                     <div class="calc-input-group"><label>第10年 (<span class="med-age-y10">64</span>歲)</label><input type="text" id="med-plan2-y5" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y10">0</span></div></div>
                                 </div>
@@ -414,9 +414,9 @@
                                 <div class="calc-grid-5yr">
                                     <div class="calc-input-group"><label>第16年 (<span class="med-age-y16">70</span>歲)</label><input type="text" id="med-plan4-contribution" value="70,000"><div class="med-prem-subbox">保費: $<span id="med-prem-y16">0</span></div></div>
                                     <div class="calc-input-group"><label>第17年 (<span class="med-age-y17">71</span>歲)</label><input type="text" id="med-plan4-y2" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y17">0</span></div></div>
-                                    <div class="calc-input-group"><label>第18年 (<span class="med-age-y18">72</span>歲)</label><input type="text" id="med-plan4-y3" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y3">0</span></div></div>
-                                    <div class="calc-input-group"><label>第19年 (<span class="med-age-y19">73</span>歲)</label><input type="text" id="med-plan4-y4" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y4">0</span></div></div>
-                                    <div class="calc-input-group"><label>第20年 (<span class="med-age-y20">74</span>歲)</label><input type="text" id="med-plan4-y5" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y5">0</span></div></div>
+                                    <div class="calc-input-group"><label>第18年 (<span class="med-age-y18">72</span>歲)</label><input type="text" id="med-plan4-y3" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y18">0</span></div></div>
+                                    <div class="calc-input-group"><label>第19年 (<span class="med-age-y19">73</span>歲)</label><input type="text" id="med-plan4-y4" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y19">0</span></div></div>
+                                    <div class="calc-input-group"><label>第20年 (<span class="med-age-y20">74</span>歲)</label><input type="text" id="med-plan4-y5" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y20">0</span></div></div>
                                 </div>
                                 <div class="calc-total-badge" style="color:var(--plan4-color);">第16-20年總額：$<span id="med-plan4-5yr-total">350,000</span></div>
                             </div>
@@ -555,13 +555,13 @@
     <div id="admin-modal-mask" class="modal-mask">
         <div class="admin-dashboard-modal">
             <div class="admin-header">
-                <div id="admin-modal-title">🛠️ 後台控制台</div>
+                <div id="admin-modal-title">🛠️ 管理者控制台 (已連接 Google Sheet 雲端)</div>
                 <div style="cursor:pointer;" onclick="closeAdminDashboard()">✕</div>
             </div>
             <div class="admin-nav" id="admin-tabs-nav-bar">
                 <div class="role-switcher-container">
-                    <button class="role-switch-btn active" id="btn-role-user" onclick="switchRole(false)">👤 使用者</button>
-                    <button class="role-switch-btn" id="btn-role-admin" onclick="switchRole(true)">🛠️ 管理者</button>
+                    <button class="role-switch-btn" id="btn-role-user" onclick="switchRole(false)">👤 使用者</button>
+                    <button class="role-switch-btn active" id="btn-role-admin" onclick="switchRole(true)">🛠️ 管理者</button>
                 </div>
                 <div class="admin-nav-btn active" id="tab-flow-btn" onclick="switchAdminTab('flow')">頁面流程管理</div>
                 <div class="admin-nav-btn" id="tab-timing-btn" onclick="switchAdminTab('timing')">增值式醫保文字</div>
@@ -718,7 +718,7 @@
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">admin_password (管理員密碼)：</label>
                         <input type="text" id="admin-password-input" class="pink-edit-input" value="903" oninput="currentAdminPassword = this.value">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">system_version (系統版本號)：</label>
-                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v8.2.8" oninput="updateSystemVersion(this.value)">
+                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v8.3.0" oninput="updateSystemVersion(this.value)">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">專屬 GAS API 網址：</label>
                         <input type="text" id="admin-gas-url-input" class="pink-edit-input" value="https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec">
                     </div>
@@ -734,7 +734,7 @@
                     <button class="nav-btn prev" id="btn-export-settings" style="width:auto; padding:8px 14px; background:#f0f9ff; border-color:#bae6fd; color:#0284c7;" onclick="exportCurrentSettings()">📤 匯出設定</button>
                     <button class="nav-btn prev" id="btn-import-settings" style="width:auto; padding:8px 14px; background:#fefce8; border-color:#fef08a; color:#a16207;" onclick="triggerImportSettings()">📥 匯入設定</button>
                     <button class="nav-btn prev" id="btn-save-local" style="width:auto; padding:8px 16px; background:#f0fdf4; border-color:#86efac; color:#166534;" onclick="saveToLocalStorageOnly()">💾 保存至本機</button>
-                    <button class="nav-btn next" id="btn-sync-gsheet" style="width:auto; padding:8px 20px; display:none;" onclick="syncAllToGoogleSheet()">☁️ 同步至 Google Sheet</button>
+                    <button class="nav-btn next" id="btn-sync-gsheet" style="width:auto; padding:8px 20px;" onclick="syncAllToGoogleSheet()">☁️ 同步至 Google Sheet</button>
                 </div>
             </div>
         </div>
@@ -758,13 +758,14 @@
 
     <script>
         const answers = {};
-        let currentSystemVersion = "v8.2.8";
+        let currentSystemVersion = "v8.3.0";
         let currentAdminPassword = "903";
         let GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec';
         const RETURNS_EXCEL_URL = 'https://docs.google.com/spreadsheets/d/1-kawg3ew7CF05g-Dc3cwu1yYROWa73fhWlunv5TYF6E/export?format=xlsx';
         const MEDICAL_EXCEL_URL = 'https://docs.google.com/spreadsheets/d/1G6JirabWJPrTtsdPuzzfyo-D-EPIbbdCM3HvFUW7ZCw/export?format=xlsx';
         
-        let isAdminRole = false;
+        // ⚡ 核心設定：系統預設為「管理者」，無條件以雲端資料為基礎！
+        let isAdminRole = true;
         let globalReturnMultipliers = {};
         let globalMedPremiumCache = {};
         let excelParsedPremiumMap = {};
@@ -1094,7 +1095,6 @@
             document.getElementById('lbl-max-age-calc1').textContent = customTimingText.lbl_max;
             document.getElementById('lbl-max-age-calc2').textContent = customTimingText.lbl_max;
 
-            // 🎯 即時寫入前台下拉選單文字
             customTimingText.opt_term_5 = document.getElementById('cust-opt-term-5').value;
             customTimingText.opt_term_10 = document.getElementById('cust-opt-term-10').value;
             customTimingText.opt_term_15 = document.getElementById('cust-opt-term-15').value;
@@ -1319,20 +1319,25 @@
             document.getElementById('admin-blueprint-img-url').value = "";
         }
 
+        // 📌 核心角色切換與身分控制
         function switchRole(toAdmin) {
-            if (toAdmin && !isAdminRole) {
-                const pwd = prompt("請輸入管理員密碼以啟用管理者控制台：");
-                if (pwd === currentAdminPassword) {
-                    isAdminRole = true;
-                    localStorage.setItem('ava_med_is_admin', 'true');
-                    applyRoleUI(true);
-                    fetchCloudDataFromGAS(true);
-                } else if (pwd !== null) {
-                    alert("❌ 密碼錯誤！無法切換為管理者模式。");
+            if (toAdmin) {
+                if (!isAdminRole) {
+                    const pwd = prompt("請輸入管理員密碼以啟用管理者控制台：");
+                    if (pwd === currentAdminPassword) {
+                        isAdminRole = true;
+                        localStorage.setItem('ava_med_is_admin', 'true');
+                        localStorage.removeItem('ava_med_user_customized'); // 管理者清除使用者鎖定
+                        applyRoleUI(true);
+                        fetchCloudDataFromGAS(true);
+                    } else if (pwd !== null) {
+                        alert("❌ 密碼錯誤！無法切換為管理者模式。");
+                    }
                 }
-            } else if (!toAdmin) {
+            } else {
+                // 主動切換為使用者
                 isAdminRole = false;
-                localStorage.removeItem('ava_med_is_admin');
+                localStorage.setItem('ava_med_is_admin', 'false');
                 applyRoleUI(false);
             }
         }
@@ -1367,6 +1372,7 @@
             if (pwd === currentAdminPassword) {
                 isAdminRole = true;
                 localStorage.setItem('ava_med_is_admin', 'true');
+                localStorage.removeItem('ava_med_user_customized');
                 openAdminDashboard("🛠️ 管理者控制台 (已連接 Google Sheet 雲端)");
                 applyRoleUI(true);
                 fetchCloudDataFromGAS(true);
@@ -1377,14 +1383,15 @@
 
         function openUserSettings() {
             const savedRole = localStorage.getItem('ava_med_is_admin');
-            if (savedRole === 'true') {
-                isAdminRole = true;
-                openAdminDashboard("🛠️ 管理者控制台 (已連接 Google Sheet 雲端)");
-                applyRoleUI(true);
-            } else {
+            if (savedRole === 'false') {
                 isAdminRole = false;
                 openAdminDashboard("👤 使用者設定 (儲存至本機)");
                 applyRoleUI(false);
+            } else {
+                // 預設為管理者
+                isAdminRole = true;
+                openAdminDashboard("🛠️ 管理者控制台 (已連接 Google Sheet 雲端)");
+                applyRoleUI(true);
             }
         }
 
@@ -1394,7 +1401,7 @@
             renderSheetMappingTable();
             
             document.getElementById('cust-calc7-title-input').value = customTimingText.calc7_title || "🏥 退休醫療總保費試算：不能忽略的剛性支出";
-            document.getElementById('cust-calc7-sub-input').value = customTimingText.calc7_sub || "提早為未來鎖定終身醫療開支，以資產滾存對沖醫療通脹：";
+            document.getElementById('cust-calc7-sub-input').value = customTimingText.calc7_sub || "提早為未來鎖定終身醫療開支，以資產滾存對充醫療通脹：";
             
             document.getElementById('cust-col-1').value = customTimingText.col1;
             document.getElementById('cust-col-2').value = customTimingText.col2;
@@ -1450,6 +1457,7 @@
             else goToStep(target);
         }
         
+        // 💾 使用者儲存至本機（鎖定使用者身分）
         function saveToLocalStorageOnly() {
             localStorage.setItem('ava_med_scenario_db_v3', JSON.stringify(allScenarioDatabase));
             localStorage.setItem('ava_med_custom_timing', JSON.stringify(customTimingText));
@@ -1457,11 +1465,16 @@
             localStorage.setItem('ava_med_admin_password', currentAdminPassword);
             localStorage.setItem('ava_med_blueprint_summary', blueprintSummaryText);
             localStorage.setItem('ava_med_sheet_mapping', JSON.stringify(sheetMappingList));
-            localStorage.setItem('ava_med_user_customized', 'true');
+            
+            // 只有按「保存至本機」才正式鎖定為使用者
+            if (!isAdminRole) {
+                localStorage.setItem('ava_med_user_customized', 'true');
+                localStorage.setItem('ava_med_is_admin', 'false');
+            }
             
             updateCustomTimingText();
             renderFrontendDynamicFlow();
-            alert("✅ 已成功保存設定至本機！已為你鎖定自訂版本。");
+            alert("✅ 已成功保存設定至本機！");
             closeAdminDashboard();
         }
 
@@ -1509,7 +1522,6 @@
             fileInput.click();
         }
 
-        // 📌 管理者同步時自動遞增 Version 並寫入 Google Sheet
         async function syncAllToGoogleSheet() {
             const loadingMask = document.getElementById('sync-loading-mask');
             document.getElementById('sync-loading-text').textContent = '正在同步至 Google Sheet，請稍候...';
@@ -1539,7 +1551,6 @@
                 localStorage.setItem('ava_med_admin_password', currentAdminPassword);
                 localStorage.setItem('ava_med_blueprint_summary', blueprintSummaryText);
                 localStorage.setItem('ava_med_sheet_mapping', JSON.stringify(sheetMappingList));
-                localStorage.setItem('ava_med_user_customized', 'true');
                 
                 updateCustomTimingText();
                 renderFrontendDynamicFlow();
@@ -1552,7 +1563,7 @@
             }
         }
 
-        // 📌 核心突破快取邏輯：加入時間戳與 cache: "no-store"，解決 iPad 舊快取問題
+        // 📌 核心分流讀取：預設以管理者拉取全量雲端資料
         async function fetchCloudDataFromGAS(forceFullSync = false) {
             const localVersion = localStorage.getItem('ava_med_system_version') || 'v0.0.0';
             const isUserCustomized = localStorage.getItem('ava_med_user_customized') === 'true';
@@ -1580,6 +1591,7 @@
                         localStorage.setItem('ava_med_sheet_mapping', JSON.stringify(sheetMappingList));
                     }
 
+                    // ⚡ 核心規則：管理者無條件覆蓋；使用者只保護 3 頁自訂內容
                     if (isAdminRole || !isUserCustomized) {
                         if (json.scenario_db) {
                             allScenarioDatabase = json.scenario_db;
@@ -1905,9 +1917,11 @@
             calculateAndDisplay();
         }
 
+        // 📌 頁面載入初始化
         document.addEventListener('DOMContentLoaded', function() {
+            // ⚡ 核心預設：如果沒有明確存儲為 'false'，一律預設為管理者！
             const savedRole = localStorage.getItem('ava_med_is_admin');
-            if (savedRole === 'true') isAdminRole = true;
+            isAdminRole = (savedRole !== 'false');
 
             const savedVer = localStorage.getItem('ava_med_system_version');
             if (savedVer) updateSystemVersion(savedVer);
@@ -1960,7 +1974,8 @@
             updateMedicalJarsByTerm();
             calculatePromo();
             
-            fetchCloudDataFromGAS(isAdminRole);
+            // ⚡ 管理者預設強制抓取雲端最新資料
+            fetchCloudDataFromGAS(true);
             
             Promise.all([fetchReturnRates(), fetchAllMedicalPremiums()]).then(() => {
                 calculateAndDisplay();
