@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVA 增值式醫保專屬生活引導系統 v8.4.0</title>
+    <title>AVA 增值式醫保專屬生活引導系統 v8.4.1</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e3a8a">
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192x192.png">
@@ -246,7 +246,7 @@
         <div class="brand-title-wrap">
             <span class="brand-logo-text" onclick="promptAdminLogin()" title="點擊輸入管理員密碼">🌱 AVA 增值式醫保系統</span>
             <span class="mini-quick-btn jump-btn" onclick="openJumpPopup()" title="直達流程模組">*</span>
-            <span class="system-badge" id="app-version-badge">v8.4.0</span>
+            <span class="system-badge" id="app-version-badge">v8.4.1</span>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
             <div class="user-settings-btn" onclick="openUserSettings()" title="設定控制台">⚙️</div>
@@ -382,7 +382,7 @@
                                 <div class="calc-grid-5yr">
                                     <div class="calc-input-group"><label>第6年 (<span class="med-age-y6">60</span>歲)</label><input type="text" id="med-plan2-contribution" value="50,000"><div class="med-prem-subbox">保費: $<span id="med-prem-y6">0</span></div></div>
                                     <div class="calc-input-group"><label>第7年 (<span class="med-age-y7">61</span>歲)</label><input type="text" id="med-plan2-y2" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y7">0</span></div></div>
-                                    <div class="calc-input-group"><label>第8年 (<span class="med-age-y8">62</span>歲)</label><input type="text" id="med-plan2-y3" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y8">0</span></div></div>
+                                    <div class="calc-input-group"><label>第8年 (<span class="med-age-y8">62</span>歲)</label><input type="text" id="med-plan2-y3" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y7">0</span></div></div>
                                     <div class="calc-input-group"><label>第9年 (<span class="med-age-y9">63</span>歲)</label><input type="text" id="med-plan2-y4" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y9">0</span></div></div>
                                     <div class="calc-input-group"><label>第10年 (<span class="med-age-y10">64</span>歲)</label><input type="text" id="med-plan2-y5" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y10">0</span></div></div>
                                 </div>
@@ -396,7 +396,7 @@
                                 <div class="calc-grid-5yr">
                                     <div class="calc-input-group"><label>第11年 (<span class="med-age-y11">65</span>歲)</label><input type="text" id="med-plan3-contribution" value="60,000"><div class="med-prem-subbox">保費: $<span id="med-prem-y11">0</span></div></div>
                                     <div class="calc-input-group"><label>第12年 (<span class="med-age-y12">66</span>歲)</label><input type="text" id="med-plan3-y2" value="60,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y12">0</span></div></div>
-                                    <div class="calc-input-group"><label>第13年 (<span class="med-age-y13">67</span>歲)</label><input type="text" id="med-plan3-y3" value="60,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y3">0</span></div></div>
+                                    <div class="calc-input-group"><label>第13年 (<span class="med-age-y13">67</span>歲)</label><input type="text" id="med-plan3-y3" value="60,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y13">0</span></div></div>
                                     <div class="calc-input-group"><label>第14年 (<span class="med-age-y14">68</span>歲)</label><input type="text" id="med-plan3-y4" value="60,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y14">0</span></div></div>
                                     <div class="calc-input-group"><label>第15年 (<span class="med-age-y15">69</span>歲)</label><input type="text" id="med-plan3-y5" value="60,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y15">0</span></div></div>
                                 </div>
@@ -561,7 +561,7 @@
                 </div>
                 <div class="admin-nav-btn active" id="tab-flow-btn" onclick="switchAdminTab('flow')">頁面流程管理</div>
                 <div class="admin-nav-btn" id="tab-timing-btn" onclick="switchAdminTab('timing')">增值式醫保文字</div>
-                <!-- 🌟 全新加入第 4 個設定頁面：核心過渡文字 -->
+                <!-- 🌟 第 4 個設定頁面：核心過渡文字 -->
                 <div class="admin-nav-btn" id="tab-transition-btn" onclick="switchAdminTab('transition')">核心過渡文字</div>
                 <div class="admin-nav-btn" id="tab-blueprint-btn" onclick="switchAdminTab('blueprint')">人生藍圖設定</div>
                 <div class="admin-nav-btn admin-only-tab" id="tab-mapping-btn" onclick="switchAdminTab('mapping')">分頁命名與對應代碼</div>
@@ -608,65 +608,65 @@
                     <div class="admin-card-row">
                         <h4 style="margin-top:0; color:var(--brand-primary); margin-bottom:12px;">📊 增值式醫保 - 表格標題自訂</h4>
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">th_year：</label><input type="text" id="cust-col-1" class="pink-edit-input" value="年份 (歲數)" oninput="updateCustomTimingText()"></div>
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">th_reserve：</label><input type="text" id="cust-col-2" class="pink-edit-input" value="累計儲備" oninput="updateCustomTimingText()"></div>
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">th_income：</label><input type="text" id="cust-col-3" class="pink-edit-input" value="自動支付醫保" oninput="updateCustomTimingText()"></div>
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">th_accum (綠色 醫保保費)：</label><input type="text" id="cust-col-4" class="pink-edit-input" value="該年醫保保費" oninput="updateCustomTimingText()"></div>
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">實際自付醫療保費 (紅色)：</label><input type="text" id="cust-col-actual" class="pink-edit-input" value="醫療保費差額" oninput="updateCustomTimingText()"></div>
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">th_asset (紫色 增值醫保餘額)：</label><input type="text" id="cust-col-5" class="pink-edit-input" value="增值醫保餘額" oninput="updateCustomTimingText()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">th_year：</label><input type="text" id="cust-col-1" class="pink-edit-input" oninput="saveCurrentInputsToTiming()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">th_reserve：</label><input type="text" id="cust-col-2" class="pink-edit-input" oninput="saveCurrentInputsToTiming()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">th_income：</label><input type="text" id="cust-col-3" class="pink-edit-input" oninput="saveCurrentInputsToTiming()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">th_accum (綠色 醫保保費)：</label><input type="text" id="cust-col-4" class="pink-edit-input" oninput="saveCurrentInputsToTiming()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">實際自付醫療保費 (紅色)：</label><input type="text" id="cust-col-actual" class="pink-edit-input" oninput="saveCurrentInputsToTiming()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">th_asset (紫色 增值醫保餘額)：</label><input type="text" id="cust-col-5" class="pink-edit-input" oninput="saveCurrentInputsToTiming()"></div>
                         </div>
                     </div>
                     
                     <div class="admin-card-row">
                         <h4 style="margin-top:0; color:var(--brand-primary); margin-bottom:12px;">🏷️ 主計算表頂部標籤自訂</h4>
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">開始歲數標籤：</label><input type="text" id="cust-lbl-start" class="pink-edit-input" value="開始歲數" oninput="updateCustomTimingText()"></div>
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">儲備年期標籤：</label><input type="text" id="cust-lbl-term" class="pink-edit-input" value="儲備年期 (年)" oninput="updateCustomTimingText()"></div>
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">轉換期標籤：</label><input type="text" id="cust-lbl-retire" class="pink-edit-input" value="退休歲數 (轉換期)" oninput="updateCustomTimingText()"></div>
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">增值期標籤：</label><input type="text" id="cust-lbl-max" class="pink-edit-input" value="預期到歲數 (增值期)" oninput="updateCustomTimingText()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">開始歲數標籤：</label><input type="text" id="cust-lbl-start" class="pink-edit-input" oninput="saveCurrentInputsToTiming()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">儲備年期標籤：</label><input type="text" id="cust-lbl-term" class="pink-edit-input" oninput="saveCurrentInputsToTiming()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">轉換期標籤：</label><input type="text" id="cust-lbl-retire" class="pink-edit-input" oninput="saveCurrentInputsToTiming()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">增值期標籤：</label><input type="text" id="cust-lbl-max" class="pink-edit-input" oninput="saveCurrentInputsToTiming()"></div>
                         </div>
                     </div>
                     <div class="admin-card-row">
                         <h4 style="margin-top:0; color:var(--brand-primary); margin-bottom:12px;">🔽 下拉選單年期文字自訂</h4>
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">5年選項文字：</label><input type="text" id="cust-opt-term-5" class="pink-edit-input" value="5 年 (建立)" oninput="updateCustomTimingText()"></div>
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">10年選項文字：</label><input type="text" id="cust-opt-term-10" class="pink-edit-input" value="10 年 (累積期)" oninput="updateCustomTimingText()"></div>
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">15年選項文字：</label><input type="text" id="cust-opt-term-15" class="pink-edit-input" value="15 年 (高階)" oninput="updateCustomTimingText()"></div>
-                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">20年選項文字：</label><input type="text" id="cust-opt-term-20" class="pink-edit-input" value="20 年 (頂級防護)" oninput="updateCustomTimingText()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">5年選項文字：</label><input type="text" id="cust-opt-term-5" class="pink-edit-input" oninput="saveCurrentInputsToTiming()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">10年選項文字：</label><input type="text" id="cust-opt-term-10" class="pink-edit-input" oninput="saveCurrentInputsToTiming()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">15年選項文字：</label><input type="text" id="cust-opt-term-15" class="pink-edit-input" oninput="saveCurrentInputsToTiming()"></div>
+                            <div><label style="font-size:0.75rem; font-weight:bold; color:#64748b;">20年選項文字：</label><input type="text" id="cust-opt-term-20" class="pink-edit-input" oninput="saveCurrentInputsToTiming()"></div>
                         </div>
                     </div>
                     <div class="admin-card-row">
                         <h4 style="margin-top:0; color:var(--brand-primary); margin-bottom:12px;">🌱 儲備金庫標題與描述自訂</h4>
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b;">tree_title_1：</label>
-                        <input type="text" id="cust-tree-1" class="pink-edit-input" value="🌱 儲備金庫一 + 建立水庫" oninput="updateCustomTimingText()">
+                        <input type="text" id="cust-tree-1" class="pink-edit-input" oninput="saveCurrentInputsToTiming()">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:4px; display:block;">tree_desc_1：</label>
-                        <input type="text" id="cust-tree-desc-1" class="pink-edit-input" value="建立水庫" oninput="updateCustomTimingText()">
+                        <input type="text" id="cust-tree-desc-1" class="pink-edit-input" oninput="saveCurrentInputsToTiming()">
                         
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">tree_title_2：</label>
-                        <input type="text" id="cust-tree-2" class="pink-edit-input" value="💧 儲備金庫二 + 擴建水庫" oninput="updateCustomTimingText()">
+                        <input type="text" id="cust-tree-2" class="pink-edit-input" oninput="saveCurrentInputsToTiming()">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:4px; display:block;">tree_desc_2：</label>
-                        <input type="text" id="cust-tree-desc-2" class="pink-edit-input" value="擴建水庫" oninput="updateCustomTimingText()">
+                        <input type="text" id="cust-tree-desc-2" class="pink-edit-input" oninput="saveCurrentInputsToTiming()">
                         
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">tree_title_3：</label>
-                        <input type="text" id="cust-tree-3" class="pink-edit-input" value="🌿 儲備金庫三 + 水庫儲備倍增" oninput="updateCustomTimingText()">
+                        <input type="text" id="cust-tree-3" class="pink-edit-input" oninput="saveCurrentInputsToTiming()">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:4px; display:block;">tree_desc_3：</label>
-                        <input type="text" id="cust-tree-desc-3" class="pink-edit-input" value="水庫儲備倍增" oninput="updateCustomTimingText()">
+                        <input type="text" id="cust-tree-desc-3" class="pink-edit-input" oninput="saveCurrentInputsToTiming()">
                         
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">tree_title_4：</label>
-                        <input type="text" id="cust-tree-4" class="pink-edit-input" value="🌳 儲備金庫四 + 變成大水庫" oninput="updateCustomTimingText()">
+                        <input type="text" id="cust-tree-4" class="pink-edit-input" oninput="saveCurrentInputsToTiming()">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:4px; display:block;">tree_desc_4：</label>
-                        <input type="text" id="cust-tree-desc-4" class="pink-edit-input" value="變成大水庫，自動啟動" oninput="updateCustomTimingText()">
+                        <input type="text" id="cust-tree-desc-4" class="pink-edit-input" oninput="saveCurrentInputsToTiming()">
                     </div>
                 </div>
 
-                <!-- 🌟 3. 全新加入：核心過渡文字設定 -->
+                <!-- 🌟 3. 核心過渡文字設定 -->
                 <div id="admin-sec-transition" class="admin-tab-content" style="display:none;">
                     <div class="admin-card-row" style="border: 1.5px solid #fde68a; background: #fffbeb;">
                         <h4 style="margin-top:0; color:#b45309; margin-bottom:12px;">🏥 總醫療保費頁文字設定</h4>
                         <label style="font-size:0.75rem; font-weight:bold; color:#b45309;">總保費頁主標題 (calc7_title)：</label>
-                        <input type="text" id="cust-calc7-title-input" class="pink-edit-input" value="🏥「如果一直保留呢份保障，將來大概要準備幾多？」" oninput="updateCustomTimingText()">
+                        <input type="text" id="cust-calc7-title-input" class="pink-edit-input" oninput="saveCurrentInputsToTiming()">
                         <label style="font-size:0.75rem; font-weight:bold; color:#b45309; margin-top:8px; display:block;">總保費頁副標題 (calc7_sub)：</label>
-                        <input type="text" id="cust-calc7-sub-input" class="pink-edit-input" value="「呢個唔代表你今日要準備晒。」「只係原來將每年嘅數字放埋一齊睇，係另一個角度。」" oninput="updateCustomTimingText()">
+                        <input type="text" id="cust-calc7-sub-input" class="pink-edit-input" oninput="saveCurrentInputsToTiming()">
                     </div>
 
                     <div class="admin-card-row" style="border: 1.5px solid #a7f3d0; background: #f0fdf4;">
@@ -674,21 +674,21 @@
                         <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;">
                             <div style="background:#fff; padding:10px; border-radius:8px; border:1px solid #fed7aa;">
                                 <label style="font-size:0.72rem; font-weight:bold; color:#ea580c;">步驟 1 標題 (p1_title)：</label>
-                                <input type="text" id="cust-p1-title-input" class="pink-edit-input" value="1. 💰 用工作收入分段建立" oninput="updateCustomTimingText()">
+                                <input type="text" id="cust-p1-title-input" class="pink-edit-input" oninput="saveCurrentInputsToTiming()">
                                 <label style="font-size:0.72rem; font-weight:bold; color:#64748b; margin-top:6px; display:block;">步驟 1 說明 (p1_desc)：</label>
-                                <input type="text" id="cust-p1-desc-input" class="pink-edit-input" value="旅行、享受、家庭開銷照舊進行，完全不犧牲生活品質。" oninput="updateCustomTimingText()">
+                                <input type="text" id="cust-p1-desc-input" class="pink-edit-input" oninput="saveCurrentInputsToTiming()">
                             </div>
                             <div style="background:#fff; padding:10px; border-radius:8px; border:1px solid #fed7aa;">
                                 <label style="font-size:0.72rem; font-weight:bold; color:#ea580c;">步驟 2 標題 (p2_title)：</label>
-                                <input type="text" id="cust-p2-title-input" class="pink-edit-input" value="2. 🌱 資產逐步累積" oninput="updateCustomTimingText()">
+                                <input type="text" id="cust-p2-title-input" class="pink-edit-input" oninput="saveCurrentInputsToTiming()">
                                 <label style="font-size:0.72rem; font-weight:bold; color:#64748b; margin-top:6px; display:block;">步驟 2 說明 (p2_desc)：</label>
-                                <input type="text" id="cust-p2-desc-input" class="pink-edit-input" value="每月只需撥出微少份額，只需 5 年，就自動完成資產水庫建造。" oninput="updateCustomTimingText()">
+                                <input type="text" id="cust-p2-desc-input" class="pink-edit-input" oninput="saveCurrentInputsToTiming()">
                             </div>
                             <div style="background:#fff; padding:10px; border-radius:8px; border:1px solid #fed7aa;">
                                 <label style="font-size:0.72rem; font-weight:bold; color:#ea580c;">步驟 3 標題 (p3_title)：</label>
-                                <input type="text" id="cust-p3-title-input" class="pink-edit-input" value="3. 🏥 支付醫療保費" oninput="updateCustomTimingText()">
+                                <input type="text" id="cust-p3-title-input" class="pink-edit-input" oninput="saveCurrentInputsToTiming()">
                                 <label style="font-size:0.72rem; font-weight:bold; color:#64748b; margin-top:6px; display:block;">步驟 3 說明 (p3_desc)：</label>
-                                <input type="text" id="cust-p3-desc-input" class="pink-edit-input" value="停止投入後，水庫交由時間滾存，隨時可開水龍頭提取源源長糧。" oninput="updateCustomTimingText()">
+                                <input type="text" id="cust-p3-desc-input" class="pink-edit-input" oninput="saveCurrentInputsToTiming()">
                             </div>
                         </div>
                     </div>
@@ -725,7 +725,7 @@
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">admin_password (管理員密碼)：</label>
                         <input type="text" id="admin-password-input" class="pink-edit-input" value="903" oninput="currentAdminPassword = this.value">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">system_version (系統版本號)：</label>
-                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v8.4.0" oninput="updateSystemVersion(this.value)">
+                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v8.4.1" oninput="updateSystemVersion(this.value)">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">專屬 GAS API 網址：</label>
                         <input type="text" id="admin-gas-url-input" class="pink-edit-input" value="https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec">
                     </div>
@@ -765,7 +765,7 @@
 
     <script>
         const answers = {};
-        let currentSystemVersion = "v8.4.0";
+        let currentSystemVersion = "v8.4.1";
         let currentAdminPassword = "903";
         let GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec';
         const RETURNS_EXCEL_URL = 'https://docs.google.com/spreadsheets/d/1-kawg3ew7CF05g-Dc3cwu1yYROWa73fhWlunv5TYF6E/export?format=xlsx';
@@ -1078,9 +1078,8 @@
             calculateAndDisplay();
         }
 
-        // 📌 核心文字即時映射函數
-        function updateCustomTimingText() {
-            // 1. 抓取文字輸入
+        // 🎯 核心修復 1：只有使用者主動在後台鍵入時，才反向儲存
+        function saveCurrentInputsToTiming() {
             customTimingText.col1 = document.getElementById('cust-col-1').value;
             customTimingText.col2 = document.getElementById('cust-col-2').value;
             customTimingText.col3 = document.getElementById('cust-col-3').value;
@@ -1107,7 +1106,6 @@
             customTimingText.tree4 = document.getElementById('cust-tree-4').value;
             customTimingText.tree_desc4 = document.getElementById('cust-tree-desc-4').value;
 
-            // 🌟 核心過渡頁文字映射
             customTimingText.calc7_title = document.getElementById('cust-calc7-title-input').value;
             customTimingText.calc7_sub = document.getElementById('cust-calc7-sub-input').value;
             customTimingText.p1_title = document.getElementById('cust-p1-title-input').value;
@@ -1117,34 +1115,44 @@
             customTimingText.p3_title = document.getElementById('cust-p3-title-input').value;
             customTimingText.p3_desc = document.getElementById('cust-p3-desc-input').value;
 
-            // 2. 寫入前台 DOM
-            document.getElementById('disp-calc7-title').textContent = customTimingText.calc7_title;
-            document.getElementById('disp-calc7-sub').textContent = customTimingText.calc7_sub;
+            applyTimingTextToDOM();
+        }
 
-            document.getElementById('lbl-start-age').textContent = customTimingText.lbl_start;
-            document.getElementById('lbl-pay-term').textContent = customTimingText.lbl_term;
-            document.getElementById('lbl-retire-age-calc1').textContent = customTimingText.lbl_retire;
-            document.getElementById('lbl-retire-age-calc2').textContent = customTimingText.lbl_retire;
-            document.getElementById('lbl-max-age-calc1').textContent = customTimingText.lbl_max;
-            document.getElementById('lbl-max-age-calc2').textContent = customTimingText.lbl_max;
+        // 🎯 核心修復 2：專注將雲端變數 100% 寫入 DOM，絕不反向覆蓋
+        function applyTimingTextToDOM() {
+            const t = customTimingText || {};
+
+            if (t.calc7_title) document.getElementById('disp-calc7-title').textContent = t.calc7_title;
+            if (t.calc7_sub) document.getElementById('disp-calc7-sub').textContent = t.calc7_sub;
+
+            if (t.lbl_start) document.getElementById('lbl-start-age').textContent = t.lbl_start;
+            if (t.lbl_term) document.getElementById('lbl-pay-term').textContent = t.lbl_term;
+            if (t.lbl_retire) {
+                document.getElementById('lbl-retire-age-calc1').textContent = t.lbl_retire;
+                document.getElementById('lbl-retire-age-calc2').textContent = t.lbl_retire;
+            }
+            if (t.lbl_max) {
+                document.getElementById('lbl-max-age-calc1').textContent = t.lbl_max;
+                document.getElementById('lbl-max-age-calc2').textContent = t.lbl_max;
+            }
 
             const opt5 = document.getElementById('opt-term-5');
             const opt10 = document.getElementById('opt-term-10');
             const opt15 = document.getElementById('opt-term-15');
             const opt20 = document.getElementById('opt-term-20');
-            if (opt5) opt5.textContent = customTimingText.opt_term_5;
-            if (opt10) opt10.textContent = customTimingText.opt_term_10;
-            if (opt15) opt15.textContent = customTimingText.opt_term_15;
-            if (opt20) opt20.textContent = customTimingText.opt_term_20;
+            if (opt5 && t.opt_term_5) opt5.textContent = t.opt_term_5;
+            if (opt10 && t.opt_term_10) opt10.textContent = t.opt_term_10;
+            if (opt15 && t.opt_term_15) opt15.textContent = t.opt_term_15;
+            if (opt20 && t.opt_term_20) opt20.textContent = t.opt_term_20;
 
-            document.getElementById('disp-tree-title-1').textContent = customTimingText.tree1;
-            document.getElementById('disp-tree-desc-1').textContent = customTimingText.tree_desc1;
-            document.getElementById('disp-tree-title-2').textContent = customTimingText.tree2;
-            document.getElementById('disp-tree-desc-2').textContent = customTimingText.tree_desc2;
-            document.getElementById('disp-tree-title-3').textContent = customTimingText.tree3;
-            document.getElementById('disp-tree-desc-3').textContent = customTimingText.tree_desc3;
-            document.getElementById('disp-tree-title-4').textContent = customTimingText.tree4;
-            document.getElementById('disp-tree-desc-4').textContent = customTimingText.tree_desc4;
+            if (t.tree1) document.getElementById('disp-tree-title-1').textContent = t.tree1;
+            if (t.tree_desc1) document.getElementById('disp-tree-desc-1').textContent = t.tree_desc1;
+            if (t.tree2) document.getElementById('disp-tree-title-2').textContent = t.tree2;
+            if (t.tree_desc2) document.getElementById('disp-tree-desc-2').textContent = t.tree_desc2;
+            if (t.tree3) document.getElementById('disp-tree-title-3').textContent = t.tree3;
+            if (t.tree_desc3) document.getElementById('disp-tree-desc-3').textContent = t.tree_desc3;
+            if (t.tree4) document.getElementById('disp-tree-title-4').textContent = t.tree4;
+            if (t.tree_desc4) document.getElementById('disp-tree-desc-4').textContent = t.tree_desc4;
             
             renderFrontendDynamicFlow();
             calculateAndDisplay();
@@ -1416,41 +1424,42 @@
             renderAdminDashboardCards();
             renderSheetMappingTable();
             
-            document.getElementById('cust-col-1').value = customTimingText.col1;
-            document.getElementById('cust-col-2').value = customTimingText.col2;
-            document.getElementById('cust-col-3').value = customTimingText.col3;
-            document.getElementById('cust-col-4').value = customTimingText.col4;
-            document.getElementById('cust-col-actual').value = customTimingText.col_actual;
-            document.getElementById('cust-col-5').value = customTimingText.col5;
+            const t = customTimingText || {};
             
-            document.getElementById('cust-lbl-start').value = customTimingText.lbl_start;
-            document.getElementById('cust-lbl-term').value = customTimingText.lbl_term;
-            document.getElementById('cust-lbl-retire').value = customTimingText.lbl_retire;
-            document.getElementById('cust-lbl-max').value = customTimingText.lbl_max;
+            document.getElementById('cust-col-1').value = t.col1 || "年份 (歲數)";
+            document.getElementById('cust-col-2').value = t.col2 || "累計儲備";
+            document.getElementById('cust-col-3').value = t.col3 || "自動支付醫保";
+            document.getElementById('cust-col-4').value = t.col4 || "該年醫保保費";
+            document.getElementById('cust-col-actual').value = t.col_actual || "醫療保費差額";
+            document.getElementById('cust-col-5').value = t.col5 || "增值醫保餘額";
             
-            document.getElementById('cust-opt-term-5').value = customTimingText.opt_term_5;
-            document.getElementById('cust-opt-term-10').value = customTimingText.opt_term_10;
-            document.getElementById('cust-opt-term-15').value = customTimingText.opt_term_15;
-            document.getElementById('cust-opt-term-20').value = customTimingText.opt_term_20;
+            document.getElementById('cust-lbl-start').value = t.lbl_start || "開始歲數";
+            document.getElementById('cust-lbl-term').value = t.lbl_term || "儲備年期 (年)";
+            document.getElementById('cust-lbl-retire').value = t.lbl_retire || "退休歲數 (轉換期)";
+            document.getElementById('cust-lbl-max').value = t.lbl_max || "預期到歲數 (增值期)";
             
-            document.getElementById('cust-tree-1').value = customTimingText.tree1;
-            document.getElementById('cust-tree-desc-1').value = customTimingText.tree_desc1;
-            document.getElementById('cust-tree-2').value = customTimingText.tree2;
-            document.getElementById('cust-tree-desc-2').value = customTimingText.tree_desc2;
-            document.getElementById('cust-tree-3').value = customTimingText.tree3;
-            document.getElementById('cust-tree-desc-3').value = customTimingText.tree_desc3;
-            document.getElementById('cust-tree-4').value = customTimingText.tree4;
-            document.getElementById('cust-tree-desc-4').value = customTimingText.tree_desc4;
+            document.getElementById('cust-opt-term-5').value = t.opt_term_5 || "5 年 (建立)";
+            document.getElementById('cust-opt-term-10').value = t.opt_term_10 || "10 年 (累積期)";
+            document.getElementById('cust-opt-term-15').value = t.opt_term_15 || "15 年 (高階)";
+            document.getElementById('cust-opt-term-20').value = t.opt_term_20 || "20 年 (頂級防護)";
             
-            // 🌟 核心過渡頁設定值回填
-            document.getElementById('cust-calc7-title-input').value = customTimingText.calc7_title || "";
-            document.getElementById('cust-calc7-sub-input').value = customTimingText.calc7_sub || "";
-            document.getElementById('cust-p1-title-input').value = customTimingText.p1_title || "";
-            document.getElementById('cust-p1-desc-input').value = customTimingText.p1_desc || "";
-            document.getElementById('cust-p2-title-input').value = customTimingText.p2_title || "";
-            document.getElementById('cust-p2-desc-input').value = customTimingText.p2_desc || "";
-            document.getElementById('cust-p3-title-input').value = customTimingText.p3_title || "";
-            document.getElementById('cust-p3-desc-input').value = customTimingText.p3_desc || "";
+            document.getElementById('cust-tree-1').value = t.tree1 || "";
+            document.getElementById('cust-tree-desc-1').value = t.tree_desc1 || "";
+            document.getElementById('cust-tree-2').value = t.tree2 || "";
+            document.getElementById('cust-tree-desc-2').value = t.tree_desc2 || "";
+            document.getElementById('cust-tree-3').value = t.tree3 || "";
+            document.getElementById('cust-tree-desc-3').value = t.tree_desc3 || "";
+            document.getElementById('cust-tree-4').value = t.tree4 || "";
+            document.getElementById('cust-tree-desc-4').value = t.tree_desc4 || "";
+            
+            document.getElementById('cust-calc7-title-input').value = t.calc7_title || "";
+            document.getElementById('cust-calc7-sub-input').value = t.calc7_sub || "";
+            document.getElementById('cust-p1-title-input').value = t.p1_title || "";
+            document.getElementById('cust-p1-desc-input').value = t.p1_desc || "";
+            document.getElementById('cust-p2-title-input').value = t.p2_title || "";
+            document.getElementById('cust-p2-desc-input').value = t.p2_desc || "";
+            document.getElementById('cust-p3-title-input').value = t.p3_title || "";
+            document.getElementById('cust-p3-desc-input').value = t.p3_desc || "";
 
             document.getElementById('admin-password-input').value = currentAdminPassword;
             document.getElementById('admin-version-input').value = currentSystemVersion;
@@ -1480,8 +1489,8 @@
             else goToStep(target);
         }
         
-        // 💾 使用者儲存至本機（4 大分頁全部支援 LocalStorage 保存）
         function saveToLocalStorageOnly() {
+            saveCurrentInputsToTiming();
             localStorage.setItem('ava_med_scenario_db_v3', JSON.stringify(allScenarioDatabase));
             localStorage.setItem('ava_med_custom_timing', JSON.stringify(customTimingText));
             localStorage.setItem('ava_med_system_version', currentSystemVersion);
@@ -1494,8 +1503,7 @@
                 localStorage.setItem('ava_med_is_admin', 'false');
             }
             
-            updateCustomTimingText();
-            renderFrontendDynamicFlow();
+            applyTimingTextToDOM();
             alert("✅ 已成功保存設定至本機！(4 大自訂分頁已鎖定)");
             closeAdminDashboard();
         }
@@ -1549,6 +1557,7 @@
             document.getElementById('sync-loading-text').textContent = '正在同步至 Google Sheet，請稍候...';
             loadingMask.style.display = 'flex';
             
+            saveCurrentInputsToTiming();
             const newVersion = bumpSystemVersion();
             currentAdminPassword = document.getElementById('admin-password-input').value || currentAdminPassword;
             
@@ -1574,8 +1583,7 @@
                 localStorage.setItem('ava_med_blueprint_summary', blueprintSummaryText);
                 localStorage.setItem('ava_med_sheet_mapping', JSON.stringify(sheetMappingList));
                 
-                updateCustomTimingText();
-                renderFrontendDynamicFlow();
+                applyTimingTextToDOM();
                 loadingMask.style.display = 'none';
                 alert(`✅ 成功同步至 Google Sheet！版本已自動升級為：${newVersion}`);
                 closeAdminDashboard();
@@ -1613,7 +1621,6 @@
                         localStorage.setItem('ava_med_sheet_mapping', JSON.stringify(sheetMappingList));
                     }
 
-                    // ⚡ 管理者無條件全量覆蓋；使用者則保留本地 4 頁自訂
                     if (isAdminRole || !isUserCustomized) {
                         if (json.scenario_db) {
                             allScenarioDatabase = json.scenario_db;
@@ -1633,7 +1640,7 @@
                     localStorage.setItem('ava_med_admin_password', currentAdminPassword);
 
                     const activePage = document.querySelector('.step-page.active')?.id;
-                    updateCustomTimingText();
+                    applyTimingTextToDOM();
                     renderFrontendDynamicFlow();
                     if (activePage) {
                         document.querySelectorAll('.step-page').forEach(p => p.classList.remove('active'));
@@ -1988,11 +1995,12 @@
             document.getElementById('med-pay-term').addEventListener('change', updateMedicalJarsByTerm);
             document.getElementById('med-start-age').addEventListener('input', calculateAndDisplay);
             
-            updateCustomTimingText();
+            applyTimingTextToDOM();
             renderFrontendDynamicFlow();
             updateMedicalJarsByTerm();
             calculatePromo();
             
+            // ⚡ 強制由雲端 GAS 拉取最新資料並覆蓋 DOM
             fetchCloudDataFromGAS(true);
             
             Promise.all([fetchReturnRates(), fetchAllMedicalPremiums()]).then(() => {
