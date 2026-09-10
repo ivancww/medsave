@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVA 增值式醫保專屬生活引導系統 v8.2.3</title>
+    <title>AVA 增值式醫保專屬生活引導系統 v8.2.8</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e3a8a">
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192x192.png">
@@ -124,7 +124,7 @@
         .option-select-radio { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid #cbd5e1; margin-top: 3px; }
         .option-card-guided.selected .option-select-radio { border-color: var(--brand-accent); background: var(--brand-accent); }
         
-        /* 資源池三步卡片式結構 (自適應無圖示版) */
+        /* 資源池三步卡片式結構 */
         .pool-step-grid {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0 20px 0;
         }
@@ -250,7 +250,7 @@
         <div class="brand-title-wrap">
             <span class="brand-logo-text" onclick="promptAdminLogin()" title="點擊輸入管理員密碼">🌱 AVA 增值式醫保系統</span>
             <span class="mini-quick-btn jump-btn" onclick="openJumpPopup()" title="直達流程模組">*</span>
-            <span class="system-badge" id="app-version-badge">v8.2.3</span>
+            <span class="system-badge" id="app-version-badge">v8.2.8</span>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
             <div class="user-settings-btn" onclick="openUserSettings()" title="設定控制台">⚙️</div>
@@ -414,9 +414,9 @@
                                 <div class="calc-grid-5yr">
                                     <div class="calc-input-group"><label>第16年 (<span class="med-age-y16">70</span>歲)</label><input type="text" id="med-plan4-contribution" value="70,000"><div class="med-prem-subbox">保費: $<span id="med-prem-y16">0</span></div></div>
                                     <div class="calc-input-group"><label>第17年 (<span class="med-age-y17">71</span>歲)</label><input type="text" id="med-plan4-y2" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y17">0</span></div></div>
-                                    <div class="calc-input-group"><label>第18年 (<span class="med-age-y18">72</span>歲)</label><input type="text" id="med-plan4-y3" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y18">0</span></div></div>
-                                    <div class="calc-input-group"><label>第19年 (<span class="med-age-y19">73</span>歲)</label><input type="text" id="med-plan4-y4" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y19">0</span></div></div>
-                                    <div class="calc-input-group"><label>第20年 (<span class="med-age-y20">74</span>歲)</label><input type="text" id="med-plan4-y5" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y20">0</span></div></div>
+                                    <div class="calc-input-group"><label>第18年 (<span class="med-age-y18">72</span>歲)</label><input type="text" id="med-plan4-y3" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y3">0</span></div></div>
+                                    <div class="calc-input-group"><label>第19年 (<span class="med-age-y19">73</span>歲)</label><input type="text" id="med-plan4-y4" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y4">0</span></div></div>
+                                    <div class="calc-input-group"><label>第20年 (<span class="med-age-y20">74</span>歲)</label><input type="text" id="med-plan4-y5" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y5">0</span></div></div>
                                 </div>
                                 <div class="calc-total-badge" style="color:var(--plan4-color);">第16-20年總額：$<span id="med-plan4-5yr-total">350,000</span></div>
                             </div>
@@ -718,7 +718,7 @@
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">admin_password (管理員密碼)：</label>
                         <input type="text" id="admin-password-input" class="pink-edit-input" value="903" oninput="currentAdminPassword = this.value">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">system_version (系統版本號)：</label>
-                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v8.2.3" oninput="updateSystemVersion(this.value)">
+                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v8.2.8" oninput="updateSystemVersion(this.value)">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">專屬 GAS API 網址：</label>
                         <input type="text" id="admin-gas-url-input" class="pink-edit-input" value="https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec">
                     </div>
@@ -758,7 +758,7 @@
 
     <script>
         const answers = {};
-        let currentSystemVersion = "v8.2.3";
+        let currentSystemVersion = "v8.2.8";
         let currentAdminPassword = "903";
         let GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec';
         const RETURNS_EXCEL_URL = 'https://docs.google.com/spreadsheets/d/1-kawg3ew7CF05g-Dc3cwu1yYROWa73fhWlunv5TYF6E/export?format=xlsx';
@@ -896,7 +896,6 @@
                 let isStepStyle = (card.display_type === 'steps');
                 let optionsHtml = '';
                 
-                // 🎯 移走寫死圖案，乾淨顯示純文字步驟
                 if (isStepStyle && card.options && card.options.length > 0) {
                     optionsHtml = `<div class="pool-step-grid">`;
                     card.options.forEach((opt) => {
@@ -1095,7 +1094,7 @@
             document.getElementById('lbl-max-age-calc1').textContent = customTimingText.lbl_max;
             document.getElementById('lbl-max-age-calc2').textContent = customTimingText.lbl_max;
 
-            // 即時同步前台下拉選單文字
+            // 🎯 即時寫入前台下拉選單文字
             customTimingText.opt_term_5 = document.getElementById('cust-opt-term-5').value;
             customTimingText.opt_term_10 = document.getElementById('cust-opt-term-10').value;
             customTimingText.opt_term_15 = document.getElementById('cust-opt-term-15').value;
@@ -1553,20 +1552,23 @@
             }
         }
 
+        // 📌 核心突破快取邏輯：加入時間戳與 cache: "no-store"，解決 iPad 舊快取問題
         async function fetchCloudDataFromGAS(forceFullSync = false) {
             const localVersion = localStorage.getItem('ava_med_system_version') || 'v0.0.0';
             const isUserCustomized = localStorage.getItem('ava_med_user_customized') === 'true';
 
             try {
+                const timestamp = Date.now();
+                
                 if (!forceFullSync) {
-                    const verRes = await fetch(`${GAS_API_URL}?action=check_version`);
+                    const verRes = await fetch(`${GAS_API_URL}?action=check_version&_t=${timestamp}`, { cache: "no-store" });
                     const verJson = await verRes.json();
                     if (verJson && verJson.status === "success" && verJson.version === localVersion) {
                         return;
                     }
                 }
 
-                const response = await fetch(GAS_API_URL);
+                const response = await fetch(`${GAS_API_URL}?_t=${timestamp}`, { cache: "no-store" });
                 const json = await response.json();
 
                 if (json && json.status === "success") {
