@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVA 增值式醫保專屬生活引導系統 v8.4.2</title>
+    <title>AVA 增值式醫保專屬生活引導系統 v8.4.4</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e3a8a">
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192x192.png">
@@ -236,7 +236,6 @@
             font-weight: 800; font-size: 0.92rem; color: var(--brand-primary); border-left: 4px solid var(--brand-primary);
         }
 
-        /* 🌟 固定頁面標記卡片（附圖視覺化設計） */
         .fixed-anchor-card {
             background: #ffffff;
             border: 1.5px dashed #c084fc;
@@ -264,7 +263,7 @@
         <div class="brand-title-wrap">
             <span class="brand-logo-text" onclick="promptAdminLogin()" title="點擊輸入管理員密碼">🌱 AVA 增值式醫保系統</span>
             <span class="mini-quick-btn jump-btn" onclick="openJumpPopup()" title="直達流程模組">*</span>
-            <span class="system-badge" id="app-version-badge">v8.4.2</span>
+            <span class="system-badge" id="app-version-badge">v8.4.4</span>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
             <div class="user-settings-btn" onclick="openUserSettings()" title="設定控制台">⚙️</div>
@@ -400,7 +399,7 @@
                                 <div class="calc-grid-5yr">
                                     <div class="calc-input-group"><label>第6年 (<span class="med-age-y6">60</span>歲)</label><input type="text" id="med-plan2-contribution" value="50,000"><div class="med-prem-subbox">保費: $<span id="med-prem-y6">0</span></div></div>
                                     <div class="calc-input-group"><label>第7年 (<span class="med-age-y7">61</span>歲)</label><input type="text" id="med-plan2-y2" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y7">0</span></div></div>
-                                    <div class="calc-input-group"><label>第8年 (<span class="med-age-y8">62</span>歲)</label><input type="text" id="med-plan2-y3" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y8">0</span></div></div>
+                                    <div class="calc-input-group"><label>第8年 (<span class="med-age-y8">62</span>歲)</label><input type="text" id="med-plan2-y3" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y7">0</span></div></div>
                                     <div class="calc-input-group"><label>第9年 (<span class="med-age-y9">63</span>歲)</label><input type="text" id="med-plan2-y4" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y9">0</span></div></div>
                                     <div class="calc-input-group"><label>第10年 (<span class="med-age-y10">64</span>歲)</label><input type="text" id="med-plan2-y5" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y10">0</span></div></div>
                                 </div>
@@ -769,7 +768,7 @@
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">admin_password (管理員密碼)：</label>
                         <input type="text" id="admin-password-input" class="pink-edit-input" value="903" oninput="currentAdminPassword = this.value">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">system_version (系統版本號)：</label>
-                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v8.4.2" oninput="updateSystemVersion(this.value)">
+                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v8.4.4" oninput="updateSystemVersion(this.value)">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">專屬 GAS API 網址：</label>
                         <input type="text" id="admin-gas-url-input" class="pink-edit-input" value="https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec">
                     </div>
@@ -779,7 +778,6 @@
             <input type="file" id="firebase-file-input" accept="image/*" style="display:none;">
             <input type="file" id="import-json-file-input" accept=".json" style="display:none;">
             
-            <!-- 🌟 底部功能操作區 (新增「🔄 還原為團隊預設」) -->
             <div style="background:#ffffff; padding:12px 20px; border-top:1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
                 <button class="nav-btn prev" style="width:auto; padding:8px 16px;" onclick="closeAdminDashboard()">關閉</button>
                 <div style="display:flex; gap:8px; flex-wrap:wrap;">
@@ -811,7 +809,7 @@
 
     <script>
         const answers = {};
-        let currentSystemVersion = "v8.4.2";
+        let currentSystemVersion = "v8.4.4";
         let currentAdminPassword = "903";
         let GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec';
         const RETURNS_EXCEL_URL = 'https://docs.google.com/spreadsheets/d/1-kawg3ew7CF05g-Dc3cwu1yYROWa73fhWlunv5TYF6E/export?format=xlsx';
@@ -1536,14 +1534,12 @@
             else goToStep(target);
         }
         
-        // 🌟 一鍵還原為團隊預設（清除本地使用者鎖定並重新拉取雲端）
         async function restoreToCloudDefaults() {
             if (confirm("確定要清除本機所有自訂設定，並還原為 Google Sheet 團隊最新官方預設？")) {
                 const loadingMask = document.getElementById('sync-loading-mask');
                 document.getElementById('sync-loading-text').textContent = '正在由雲端拉取團隊預設資料...';
                 loadingMask.style.display = 'flex';
                 
-                // 清除本地自訂鎖定標記
                 localStorage.removeItem('ava_med_user_customized');
                 localStorage.removeItem('ava_med_scenario_db_v3');
                 localStorage.removeItem('ava_med_custom_timing');
@@ -1773,6 +1769,7 @@
             return 0;
         }
 
+        // 🎯 核心修復：精準對齊 6 欄資料列，絕不再錯位！
         window.calculateAndDisplay = function() {
             const startAge = parseInt(document.getElementById('med-start-age').value) || 55;
             const medInflationRate = (parseFloat(document.getElementById('med-inflation-rate-num-calc2').value) || 0) / 100;
@@ -1901,7 +1898,9 @@
                 
                 if (reportingYears.includes(year)) {
                     let rowHtml = `<td>${year} (${currentAge}歲)</td><td>$${formatNumber(todayRes.rC)}</td>`;
-                    if (colVisibility.annuity) headerHtml += `<td style="color:var(--brand-accent); font-weight:800;">$${formatNumber(todayRes.rA)}</td>`;
+                    
+                    // ⚡ 修正：此處使用 rowHtml 依序塞入 6 欄，確保對齊
+                    if (colVisibility.annuity) rowHtml += `<td style="color:var(--brand-accent); font-weight:800;">$${formatNumber(todayRes.rA)}</td>`;
                     if (colVisibility.accum) rowHtml += `<td style="color:var(--state-success); font-weight:800;">$${formatNumber(medPremiumCurrentYear)}</td>`;
                     if (colVisibility.actual) rowHtml += `<td style="color:var(--state-danger); font-weight:800;">$${formatNumber(actualMedPremium)}</td>`;
                     if (colVisibility.asset) rowHtml += `<td style="color:var(--state-purple); font-weight:800;">$${formatNumber(todayRes.rV)}</td>`;
