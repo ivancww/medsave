@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVA 增值式醫保專屬生活引導系統 v8.4.1</title>
+    <title>AVA 增值式醫保專屬生活引導系統 v8.4.2</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e3a8a">
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192x192.png">
@@ -124,7 +124,6 @@
         .option-select-radio { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid #cbd5e1; margin-top: 3px; }
         .option-card-guided.selected .option-select-radio { border-color: var(--brand-accent); background: var(--brand-accent); }
         
-        /* 資源池三步卡片式結構 */
         .pool-step-grid {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0 20px 0;
         }
@@ -140,7 +139,6 @@
         .page-bottom-img-zone { display: flex; justify-content: center; align-items: center; margin: 15px 0; }
         .page-bottom-img { max-width: 90%; max-height: 220px; object-fit: contain; border-radius: 12px; }
         
-        /* 增值式醫保主計算區 */
         .plan-selector-box { background: #f8fafc; border: 1.5px dashed var(--brand-accent); padding: 1.2rem; border-radius: 14px; margin-bottom: 1.5rem; }
         .top-input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 1.2rem; }
         .input-group label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-sub); text-align: center; margin-bottom: 4px; }
@@ -180,7 +178,6 @@
         table.clean-table th, table.clean-table td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--border-light); }
         table.clean-table th { font-weight: 600; color: var(--text-sub); background: #f8fafc; }
         
-        /* 藍圖頁雙欄結構 */
         .blueprint-dual-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 18px; margin-bottom: 20px; align-items: stretch; }
         @media (max-width: 720px) { .blueprint-dual-grid { grid-template-columns: 1fr; } }
         .blueprint-left-box { background: linear-gradient(135deg, #1e3a8a, #0f172a); color: #fff; border-radius: 14px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; }
@@ -199,7 +196,6 @@
         .nav-btn.next { background: var(--brand-primary); color: #ffffff; }
         .nav-btn.next:disabled { opacity: 0.35; cursor: not-allowed; }
         
-        /* 彈窗與後台控制台 */
         .modal-mask { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 2000; align-items: center; justify-content: center; }
         .modal-box { background: #fff; padding: 24px; border-radius: 16px; max-width: 460px; width: 90%; position: relative; }
         .close-btn { position: absolute; top: 12px; right: 16px; font-size: 1.4rem; cursor: pointer; }
@@ -239,6 +235,28 @@
             background: #f1f5f9; padding: 10px 14px; border-radius: 10px; margin: 18px 0 12px 0;
             font-weight: 800; font-size: 0.92rem; color: var(--brand-primary); border-left: 4px solid var(--brand-primary);
         }
+
+        /* 🌟 固定頁面標記卡片（附圖視覺化設計） */
+        .fixed-anchor-card {
+            background: #ffffff;
+            border: 1.5px dashed #c084fc;
+            border-radius: 14px;
+            padding: 14px 18px;
+            margin: 14px 0 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+        }
+        .fixed-anchor-card.yellow-anchor { border-color: #fbbf24; background: #fffdfa; }
+        .fixed-anchor-card.green-anchor { border-color: #4ade80; background: #f6fef9; }
+        .fixed-anchor-title { font-size: 0.95rem; font-weight: 800; color: #6b21a8; display: flex; align-items: center; gap: 6px; }
+        .yellow-anchor .fixed-anchor-title { color: #b45309; }
+        .green-anchor .fixed-anchor-title { color: #15803d; }
+        .fixed-anchor-desc { font-size: 0.82rem; color: #64748b; margin-top: 2px; }
+        .fixed-anchor-badge { background: #f3e8ff; color: #7e22ce; padding: 3px 8px; border-radius: 6px; font-size: 0.72rem; font-weight: 800; }
+        .yellow-anchor .fixed-anchor-badge { background: #fef3c7; color: #b45309; }
+        .green-anchor .fixed-anchor-badge { background: #dcfce7; color: #166534; }
     </style>
 </head>
 <body>
@@ -246,7 +264,7 @@
         <div class="brand-title-wrap">
             <span class="brand-logo-text" onclick="promptAdminLogin()" title="點擊輸入管理員密碼">🌱 AVA 增值式醫保系統</span>
             <span class="mini-quick-btn jump-btn" onclick="openJumpPopup()" title="直達流程模組">*</span>
-            <span class="system-badge" id="app-version-badge">v8.4.1</span>
+            <span class="system-badge" id="app-version-badge">v8.4.2</span>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
             <div class="user-settings-btn" onclick="openUserSettings()" title="設定控制台">⚙️</div>
@@ -265,8 +283,8 @@
             <!-- 2. 固定核心頁 1：退休醫療總保費試算頁 -->
             <div class="step-page" id="step-total-med-calc">
                 <div class="content-card">
-                    <h2 class="question-title" id="disp-calc7-title">🏥 退休醫療總保費試算：不能忽略的剛性支出</h2>
-                    <p class="question-hint" id="disp-calc7-sub">提早為未來鎖定終身醫療開支，以資產滾存對沖醫療通脹：</p>
+                    <h2 class="question-title" id="disp-calc7-title">🏥「如果一直保留呢份保障，將來大概要準備幾多？」</h2>
+                    <p class="question-hint" id="disp-calc7-sub">「呢個唔代表你今日要準備晒。」「只係原來將每年嘅數字放埋一齊睇，係另一個角度。」</p>
                     
                     <div class="plan-selector-box">
                         <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
@@ -324,7 +342,7 @@
                 </div>
             </div>
             
-            <!-- 3. 區域 B：中段過渡題容器 (可自由設定為普通選項或三步圖) -->
+            <!-- 3. 區域 B：中段過渡題容器 -->
             <div id="dynamic-flow-post7-container"></div>
             
             <!-- 4. 固定核心頁 2：增長式醫保主計算表 -->
@@ -342,7 +360,7 @@
                             <label id="lbl-pay-term">儲備年期 (年)</label>
                             <select id="med-pay-term" style="color:var(--brand-primary);">
                                 <option value="5" id="opt-term-5">5 年 (建立)</option>
-                                <option value="10" selected id="opt-term-10">10 年 (雙重儲備)</option>
+                                <option value="10" selected id="opt-term-10">10 年 (累積期)</option>
                                 <option value="15" id="opt-term-15">15 年 (高階)</option>
                                 <option value="20" id="opt-term-20">20 年 (頂級防護)</option>
                             </select>
@@ -364,7 +382,7 @@
                     <div style="margin-bottom: 1.2rem;">
                         <div class="calc-jar-card" id="group-med-plan1" style="border-top: 3px solid var(--plan1-color);">
                             <h4 style="color:var(--plan1-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-1">🌱 儲備金庫一 + 建立水庫</h4>
-                            <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;" id="disp-tree-desc-1">種下一粒小種子</p>
+                            <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;" id="disp-tree-desc-1">建立水庫</p>
                             <div class="calc-grid-5yr">
                                 <div class="calc-input-group"><label>第1年 (<span class="med-age-y1">55</span>歲)</label><input type="text" id="med-plan1-contribution" value="40,000"><div class="med-prem-subbox">保費: $<span id="med-prem-y1">0</span></div></div>
                                 <div class="calc-input-group"><label>第2年 (<span class="med-age-y2">56</span>歲)</label><input type="text" id="med-plan1-y2" value="40,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y2">0</span></div></div>
@@ -378,11 +396,11 @@
                         <div id="group-med-plan2" style="display:none;">
                             <div class="calc-jar-card" style="border-top: 3px solid var(--plan2-color);">
                                 <h4 style="color:var(--plan2-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-2">💧 儲備金庫二 + 擴建水庫</h4>
-                                <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;" id="disp-tree-desc-2">定期灌溉累積根基</p>
+                                <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;" id="disp-tree-desc-2">擴建水庫</p>
                                 <div class="calc-grid-5yr">
                                     <div class="calc-input-group"><label>第6年 (<span class="med-age-y6">60</span>歲)</label><input type="text" id="med-plan2-contribution" value="50,000"><div class="med-prem-subbox">保費: $<span id="med-prem-y6">0</span></div></div>
                                     <div class="calc-input-group"><label>第7年 (<span class="med-age-y7">61</span>歲)</label><input type="text" id="med-plan2-y2" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y7">0</span></div></div>
-                                    <div class="calc-input-group"><label>第8年 (<span class="med-age-y8">62</span>歲)</label><input type="text" id="med-plan2-y3" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y7">0</span></div></div>
+                                    <div class="calc-input-group"><label>第8年 (<span class="med-age-y8">62</span>歲)</label><input type="text" id="med-plan2-y3" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y8">0</span></div></div>
                                     <div class="calc-input-group"><label>第9年 (<span class="med-age-y9">63</span>歲)</label><input type="text" id="med-plan2-y4" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y9">0</span></div></div>
                                     <div class="calc-input-group"><label>第10年 (<span class="med-age-y10">64</span>歲)</label><input type="text" id="med-plan2-y5" value="50,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y10">0</span></div></div>
                                 </div>
@@ -406,7 +424,7 @@
                         <div id="group-med-plan4" style="display:none;">
                             <div class="calc-jar-card" style="border-top: 3px solid var(--plan4-color);">
                                 <h4 style="color:var(--plan4-color); margin-bottom:4px; font-size:0.95rem;" id="disp-tree-title-4">🌳 儲備金庫四 + 變成大水庫</h4>
-                                <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;" id="disp-tree-desc-4">大樹長成，產出源源長糧</p>
+                                <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;" id="disp-tree-desc-4">變成大水庫，自動啟動</p>
                                 <div class="calc-grid-5yr">
                                     <div class="calc-input-group"><label>第16年 (<span class="med-age-y16">70</span>歲)</label><input type="text" id="med-plan4-contribution" value="70,000"><div class="med-prem-subbox">保費: $<span id="med-prem-y16">0</span></div></div>
                                     <div class="calc-input-group"><label>第17年 (<span class="med-age-y17">71</span>歲)</label><input type="text" id="med-plan4-y2" value="70,000" readonly class="readonly"><div class="med-prem-subbox">保費: $<span id="med-prem-y17">0</span></div></div>
@@ -561,7 +579,6 @@
                 </div>
                 <div class="admin-nav-btn active" id="tab-flow-btn" onclick="switchAdminTab('flow')">頁面流程管理</div>
                 <div class="admin-nav-btn" id="tab-timing-btn" onclick="switchAdminTab('timing')">增值式醫保文字</div>
-                <!-- 🌟 第 4 個設定頁面：核心過渡文字 -->
                 <div class="admin-nav-btn" id="tab-transition-btn" onclick="switchAdminTab('transition')">核心過渡文字</div>
                 <div class="admin-nav-btn" id="tab-blueprint-btn" onclick="switchAdminTab('blueprint')">人生藍圖設定</div>
                 <div class="admin-nav-btn admin-only-tab" id="tab-mapping-btn" onclick="switchAdminTab('mapping')">分頁命名與對應代碼</div>
@@ -585,22 +602,49 @@
                     </div>
 
                     <div class="flow-section-header">
-                        <span>🅰️ 區域 A：引導題目（第 1 頁 ➔ 總醫療保費頁前）</span>
+                        <span>🅰️ 區域 A：引導題目（第 1 頁 ➔ 固定分頁 A 前）</span>
                         <button class="step-ctrl-btn" style="background:#e0f2fe; color:#0369a1;" onclick="addNewPageCard('zone_a')">+ 新增區域 A 題目</button>
                     </div>
                     <div id="admin-cards-zone-a"></div>
 
-                    <div class="flow-section-header" style="border-left-color: #10b981; margin-top: 24px;">
-                        <span>🅱️ 區域 B：過渡題目（可自由切換為「選項模式」或「步驟模式」）</span>
+                    <!-- 🌟 視覺化固定分頁 A 卡片 -->
+                    <div class="fixed-anchor-card yellow-anchor">
+                        <div>
+                            <div class="fixed-anchor-title">🔒 固定分頁 A：退休醫療總保費試算 (核心 Anchor)</div>
+                            <div class="fixed-anchor-desc">退休年齡與總醫療開支對沖試算（文字可在「核心過渡文字」修改）</div>
+                        </div>
+                        <span class="fixed-anchor-badge">固定分頁</span>
+                    </div>
+
+                    <div class="flow-section-header" style="border-left-color: #10b981;">
+                        <span>🅱️ 區域 B：過渡題目（固定分頁 A ➔ 固定分頁 B 前）</span>
                         <button class="step-ctrl-btn" style="background:#f0fdf4; color:#166534;" onclick="addNewPageCard('zone_b')">+ 新增區域 B 題目</button>
                     </div>
                     <div id="admin-cards-zone-b"></div>
 
-                    <div class="flow-section-header" style="border-left-color: var(--state-purple); margin-top: 24px;">
-                        <span>🅲 區域 C：評估題目（主計算表 ➔ 醫療自動管理前）</span>
+                    <!-- 🌟 視覺化固定分頁 B 卡片 -->
+                    <div class="fixed-anchor-card">
+                        <div>
+                            <div class="fixed-anchor-title">🔒 固定分頁 B：增值式醫保主計算表 (核心 Anchor)</div>
+                            <div class="fixed-anchor-desc">開始歲數、儲備年期、金庫 1-4 供款與被動收入滾存試算</div>
+                        </div>
+                        <span class="fixed-anchor-badge">固定分頁</span>
+                    </div>
+
+                    <div class="flow-section-header" style="border-left-color: var(--state-purple);">
+                        <span>🅲 區域 C：確認與評估（固定分頁 B ➔ 固定分頁 C 前）</span>
                         <button class="step-ctrl-btn" style="background:#fdf4ff; color:#7e22ce;" onclick="addNewPageCard('zone_c')">+ 新增區域 C 題目</button>
                     </div>
                     <div id="admin-cards-zone-c"></div>
+
+                    <!-- 🌟 視覺化固定分頁 C 卡片 -->
+                    <div class="fixed-anchor-card green-anchor">
+                        <div>
+                            <div class="fixed-anchor-title">🔒 固定分頁 C：專款專用醫療自動管理 ➔ 保費優惠計算</div>
+                            <div class="fixed-anchor-desc">自動歸納 5 大初衷共識、展示替代方案生活藍圖及精選優惠計算</div>
+                        </div>
+                        <span class="fixed-anchor-badge">固定分頁</span>
+                    </div>
                 </div>
                 
                 <!-- 2. 增值式醫保文字 -->
@@ -659,7 +703,7 @@
                     </div>
                 </div>
 
-                <!-- 🌟 3. 核心過渡文字設定 -->
+                <!-- 3. 核心過渡文字設定 -->
                 <div id="admin-sec-transition" class="admin-tab-content" style="display:none;">
                     <div class="admin-card-row" style="border: 1.5px solid #fde68a; background: #fffbeb;">
                         <h4 style="margin-top:0; color:#b45309; margin-bottom:12px;">🏥 總醫療保費頁文字設定</h4>
@@ -706,7 +750,7 @@
                         <input type="text" id="admin-blueprint-img-url" class="pink-edit-input" value="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80" oninput="updateBlueprintImageSrc(this.value)">
                         
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:12px; display:block;">藍圖右側替代方案重點總結文字：</label>
-                        <textarea id="admin-blueprint-summary-text" class="pink-edit-input" style="height:70px;" oninput="updateBlueprintSummaryText(this.value)">將每月不知不覺流走的少許資金，分段注入專屬醫保水庫，鎖定終身醫療保障。</textarea>
+                        <textarea id="admin-blueprint-summary-text" class="pink-edit-input" style="height:70px;" oninput="updateBlueprintSummaryText(this.value)">將每月不知不決流走的少許資金，分段注入專屬醫保水庫，鎖定終身醫療保障。</textarea>
                     </div>
                 </div>
                 
@@ -725,7 +769,7 @@
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">admin_password (管理員密碼)：</label>
                         <input type="text" id="admin-password-input" class="pink-edit-input" value="903" oninput="currentAdminPassword = this.value">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">system_version (系統版本號)：</label>
-                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v8.4.1" oninput="updateSystemVersion(this.value)">
+                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v8.4.2" oninput="updateSystemVersion(this.value)">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">專屬 GAS API 網址：</label>
                         <input type="text" id="admin-gas-url-input" class="pink-edit-input" value="https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec">
                     </div>
@@ -735,12 +779,14 @@
             <input type="file" id="firebase-file-input" accept="image/*" style="display:none;">
             <input type="file" id="import-json-file-input" accept=".json" style="display:none;">
             
+            <!-- 🌟 底部功能操作區 (新增「🔄 還原為團隊預設」) -->
             <div style="background:#ffffff; padding:12px 20px; border-top:1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
                 <button class="nav-btn prev" style="width:auto; padding:8px 16px;" onclick="closeAdminDashboard()">關閉</button>
                 <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <button class="nav-btn prev" id="btn-restore-cloud" style="width:auto; padding:8px 14px; background:#eff6ff; border-color:#93c5fd; color:#1d4ed8; font-weight:700;" onclick="restoreToCloudDefaults()">🔄 還原為團隊預設</button>
                     <button class="nav-btn prev" id="btn-export-settings" style="width:auto; padding:8px 14px; background:#f0f9ff; border-color:#bae6fd; color:#0284c7;" onclick="exportCurrentSettings()">📤 匯出設定</button>
                     <button class="nav-btn prev" id="btn-import-settings" style="width:auto; padding:8px 14px; background:#fefce8; border-color:#fef08a; color:#a16207;" onclick="triggerImportSettings()">📥 匯入設定</button>
-                    <button class="nav-btn prev" id="btn-save-local" style="width:auto; padding:8px 16px; background:#f0fdf4; border-color:#86efac; color:#166534;" onclick="saveToLocalStorageOnly()">💾 保存至本機</button>
+                    <button class="nav-btn prev" id="btn-save-local" style="width:auto; padding:8px 16px; background:#f0fdf4; border-color:#86efac; color:#166534; font-weight:800;" onclick="saveToLocalStorageOnly()">💾 保存至本機 (優先)</button>
                     <button class="nav-btn next" id="btn-sync-gsheet" style="width:auto; padding:8px 20px;" onclick="syncAllToGoogleSheet()">☁️ 同步至 Google Sheet</button>
                 </div>
             </div>
@@ -754,10 +800,10 @@
             <h3 style="color:var(--brand-primary); margin-top:0; font-size:1.1rem; text-align:center;">🚀 直達核心模組</h3>
             <div class="popup-menu-list">
                 <div class="popup-menu-item" onclick="jumpDirectStep('zone_a-0')">📍 直達 區域 A 第 1 步引導</div>
-                <div class="popup-menu-item" onclick="jumpDirectStep('step-total-med-calc')">🏥 直達 總醫療保費試算頁</div>
+                <div class="popup-menu-item" onclick="jumpDirectStep('step-total-med-calc')">🏥 直達 固定分頁 A 總醫療保費試算</div>
                 <div class="popup-menu-item" onclick="jumpDirectStep('zone_b-0')">💧 直達 區域 B 儲水池過渡</div>
-                <div class="popup-menu-item" onclick="jumpDirectStep('step-core-calc')">🌱 直達 增值式醫保主計算表</div>
-                <div class="popup-menu-item" onclick="jumpDirectStep('step-blueprint')">📋 直達 醫療自動管理</div>
+                <div class="popup-menu-item" onclick="jumpDirectStep('step-core-calc')">🌱 直達 固定分頁 B 主計算表</div>
+                <div class="popup-menu-item" onclick="jumpDirectStep('step-blueprint')">📋 直達 固定分頁 C 醫療自動管理</div>
                 <div class="popup-menu-item" onclick="jumpDirectStep('page-promo')">🎁 直達 專屬保費優惠計算</div>
             </div>
         </div>
@@ -765,7 +811,7 @@
 
     <script>
         const answers = {};
-        let currentSystemVersion = "v8.4.1";
+        let currentSystemVersion = "v8.4.2";
         let currentAdminPassword = "903";
         let GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec';
         const RETURNS_EXCEL_URL = 'https://docs.google.com/spreadsheets/d/1-kawg3ew7CF05g-Dc3cwu1yYROWa73fhWlunv5TYF6E/export?format=xlsx';
@@ -877,8 +923,8 @@
             renderDynamicContainer('zone_b', document.getElementById('dynamic-flow-post7-container'), 'step-core-calc', '進入增值式醫保主計算表 →');
             renderDynamicContainer('zone_c', document.getElementById('dynamic-flow-postcalc-container'), 'step-blueprint', '✨ 查看醫療自動管理 →');
             
-            document.getElementById('disp-calc7-title').textContent = customTimingText.calc7_title || "🏥 退休醫療總保費試算：不能忽略的剛性支出";
-            document.getElementById('disp-calc7-sub').textContent = customTimingText.calc7_sub || "提早為未來鎖定終身醫療開支，以資產滾存對沖醫療通脹：";
+            document.getElementById('disp-calc7-title').textContent = customTimingText.calc7_title || "🏥「如果一直保留呢份保障，將來大概要準備幾多？」";
+            document.getElementById('disp-calc7-sub').textContent = customTimingText.calc7_sub || "「呢個唔代表你今日要準備晒。」「只係原來將每年嘅數字放埋一齊睇，係另一個角度。」";
         }
 
         function renderDynamicContainer(zoneKey, containerEl, finalTargetStep, finalNextText) {
@@ -1078,7 +1124,6 @@
             calculateAndDisplay();
         }
 
-        // 🎯 核心修復 1：只有使用者主動在後台鍵入時，才反向儲存
         function saveCurrentInputsToTiming() {
             customTimingText.col1 = document.getElementById('cust-col-1').value;
             customTimingText.col2 = document.getElementById('cust-col-2').value;
@@ -1118,7 +1163,6 @@
             applyTimingTextToDOM();
         }
 
-        // 🎯 核心修復 2：專注將雲端變數 100% 寫入 DOM，絕不反向覆蓋
         function applyTimingTextToDOM() {
             const t = customTimingText || {};
 
@@ -1373,6 +1417,7 @@
             const adminTitle = document.getElementById('admin-modal-title');
             const syncBtn = document.getElementById('btn-sync-gsheet');
             const saveLocalBtn = document.getElementById('btn-save-local');
+            const restoreBtn = document.getElementById('btn-restore-cloud');
             
             if (isAdmin) {
                 btnAdmin.classList.add('active');
@@ -1381,6 +1426,7 @@
                 document.querySelectorAll('.admin-only-tab').forEach(t => t.style.display = 'block');
                 syncBtn.style.display = 'block';
                 saveLocalBtn.style.display = 'block';
+                if (restoreBtn) restoreBtn.style.display = 'none';
             } else {
                 btnUser.classList.add('active');
                 btnAdmin.classList.remove('active');
@@ -1388,6 +1434,7 @@
                 document.querySelectorAll('.admin-only-tab').forEach(t => t.style.display = 'none');
                 syncBtn.style.display = 'none';
                 saveLocalBtn.style.display = 'block';
+                if (restoreBtn) restoreBtn.style.display = 'block';
                 switchAdminTab('flow');
             }
         }
@@ -1489,6 +1536,27 @@
             else goToStep(target);
         }
         
+        // 🌟 一鍵還原為團隊預設（清除本地使用者鎖定並重新拉取雲端）
+        async function restoreToCloudDefaults() {
+            if (confirm("確定要清除本機所有自訂設定，並還原為 Google Sheet 團隊最新官方預設？")) {
+                const loadingMask = document.getElementById('sync-loading-mask');
+                document.getElementById('sync-loading-text').textContent = '正在由雲端拉取團隊預設資料...';
+                loadingMask.style.display = 'flex';
+                
+                // 清除本地自訂鎖定標記
+                localStorage.removeItem('ava_med_user_customized');
+                localStorage.removeItem('ava_med_scenario_db_v3');
+                localStorage.removeItem('ava_med_custom_timing');
+                localStorage.removeItem('ava_med_blueprint_summary');
+                
+                await fetchCloudDataFromGAS(true);
+                loadingMask.style.display = 'none';
+                
+                openAdminDashboard(document.getElementById('admin-modal-title').textContent);
+                alert("✅ 已成功還原為團隊官方最新預設！");
+            }
+        }
+
         function saveToLocalStorageOnly() {
             saveCurrentInputsToTiming();
             localStorage.setItem('ava_med_scenario_db_v3', JSON.stringify(allScenarioDatabase));
@@ -1593,7 +1661,6 @@
             }
         }
 
-        // 📌 核心全量拉取與自適應解析
         async function fetchCloudDataFromGAS(forceFullSync = false) {
             const localVersion = localStorage.getItem('ava_med_system_version') || 'v0.0.0';
             const isUserCustomized = localStorage.getItem('ava_med_user_customized') === 'true';
@@ -1834,7 +1901,7 @@
                 
                 if (reportingYears.includes(year)) {
                     let rowHtml = `<td>${year} (${currentAge}歲)</td><td>$${formatNumber(todayRes.rC)}</td>`;
-                    if (colVisibility.annuity) rowHtml += `<td style="color:var(--brand-accent); font-weight:800;">$${formatNumber(todayRes.rA)}</td>`;
+                    if (colVisibility.annuity) headerHtml += `<td style="color:var(--brand-accent); font-weight:800;">$${formatNumber(todayRes.rA)}</td>`;
                     if (colVisibility.accum) rowHtml += `<td style="color:var(--state-success); font-weight:800;">$${formatNumber(medPremiumCurrentYear)}</td>`;
                     if (colVisibility.actual) rowHtml += `<td style="color:var(--state-danger); font-weight:800;">$${formatNumber(actualMedPremium)}</td>`;
                     if (colVisibility.asset) rowHtml += `<td style="color:var(--state-purple); font-weight:800;">$${formatNumber(todayRes.rV)}</td>`;
@@ -2000,7 +2067,6 @@
             updateMedicalJarsByTerm();
             calculatePromo();
             
-            // ⚡ 強制由雲端 GAS 拉取最新資料並覆蓋 DOM
             fetchCloudDataFromGAS(true);
             
             Promise.all([fetchReturnRates(), fetchAllMedicalPremiums()]).then(() => {
