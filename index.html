@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVA 增值式醫保專屬生活引導系統 v8.4.5</title>
+    <title>AVA 增值式醫保專屬生活引導系統 v8.4.6</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e3a8a">
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192x192.png">
@@ -154,6 +154,13 @@
         }
         .duel-summary-banner .big-value { font-size: 2.2rem; font-weight: 900; color: var(--brand-accent); }
         .duel-summary-banner .big-label { font-size: 0.9rem; font-weight: 700; color: var(--text-sub); }
+        .premium-total-reveal {
+            min-height: 48px; display: inline-flex; align-items: center; justify-content: center;
+            padding: 0 12px; border-radius: 10px; cursor: pointer; transition: filter 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .premium-total-reveal.is-concealed { filter: blur(10px); user-select: none; }
+        .premium-total-reveal:focus-visible { outline: 3px solid var(--brand-accent); outline-offset: 3px; }
         
         .calc-jar-card { background: #ffffff; border: 1px solid var(--border-light); border-radius: 14px; padding: 18px; margin-bottom: 14px; }
         .calc-grid-5yr { display: grid; grid-template-columns: repeat(auto-fit, minmax(95px, 1fr)); gap: 8px; margin-bottom: 10px; }
@@ -368,9 +375,9 @@
 <body>
     <header class="system-top-nav">
         <div class="brand-title-wrap">
-            <span class="brand-logo-text" onclick="promptAdminLogin()" title="點擊輸入管理員密碼">🌱 AVA 增值式醫保系統</span>
+            <span class="brand-logo-text" id="app-topic-text" onclick="promptAdminLogin()" title="點擊輸入管理員密碼">🌱 AVA 增值式醫保系統</span>
             <span class="mini-quick-btn jump-btn" onclick="openJumpPopup()" title="直達流程模組">*</span>
-            <span class="system-badge" id="app-version-badge">v8.4.5</span>
+            <span class="system-badge" id="app-version-badge">v8.4.6</span>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
             <div class="user-settings-btn" onclick="openUserSettings()" title="設定控制台">⚙️</div>
@@ -437,7 +444,7 @@
                     </div>
                     
                     <div class="duel-summary-banner">
-                        <div class="big-value" id="med-total-premium">$0</div>
+                        <div class="big-value premium-total-reveal is-concealed" id="med-total-premium" role="button" tabindex="0" aria-label="總醫療保費總額，點擊顯示金額" aria-pressed="false" onclick="revealMedicalPremiumTotal()" onkeydown="handlePremiumRevealKey(event)">$0</div>
                         <div class="big-label" id="med-total-prem-label">退休至預期歲數 · 醫保總保費</div>
                     </div>
                     
@@ -688,7 +695,7 @@
                 <div class="admin-nav-btn" id="tab-transition-btn" onclick="switchAdminTab('transition')">核心過渡文字</div>
                 <div class="admin-nav-btn" id="tab-blueprint-btn" onclick="switchAdminTab('blueprint')">人生藍圖設定</div>
                 <div class="admin-nav-btn admin-only-tab" id="tab-mapping-btn" onclick="switchAdminTab('mapping')">分頁命名與對應代碼</div>
-                <div class="admin-nav-btn admin-only-tab" id="tab-system-btn" onclick="switchAdminTab('system')">系統參數設定</div>
+                <div class="admin-nav-btn" id="tab-system-btn" onclick="switchAdminTab('system')">系統參數設定</div>
             </div>
             
             <div class="sync-loading-overlay" id="sync-loading-mask">
@@ -707,16 +714,16 @@
                         1️⃣1️⃣ 數字 → 證明效果 &nbsp;|&nbsp; 1️⃣2️⃣ 重新連返佢嘅目標 &nbsp;|&nbsp; 1️⃣3️⃣ 一齊判斷適唔適合 &nbsp;|&nbsp; 1️⃣4️⃣ 客人自己決定
                     </div>
 
-                    <div class="flow-section-header">
-                        <span>🅰️ 區域 A：引導題目（第 1 頁 ➔ 固定分頁 A 前）</span>
-                        <button class="step-ctrl-btn" style="background:#e0f2fe; color:#0369a1;" onclick="addNewPageCard('zone_a')">+ 新增區域 A 題目</button>
-                    </div>
                     <div class="admin-card-row zone-a-copy-card">
                         <h4 style="margin-top:0; color:#b45309; margin-bottom:12px;">🏥 總醫療保費頁文字設定</h4>
                         <label style="color:#b45309;">總保費頁主標題 (calc7_title)：</label>
                         <input type="text" id="cust-calc7-title-input" class="pink-edit-input" oninput="saveCurrentInputsToTiming()">
                         <label style="color:#b45309; margin-top:8px; display:block;">總保費頁副標題 (calc7_sub)：</label>
                         <input type="text" id="cust-calc7-sub-input" class="pink-edit-input" oninput="saveCurrentInputsToTiming()">
+                    </div>
+                    <div class="flow-section-header">
+                        <span>🅰️ 區域 A：引導題目（第 1 頁 ➔ 固定分頁 A 前）</span>
+                        <button class="step-ctrl-btn" style="background:#e0f2fe; color:#0369a1;" onclick="addNewPageCard('zone_a')">+ 新增區域 A 題目</button>
                     </div>
                     <div id="admin-cards-zone-a"></div>
 
@@ -848,9 +855,15 @@
                     </div>
                 </div>
                 
-                <!-- 6. 系統參數設定 (管理者專屬) -->
+                <!-- 6. 系統參數設定 -->
                 <div id="admin-sec-system" class="admin-tab-content" style="display:none;">
-                    <div class="admin-card-row theme-settings-card">
+                    <div class="admin-card-row">
+                        <h4 style="margin-top:0; color:var(--brand-primary);">✏️ 主題文字設定</h4>
+                        <p class="theme-description">修改控制台頂部顯示的主題名稱；不會改變介面顏色。</p>
+                        <label for="system-topic-input">主題文字 (system_title)：</label>
+                        <input type="text" id="system-topic-input" class="pink-edit-input" oninput="updateSystemTopic(this.value)">
+                    </div>
+                    <div class="admin-card-row theme-settings-card admin-only-system-setting">
                         <h4 style="margin-top:0; color:var(--brand-primary);">🎨 主題修改</h4>
                         <p class="theme-description">修改後會即時預覽；管理者按「同步至 Google Sheet」後，其他裝置重新載入即可套用同一主題。</p>
                         <div class="theme-grid" id="theme-settings-grid"></div>
@@ -858,12 +871,12 @@
                             <button type="button" class="nav-btn prev" style="width:auto;" onclick="resetThemePreview()">↩️ 還原預設主題</button>
                         </div>
                     </div>
-                    <div class="admin-card-row">
+                    <div class="admin-card-row admin-only-system-setting">
                         <h4 style="margin-top:0; color:var(--brand-primary);">🌐 系統參數設定</h4>
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">admin_password (管理員密碼)：</label>
                         <input type="text" id="admin-password-input" class="pink-edit-input" value="903" oninput="currentAdminPassword = this.value">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">system_version (系統版本號)：</label>
-                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v8.4.5" oninput="updateSystemVersion(this.value)">
+                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v8.4.6" oninput="updateSystemVersion(this.value)">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">專屬 GAS API 網址：</label>
                         <input type="text" id="admin-gas-url-input" class="pink-edit-input" value="https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec">
                     </div>
@@ -904,7 +917,8 @@
 
     <script>
         const answers = {};
-        let currentSystemVersion = "v8.4.5";
+        let currentSystemVersion = "v8.4.6";
+        let currentSystemTopic = "🌱 AVA 增值式醫保系統";
         let currentAdminPassword = "903";
         let GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec';
         const RETURNS_EXCEL_URL = 'https://docs.google.com/spreadsheets/d/1-kawg3ew7CF05g-Dc3cwu1yYROWa73fhWlunv5TYF6E/export?format=xlsx';
@@ -1065,6 +1079,37 @@
             if (input) input.value = val;
         }
 
+        function updateSystemTopic(val) {
+            currentSystemTopic = val;
+            const topic = document.getElementById('app-topic-text');
+            if (topic) topic.textContent = val || "🌱 AVA 增值式醫保系統";
+            const input = document.getElementById('system-topic-input');
+            if (input && input.value !== val) input.value = val;
+        }
+
+        function concealMedicalPremiumTotal() {
+            const total = document.getElementById('med-total-premium');
+            if (!total) return;
+            total.classList.add('is-concealed');
+            total.setAttribute('aria-pressed', 'false');
+            total.setAttribute('aria-label', '總醫療保費總額，點擊顯示金額');
+        }
+
+        function revealMedicalPremiumTotal() {
+            const total = document.getElementById('med-total-premium');
+            if (!total || !total.classList.contains('is-concealed')) return;
+            total.classList.remove('is-concealed');
+            total.setAttribute('aria-pressed', 'true');
+            total.setAttribute('aria-label', '總醫療保費總額已顯示');
+        }
+
+        function handlePremiumRevealKey(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                revealMedicalPremiumTotal();
+            }
+        }
+
         function bumpSystemVersion() {
             const parts = currentSystemVersion.split('.');
             if (parts.length === 3) {
@@ -1194,6 +1239,7 @@
             document.querySelectorAll('.step-page').forEach(p => p.classList.remove('active'));
             const targetEl = document.getElementById(stepId);
             if (targetEl) targetEl.classList.add('active');
+            if (stepId === 'step-total-med-calc') concealMedicalPremiumTotal();
             
             const total = getTotalStepCount();
             let currentNum = getStepIndexNumber(stepId, 0);
@@ -1625,6 +1671,7 @@
                 btnUser.classList.remove('active');
                 adminTitle.textContent = "🛠️ 管理者控制台 (已連接 Google Sheet 雲端)";
                 document.querySelectorAll('.admin-only-tab').forEach(t => t.style.display = 'block');
+                document.querySelectorAll('.admin-only-system-setting').forEach(t => t.style.display = 'block');
                 syncBtn.style.display = 'block';
                 saveLocalBtn.style.display = 'block';
                 if (restoreBtn) restoreBtn.style.display = 'none';
@@ -1633,6 +1680,7 @@
                 btnAdmin.classList.remove('active');
                 adminTitle.textContent = "👤 使用者設定 (儲存至本機)";
                 document.querySelectorAll('.admin-only-tab').forEach(t => t.style.display = 'none');
+                document.querySelectorAll('.admin-only-system-setting').forEach(t => t.style.display = 'none');
                 syncBtn.style.display = 'none';
                 saveLocalBtn.style.display = 'block';
                 if (restoreBtn) restoreBtn.style.display = 'block';
@@ -1705,6 +1753,7 @@
 
             document.getElementById('admin-password-input').value = currentAdminPassword;
             document.getElementById('admin-version-input').value = currentSystemVersion;
+            document.getElementById('system-topic-input').value = currentSystemTopic;
             document.getElementById('admin-blueprint-summary-text').value = blueprintSummaryText;
             renderThemeControls();
             document.getElementById('admin-modal-mask').style.display = 'flex';
@@ -1743,6 +1792,7 @@
                 localStorage.removeItem('ava_med_custom_timing');
                 localStorage.removeItem('ava_med_blueprint_summary');
                 localStorage.removeItem('ava_med_theme_settings');
+                localStorage.removeItem('ava_med_system_topic');
                 
                 await fetchCloudDataFromGAS(true);
                 loadingMask.style.display = 'none';
@@ -1761,6 +1811,7 @@
             localStorage.setItem('ava_med_blueprint_summary', blueprintSummaryText);
             localStorage.setItem('ava_med_sheet_mapping', JSON.stringify(sheetMappingList));
             localStorage.setItem('ava_med_theme_settings', JSON.stringify(currentThemeSettings));
+            localStorage.setItem('ava_med_system_topic', currentSystemTopic);
             
             if (!isAdminRole) {
                 localStorage.setItem('ava_med_user_customized', 'true');
@@ -1775,6 +1826,7 @@
         function exportCurrentSettings() {
             const dataToExport = {
                 system_version: currentSystemVersion,
+                system_title: currentSystemTopic,
                 theme_settings: currentThemeSettings,
                 blueprint_summary: blueprintSummaryText,
                 sheet_mapping: sheetMappingList,
@@ -1804,6 +1856,7 @@
                         if (imported.blueprint_summary) blueprintSummaryText = imported.blueprint_summary;
                         if (imported.sheet_mapping) sheetMappingList = imported.sheet_mapping;
                         if (imported.system_version) updateSystemVersion(imported.system_version);
+                        if (imported.system_title) updateSystemTopic(imported.system_title);
                         if (imported.theme_settings) applyThemeSettings(imported.theme_settings, true);
                         
                         saveToLocalStorageOnly();
@@ -1835,6 +1888,7 @@
                         action: "sync_med_system_v3",
                         version: newVersion,
                         admin_password: currentAdminPassword,
+                        system_title: currentSystemTopic,
                         theme_settings: currentThemeSettings,
                         scenario_db: allScenarioDatabase,
                         timing_text: customTimingText,
@@ -1850,6 +1904,7 @@
                 localStorage.setItem('ava_med_blueprint_summary', blueprintSummaryText);
                 localStorage.setItem('ava_med_sheet_mapping', JSON.stringify(sheetMappingList));
                 localStorage.setItem('ava_med_theme_settings', JSON.stringify(currentThemeSettings));
+                localStorage.setItem('ava_med_system_topic', currentSystemTopic);
                 
                 applyTimingTextToDOM();
                 loadingMask.style.display = 'none';
@@ -1882,6 +1937,10 @@
                 if (json && json.status === "success") {
                     if (json.version) updateSystemVersion(json.version);
                     if (json.admin_password) currentAdminPassword = json.admin_password;
+                    if (json.system_title && (isAdminRole || !isUserCustomized)) {
+                        updateSystemTopic(json.system_title);
+                        localStorage.setItem('ava_med_system_topic', currentSystemTopic);
+                    }
                     
                     if (json.sheet_mapping) {
                         sheetMappingList = json.sheet_mapping;
@@ -2228,6 +2287,9 @@
             } else {
                 applyThemeSettings(DEFAULT_THEME_SETTINGS);
             }
+
+            const savedTopic = localStorage.getItem('ava_med_system_topic');
+            if (savedTopic) updateSystemTopic(savedTopic);
 
             const savedVer = localStorage.getItem('ava_med_system_version');
             if (savedVer) updateSystemVersion(savedVer);
