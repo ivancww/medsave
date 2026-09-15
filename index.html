@@ -273,6 +273,63 @@
         .fixed-anchor-badge { background: #f3e8ff; color: #7e22ce; padding: 3px 8px; border-radius: 6px; font-size: 0.72rem; font-weight: 800; }
         .yellow-anchor .fixed-anchor-badge { background: #fef3c7; color: #b45309; }
         .green-anchor .fixed-anchor-badge { background: #dcfce7; color: #166534; }
+
+        /* 5pay-aligned typography: tuned explicitly rather than scaling the page. */
+        .brand-logo-text { font-size: 1.125rem; font-weight: 800; line-height: 1.4; }
+        .system-badge { font-size: 0.8125rem; line-height: 1.4; padding: 3px 9px; }
+        .question-title { font-size: 1.5rem; font-weight: 800; line-height: 1.4; }
+        .question-hint { font-size: 1rem; font-weight: 500; line-height: 1.65; }
+        .option-card-guided { padding: 17px 18px; }
+        .option-headline { font-size: 1.0625rem; font-weight: 700; line-height: 1.5; }
+        .option-subtext { font-size: 0.9375rem; font-weight: 500; line-height: 1.6; }
+        .pool-step-card { padding: 24px 18px; }
+        .pool-step-title { font-size: 1.0625rem; line-height: 1.5; }
+        .pool-step-desc { font-size: 0.9375rem; font-weight: 500; line-height: 1.6; }
+        .input-group label,
+        .calc-input-group label,
+        .strategy-group label { font-size: 0.875rem; font-weight: 700; line-height: 1.5; }
+        .input-group input,
+        .input-group select,
+        .calc-input-group input,
+        .strategy-group select,
+        .pink-edit-input { font-size: 1rem; font-weight: 700; line-height: 1.5; padding: 9px 10px; }
+        .calc-jar-card h4 { font-size: 1.0625rem !important; font-weight: 800; line-height: 1.5; }
+        .calc-jar-card > p { font-size: 0.9375rem !important; font-weight: 500; line-height: 1.6; }
+        .med-prem-subbox { font-size: 0.875rem; line-height: 1.5; padding: 5px; }
+        .calc-total-badge { font-size: 0.9375rem; line-height: 1.5; padding: 9px; }
+        table.clean-table { font-size: 0.9375rem; line-height: 1.5; }
+        table.clean-table th,
+        table.clean-table td { padding: 11px 13px; }
+        table.clean-table th { font-weight: 700; }
+        .strategy-settings-title { font-size: 1rem; line-height: 1.5; }
+        .duel-summary-banner .big-value { font-size: 2.25rem; line-height: 1.25; }
+        .duel-summary-banner .big-label { font-size: 1rem; line-height: 1.5; }
+        .fixed-anchor-title { font-size: 1.0625rem; line-height: 1.5; }
+        .fixed-anchor-desc { font-size: 0.9375rem; font-weight: 500; line-height: 1.6; }
+        .fixed-anchor-badge { font-size: 0.8125rem; line-height: 1.4; padding: 4px 9px; }
+        .flow-section-header { font-size: 1rem; line-height: 1.5; padding: 11px 14px; }
+        .nav-btn { font-size: 1rem; font-weight: 700; line-height: 1.5; padding: 13px 18px; }
+        .admin-nav-btn,
+        .role-switch-btn { font-size: 0.9375rem; line-height: 1.4; }
+        .step-ctrl-btn,
+        .del-opt-btn { font-size: 0.875rem; line-height: 1.4; }
+        .step-page label { font-size: 0.875rem !important; font-weight: 700 !important; line-height: 1.5; }
+        .step-page input,
+        .step-page select,
+        .step-page button { font-family: 'Noto Sans TC', 'Plus Jakarta Sans', -apple-system, sans-serif; }
+        .step-page input,
+        .step-page select { font-size: 1rem !important; line-height: 1.5; }
+
+        /* Preserve the same density and readable weight on a landscape iPad. */
+        @media (min-width: 768px) and (max-width: 1180px) {
+            .workspace-layout { max-width: 980px; margin: 22px auto; padding: 0 18px; }
+            .content-card { padding: 30px 26px; }
+            .question-title { font-size: 1.55rem; }
+            .question-hint { font-size: 1.025rem; }
+            table.clean-table { min-width: 760px; font-size: 0.95rem; }
+            table.clean-table th,
+            table.clean-table td { padding: 12px 14px; }
+        }
     </style>
 </head>
 <body>
