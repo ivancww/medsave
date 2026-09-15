@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVA 增值式醫保專屬生活引導系統 v8.4.4</title>
+    <title>AVA 增值式醫保專屬生活引導系統 v8.4.5</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e3a8a">
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192x192.png">
@@ -177,6 +177,23 @@
         table.clean-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; white-space: nowrap; }
         table.clean-table th, table.clean-table td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--border-light); }
         table.clean-table th { font-weight: 600; color: var(--text-sub); background: #f8fafc; }
+        .strategy-toggle-btn {
+            width: 18px; height: 18px; margin-left: 5px; padding: 0; border-radius: 50%;
+            border: 1.5px solid var(--brand-accent); background: #f8fbff; color: var(--brand-accent);
+            display: inline-flex; align-items: center; justify-content: center; vertical-align: middle;
+            font-size: 0.7rem; font-weight: 900; line-height: 1; cursor: pointer;
+        }
+        .strategy-toggle-btn:hover { background: var(--brand-soft); }
+        table.clean-table td.strategy-settings-cell { padding: 0; text-align: left; white-space: normal; }
+        .strategy-settings-panel { background: #f8fbff; border-bottom: 1px solid var(--border-light); padding: 14px 16px 16px; }
+        .strategy-settings-title { color: var(--brand-primary); font-size: 0.9rem; font-weight: 800; margin-bottom: 10px; }
+        .strategy-settings-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; }
+        .strategy-group label { display: block; color: var(--text-sub); font-size: 0.78rem; font-weight: 800; margin-bottom: 4px; }
+        .strategy-group select {
+            width: 100%; padding: 8px 10px; border: 1px solid #bfdbfe; border-radius: 8px;
+            background: #fff; color: var(--text-main); font: inherit; font-size: 0.82rem; font-weight: 700;
+        }
+        @media (max-width: 680px) { .strategy-settings-grid { grid-template-columns: 1fr; } }
         
         .blueprint-dual-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 18px; margin-bottom: 20px; align-items: stretch; }
         @media (max-width: 720px) { .blueprint-dual-grid { grid-template-columns: 1fr; } }
@@ -263,7 +280,7 @@
         <div class="brand-title-wrap">
             <span class="brand-logo-text" onclick="promptAdminLogin()" title="點擊輸入管理員密碼">🌱 AVA 增值式醫保系統</span>
             <span class="mini-quick-btn jump-btn" onclick="openJumpPopup()" title="直達流程模組">*</span>
-            <span class="system-badge" id="app-version-badge">v8.4.4</span>
+            <span class="system-badge" id="app-version-badge">v8.4.5</span>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
             <div class="user-settings-btn" onclick="openUserSettings()" title="設定控制台">⚙️</div>
@@ -768,7 +785,7 @@
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">admin_password (管理員密碼)：</label>
                         <input type="text" id="admin-password-input" class="pink-edit-input" value="903" oninput="currentAdminPassword = this.value">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">system_version (系統版本號)：</label>
-                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v8.4.4" oninput="updateSystemVersion(this.value)">
+                        <input type="text" id="admin-version-input" class="pink-edit-input" value="v8.4.5" oninput="updateSystemVersion(this.value)">
                         <label style="font-size:0.75rem; font-weight:bold; color:#64748b; margin-top:8px; display:block;">專屬 GAS API 網址：</label>
                         <input type="text" id="admin-gas-url-input" class="pink-edit-input" value="https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec">
                     </div>
@@ -809,7 +826,7 @@
 
     <script>
         const answers = {};
-        let currentSystemVersion = "v8.4.4";
+        let currentSystemVersion = "v8.4.5";
         let currentAdminPassword = "903";
         let GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxjiJ08GOd0ugsbjJ0uLAh_cNw0L2vpzSHson-_LYghvVrCEGIn4oOrkwvkPjqWDkz3/exec';
         const RETURNS_EXCEL_URL = 'https://docs.google.com/spreadsheets/d/1-kawg3ew7CF05g-Dc3cwu1yYROWa73fhWlunv5TYF6E/export?format=xlsx';
@@ -821,6 +838,10 @@
         let excelParsedPremiumMap = {};
         
         const colVisibility = { annuity: true, accum: true, actual: true, asset: true };
+        let isStrategySettingsExpanded = false;
+        const planStrategies = [
+            'withdraw12_from15', 'withdraw7_from8', 'withdraw18_from20', 'withdraw23_from25'
+        ];
         let sheetMappingList = [
             { code: "withdraw7_from8", sheet: "8年領取", ui: "第8年開始 取7% (標準推薦)", note: "5年供款，第8年起每年領取7%" },
             { code: "none", sheet: "自動滾存", ui: "自動滾存不提取", note: "全期不提款，純滾存累積大樹" },
@@ -1120,6 +1141,43 @@
             const btn = document.getElementById(`dot-btn-${colKey}`);
             if (btn) btn.classList.toggle('dimmed', !colVisibility[colKey]);
             calculateAndDisplay();
+        }
+
+        function toggleStrategySettings() {
+            isStrategySettingsExpanded = !isStrategySettingsExpanded;
+            const row = document.querySelector('.strategy-settings-row');
+            const button = document.getElementById('strategy-toggle-btn');
+            if (row) row.hidden = !isStrategySettingsExpanded;
+            if (button) {
+                button.setAttribute('aria-expanded', String(isStrategySettingsExpanded));
+                button.title = isStrategySettingsExpanded ? '收起領取策略' : '展開領取策略';
+            }
+        }
+
+        function updatePlanStrategy(groupIndex, strategy) {
+            planStrategies[groupIndex] = strategy;
+            calculateAndDisplay();
+        }
+
+        function renderStrategySettingsRow(tableBody) {
+            const term = parseInt(document.getElementById('med-pay-term').value) || 5;
+            const strategyGroupCount = Math.max(1, Math.min(4, term / 5));
+            const visibleColumnCount = 2 + Object.values(colVisibility).filter(Boolean).length;
+            const groupIcons = ['🌿', '🌱', '🌾', '🌴'];
+            let groupsHtml = '';
+
+            for (let i = 0; i < strategyGroupCount; i++) {
+                const optionsHtml = sheetMappingList.map(item =>
+                    `<option value="${item.code}"${item.code === planStrategies[i] ? ' selected' : ''}>${groupIcons[i]} ${item.ui}</option>`
+                ).join('');
+                groupsHtml += `<div class="strategy-group"><label for="plan-strategy-${i + 1}">第${i + 1}組策略</label><select id="plan-strategy-${i + 1}" onchange="updatePlanStrategy(${i}, this.value)">${optionsHtml}</select></div>`;
+            }
+
+            const row = document.createElement('tr');
+            row.className = 'strategy-settings-row';
+            row.hidden = !isStrategySettingsExpanded;
+            row.innerHTML = `<td class="strategy-settings-cell" colspan="${visibleColumnCount}"><div class="strategy-settings-panel"><div class="strategy-settings-title">領取策略（每組獨立設定）</div><div class="strategy-settings-grid">${groupsHtml}</div></div></td>`;
+            tableBody.appendChild(row);
         }
 
         function saveCurrentInputsToTiming() {
@@ -1824,9 +1882,6 @@
             }
             document.getElementById('med-total-premium').textContent = '$' + formatNumber(cardMedPremiumTotal);
             
-            const planStrategies = [
-                'withdraw7_from8', 'withdraw7_from8', 'withdraw7_from8', 'withdraw7_from8'
-            ];
             const isEngineActive = [
                 true,
                 document.getElementById('group-med-plan2').style.display !== 'none',
@@ -1853,7 +1908,7 @@
             reportingYears.sort((a, b) => a - b);
             
             let headerHtml = `<tr><th>${customTimingText.col1}</th><th>${customTimingText.col2}</th>`;
-            if (colVisibility.annuity) headerHtml += `<th style="color:var(--brand-accent); font-weight:800;">${customTimingText.col3}</th>`;
+            if (colVisibility.annuity) headerHtml += `<th style="color:var(--brand-accent); font-weight:800;">${customTimingText.col3}<button type="button" class="strategy-toggle-btn" id="strategy-toggle-btn" onclick="toggleStrategySettings()" aria-label="顯示或隱藏領取策略" aria-expanded="${isStrategySettingsExpanded}" title="${isStrategySettingsExpanded ? '收起領取策略' : '展開領取策略'}">!</button></th>`;
             if (colVisibility.accum) headerHtml += `<th style="color:var(--state-success); font-weight:800;">${customTimingText.col4}</th>`;
             if (colVisibility.actual) headerHtml += `<th style="color:var(--state-danger); font-weight:800;">${customTimingText.col_actual}</th>`;
             if (colVisibility.asset) headerHtml += `<th style="color:var(--state-purple); font-weight:800;">${customTimingText.col5}</th>`;
@@ -1862,6 +1917,7 @@
             
             const tableBody = document.getElementById('results-table-body');
             tableBody.innerHTML = '';
+            renderStrategySettingsRow(tableBody);
             
             const jarTotals = [p1Total, p2Total, p3Total, p4Total];
             const calcAssets = (y) => {
